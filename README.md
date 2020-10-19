@@ -84,7 +84,7 @@ and the vacancy.
         airportCode: String  
         airportLocation: String  
         Methods : -  
-=========================================================================Service Layer:=======================================================================================  
+==========Service Layer:=======================================================================================  
 8. UserServiceImpl :  
   Attributes : -  
         Methods:  
@@ -157,7 +157,7 @@ and the vacancy.
           Returns the list of all airports.  
           viewAirport(String): Airport :-  
           Returns the details of an airport identifiable by the airport code.  
- ============================================================================DAO Layer:=====================================================================================  
+============DAO Layer:=====================================================================================  
 13. UserDaoImpl:  
   Attributes:  
           userList: List<User>  
@@ -226,7 +226,7 @@ and the vacancy.
           viewAirport(String): Airport :-  
           Returns the details of an airport identifiable by the airport code.  
   
- ==============================================================================Validations:====================================================================================  
+========Validations:====================================================================================  
 1. The ‘userPhone’ should have an exact 10 digit number and the number should not  
 start with zero.  
 2. Date and Time should be valid i.e date and time that has already elapsed shouldn’t be  
@@ -236,7 +236,7 @@ entered
 characters are to be present as the first character of the id.  
 5. The chosen airport’s name should be present inside the Airport database.  
 6. The Unique Identification Number should be of 12 digits.  
-===============================================================================Assumptions:====================================================================================  
+========Assumptions:====================================================================================  
 However, we have made a few assumptions with respect to the application, which are:  
 1. Administrator and customer are both Users. They are differentiated by a variable  
 ‘userType’ in the User class.  
