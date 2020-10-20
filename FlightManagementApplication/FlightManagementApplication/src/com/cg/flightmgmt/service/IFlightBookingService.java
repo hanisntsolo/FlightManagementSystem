@@ -10,10 +10,10 @@ import com.cg.flightmgmt.exception.BookingNotFoundException;
 public interface IFlightBookingService {
 
 	public Booking addBooking(Booking booking);
-	public Booking cancelBooking(BigInteger bookingid) throws BookingNotFoundException;
-	public Booking viewBooking(BigInteger bookingid) throws BookingNotFoundException;
-	public List<Booking> viewBookingList(Date bookingdate);
-	public List<Booking> viewBookingList(BigInteger flightid);
-	public List<Booking> viewBookingHistory(BigInteger userid);
+	public Booking cancelBooking(BigInteger bookingId) throws BookingNotFoundException;
+	public Booking viewBooking(BigInteger bookingId) throws BookingNotFoundException;
+	public List<Booking> viewBookingList(Date bookingDate);
+	public List<Booking> viewBookingList(BigInteger flightId);
+	public List<Booking> viewBookingHistory(BigInteger userId);
 	public Booking updateBooking(Booking booking);
 }

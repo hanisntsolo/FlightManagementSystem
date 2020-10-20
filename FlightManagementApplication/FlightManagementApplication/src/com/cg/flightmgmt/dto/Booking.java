@@ -11,7 +11,7 @@ private LocalDate bookingDate;
 private List <Passenger>passengerList;
 private double ticketCost;
 private Flight flight;
-private int noOfPassangers;
+private int noOfPassengers;
 public BigInteger getBookingId() {
 	return bookingId;
 }
@@ -48,11 +48,11 @@ public Flight getFlight() {
 public void setFlight(Flight flight) {
 	this.flight = flight;
 }
-public int getNoOfPassangers() {
-	return noOfPassangers;
+public int getNoOfPassengers() {
+	return noOfPassengers;
 }
-public void setNoOfPassangers(int noOfPassangers) {
-	this.noOfPassangers = noOfPassangers;
+public void setNoOfPassengers(int noOfPassengers) {
+	this.noOfPassengers = noOfPassengers;
 }
 
 }
