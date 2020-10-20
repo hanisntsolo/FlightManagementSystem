@@ -11,11 +11,11 @@ import com.cg.flightmgmt.dto.ScheduledFlight;
 public interface IScheduledFlightRepository {
 	
 	public Flight addFlightSchedule(Flight flight);
-	public Flight viewFlightSchedule(BigInteger flightId);
-	public Flight removeFlightSchedule(BigInteger flightId);
+	public Flight viewFlightSchedule(BigInteger flightno);
+	public Flight removeFlightSchedule(BigInteger flightno);
 	public Flight updateFlightSchedule(ScheduledFlight flight);
 	public List<ScheduledFlight> viewAllScheduledFlights();
-	public List<ScheduledFlight> viewAllScheduledFlights(Date arrivalDate);
+	public List<ScheduledFlight> viewAllScheduledFlights(Date arrivaldate);
 	public List<ScheduledFlight> viewAllScheduledFlights(Date date1,Date date2);
 
 }
