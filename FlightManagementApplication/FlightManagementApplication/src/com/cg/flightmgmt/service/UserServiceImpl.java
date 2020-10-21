@@ -22,7 +22,7 @@ public class UserServiceImpl implements IUserService {
   }
 
   @Override
-  public User removeUser(BigInteger userid) throws UserNotFoundException {
+  public User removeUser(BigInteger userId) throws UserNotFoundException {
     return null;
   }
 }

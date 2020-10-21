@@ -6,7 +6,7 @@ public class Schedule {
 	
 	private Airport sourceAirport;
 	private Airport destinationAirport;
-	private LocalDateTime airrivalTime;
+	private LocalDateTime arrivalTime;
 	private LocalDateTime departureTime;
 	
 }
