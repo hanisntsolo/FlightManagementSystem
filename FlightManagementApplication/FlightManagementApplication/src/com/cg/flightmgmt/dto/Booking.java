@@ -3,7 +3,14 @@ package com.cg.flightmgmt.dto;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
+/**
+ * This class stores the details of a booking
+ * made by a particular userId.
+ * Every booking stores a list of passengers travelling in it
+ * as well as the flight details.
+ */
 public class Booking {
 private BigInteger bookingId;
 private User userId;
@@ -12,47 +19,98 @@ private List <Passenger>passengerList;
 private double ticketCost;
 private Flight flight;
 private int noOfPassengers;
-public BigInteger getBookingId() {
-	return bookingId;
-}
-public void setBookingId(BigInteger bookingId) {
-	this.bookingId = bookingId;
-}
-public User getUserId() {
-	return userId;
-}
-public void setUserId(User userId) {
-	this.userId = userId;
-}
-public LocalDate getBookingDate() {
-	return bookingDate;
-}
-public void setBookingDate(LocalDate bookingDate) {
-	this.bookingDate = bookingDate;
-}
-public List<Passenger> getPassengerList() {
-	return passengerList;
-}
-public void setPassengerList(List<Passenger> passengerList) {
-	this.passengerList = passengerList;
-}
-public double getTicketCost() {
-	return ticketCost;
-}
-public void setTicketCost(double ticketCost) {
-	this.ticketCost = ticketCost;
-}
-public Flight getFlight() {
-	return flight;
-}
-public void setFlight(Flight flight) {
-	this.flight = flight;
-}
-public int getNoOfPassengers() {
-	return noOfPassengers;
-}
-public void setNoOfPassengers(int noOfPassengers) {
-	this.noOfPassengers = noOfPassengers;
-}
 
+	public Booking() {
+	}
+
+	public Booking(BigInteger bookingId, User userId, LocalDate bookingDate,
+			List<Passenger> passengerList, double ticketCost, Flight flight, int noOfPassengers) {
+		this.bookingId = bookingId;
+		this.userId = userId;
+		this.bookingDate = bookingDate;
+		this.passengerList = passengerList;
+		this.ticketCost = ticketCost;
+		this.flight = flight;
+		this.noOfPassengers = noOfPassengers;
+	}
+
+	public BigInteger getBookingId() {
+	return bookingId;
+	}
+	public void setBookingId(BigInteger bookingId) {
+		this.bookingId = bookingId;
+	}
+	public User getUserId() {
+		return userId;
+	}
+	public void setUserId(User userId) {
+		this.userId = userId;
+	}
+	public LocalDate getBookingDate() {
+		return bookingDate;
+	}
+	public void setBookingDate(LocalDate bookingDate) {
+		this.bookingDate = bookingDate;
+	}
+	public List<Passenger> getPassengerList() {
+		return passengerList;
+	}
+	public void setPassengerList(List<Passenger> passengerList) {
+		this.passengerList = passengerList;
+	}
+	public double getTicketCost() {
+		return ticketCost;
+	}
+	public void setTicketCost(double ticketCost) {
+		this.ticketCost = ticketCost;
+	}
+	public Flight getFlight() {
+		return flight;
+	}
+	public void setFlight(Flight flight) {
+		this.flight = flight;
+	}
+	public int getNoOfPassengers() {
+		return noOfPassengers;
+	}
+	public void setNoOfPassengers(int noOfPassengers) {
+		this.noOfPassengers = noOfPassengers;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		Booking booking = (Booking) o;
+		return Double.compare(booking.ticketCost, ticketCost) == 0 &&
+				noOfPassengers == booking.noOfPassengers &&
+				bookingId.equals(booking.bookingId) &&
+				userId.equals(booking.userId) &&
+				bookingDate.equals(booking.bookingDate) &&
+				passengerList.equals(booking.passengerList) &&
+				flight.equals(booking.flight);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects
+				.hash(bookingId, userId, bookingDate, passengerList, ticketCost, flight, noOfPassengers);
+	}
+
+	@Override
+	public String toString() {
+		return "Booking{" +
+				"bookingId=" + bookingId +
+				", userId=" + userId +
+				", bookingDate=" + bookingDate +
+				", passengerList=" + passengerList +
+				", ticketCost=" + ticketCost +
+				", flight=" + flight +
+				", noOfPassengers=" + noOfPassengers +
+				'}';
+	}
 }
