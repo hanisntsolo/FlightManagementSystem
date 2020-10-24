@@ -2,6 +2,15 @@ package com.cg.flightmgmt.dto;
 
 import java.util.Objects;
 
+/**
+ * This class stores the details of an airport.
+ * Class having primary data field like,
+ * airportID
+ * airportName
+ * airportLocation
+ * The main functionality of the airport class is to introduce class parameters
+ * and contain methods so that userdata can be fetched on method call.
+ */
 public class Airport {
 	private int airportId;
 	private String airportName;
