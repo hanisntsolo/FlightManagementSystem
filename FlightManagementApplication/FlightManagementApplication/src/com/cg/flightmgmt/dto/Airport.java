@@ -1,5 +1,8 @@
 package com.cg.flightmgmt.dto;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Objects;
 
 /**
@@ -11,7 +14,10 @@ import java.util.Objects;
  * The main functionality of the airport class is to introduce class parameters
  * and contain methods so that userdata can be fetched on method call.
  */
+@Entity
+@Table(name="airport")
 public class Airport {
+	@Id
 	private int airportId;
 	private String airportName;
 	private String airportLocation;

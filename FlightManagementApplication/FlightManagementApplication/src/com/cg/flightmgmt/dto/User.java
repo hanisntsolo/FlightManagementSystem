@@ -21,14 +21,18 @@ private String mobileNumber;
 	public User() {
 	}
 
-	public User(BigInteger userId, String userType, String userName, String password,
+	public User(String userType, String userName, String password,
 			String email, String mobileNumber) {
-		this.userId = userId;
 		this.userType = userType;
 		this.userName = userName;
 		this.password = password;
 		this.email = email;
 		this.mobileNumber = mobileNumber;
+	}
+
+	public User(BigInteger userId, String password){
+		this.userId= userId;
+		this.password= password;
 	}
 
 	public String getMobileNumber() {
