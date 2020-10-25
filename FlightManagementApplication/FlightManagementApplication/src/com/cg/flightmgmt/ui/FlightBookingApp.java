@@ -143,7 +143,8 @@ public class FlightBookingApp {
     System.out.println("Enter mobile no: ");
     String mobileNo= sc.next();
     User user= userService.addUser(new User("user", name, password, email, mobileNo));
-    System.out.println("Your user id is: " + user.getUserId());
+    System.out.println("You have successfully signed up. Go to the login page.....");
+    System.out.println("======= Your user id is: " + user.getUserId() + " ========");
   }
 
 }
