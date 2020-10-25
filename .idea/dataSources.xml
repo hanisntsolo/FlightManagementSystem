@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="PostgreSQL - postgres@localhost" uuid="017876eb-ff3a-467f-b8be-609f9fa28e25">
-      <driver-ref>postgresql</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/postgres</jdbc-url>
-    </data-source>
     <data-source source="LOCAL" name="NewPersistenceUnit" uuid="a9a4526b-642b-4fe7-a3e5-bf09850d0af6">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
@@ -16,6 +10,22 @@
 D:/FM/FlightManagementApplication/FlightManagementApplication/src/META-INF/persistence.xml</remarks>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/empdb</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="flightDataBase@localhost" uuid="6e00433c-3e4d-42fb-935c-36d7f4de81c6">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/flightDataBase</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="NewPersistenceUnit/Hibernate" uuid="38d33338-080c-4d37-91e6-75e2cd4851db">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+D:/CAPGEMINI JOINING/Project/LetsDoIt_Final/FlightManagementApplication/FlightManagementApplication/src/META-INF/persistence.xml</remarks>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/flightDataBase</jdbc-url>
     </data-source>
   </component>
 </project>
