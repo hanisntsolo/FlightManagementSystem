@@ -2,6 +2,11 @@ package com.cg.flightmgmt.dto;
 
 import java.math.BigInteger;
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * The functionality of a user being
@@ -10,13 +15,19 @@ import java.util.Objects;
  * This class stores the user type (admin or the customer) and all user
  *  information.
  */
+@Entity
+@Table(name = "user")
 public class User {
-private BigInteger userId;
-private String userType;
-private String userName;
-private String password;
-private String email;
-private String mobileNumber;
+	//==========Attributes============//
+	@Id
+	@GeneratedValue(strategy= GenerationType.AUTO)
+	private BigInteger userId;
+	private String userType;
+	private String userName;
+	private String password;
+	private String email;
+	private String mobileNumber;
+//	private boolean isAdmin;
 
 	public User() {
 	}
@@ -28,6 +39,7 @@ private String mobileNumber;
 		this.password = password;
 		this.email = email;
 		this.mobileNumber = mobileNumber;
+//		this.isAdmin = isAdmin;
 	}
 
 	public User(BigInteger userId, String password){
@@ -71,38 +83,46 @@ private String mobileNumber;
 	public void setEmail(String email) {
 		this.email = email;
 	}
+//	public boolean isAdmin() {
+//		return isAdmin;
+//	}
+//	public void setAdmin(boolean admin) {
+//		isAdmin = admin;
+//	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		User user = (User) o;
-		return userId.equals(user.userId) &&
-				userType.equals(user.userType) &&
-				userName.equals(user.userName) &&
-				password.equals(user.password) &&
-				email.equals(user.email) &&
-				mobileNumber.equals(user.mobileNumber);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(userId, userType, userName, password, email, mobileNumber);
-	}
-
-	@Override
-	public String toString() {
-		return "User{" +
-				"userId=" + userId +
-				", userType='" + userType + '\'' +
-				", userName='" + userName + '\'' +
-				", password='" + password + '\'' +
-				", email='" + email + '\'' +
-				", mobileNumber='" + mobileNumber + '\'' +
-				'}';
-	}
+//	@Override
+//	public boolean equals(Object o) {
+//		if (this == o) {
+//			return true;
+//		}
+//		if (o == null || getClass() != o.getClass()) {
+//			return false;
+//		}
+//		User user = (User) o;
+//		return isAdmin == user.isAdmin &&
+//				userId.equals(user.userId) &&
+//				userType.equals(user.userType) &&
+//				userName.equals(user.userName) &&
+//				password.equals(user.password) &&
+//				email.equals(user.email) &&
+//				mobileNumber.equals(user.mobileNumber);
+//	}
+//
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(userId, userType, userName, password, email, mobileNumber, isAdmin);
+//	}
+//
+//	@Override
+//	public String toString() {
+//		return "User{" +
+//				"userId=" + userId +
+//				", userType='" + userType + '\'' +
+//				", userName='" + userName + '\'' +
+//				", password='" + password + '\'' +
+//				", email='" + email + '\'' +
+//				", mobileNumber='" + mobileNumber + '\'' +
+//				", isAdmin=" + isAdmin +
+//				'}';
+//	}
 }

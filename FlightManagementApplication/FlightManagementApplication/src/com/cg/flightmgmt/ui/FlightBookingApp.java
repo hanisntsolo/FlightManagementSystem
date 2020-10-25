@@ -1,6 +1,6 @@
 package com.cg.flightmgmt.ui;
 
-/*
+/**
  * This is the main program to
  * initiate the app and perform
  * operations on Flight reservation.
@@ -37,7 +37,7 @@ public class FlightBookingApp {
   static IUserService userService= new UserServiceImpl();
   public static void main(String[] args){
 
-    System.out.println("===========WELCOME TO EASEMYFLIGHT=============");
+    System.out.println("\n\n===========WELCOME TO EASEMYFLIGHT=============");
     System.out.println("-----------------------------------------------");
     System.out.println("1. Log in as admin");
     System.out.println("2. Log in as user");
@@ -143,9 +143,14 @@ public class FlightBookingApp {
     System.out.println("Enter mobile no: ");
     String mobileNo= sc.next();
     User user= userService.addUser(new User("user", name, password, email, mobileNo));
-    System.out.println("You have successfully signed up. Go to the login page.....");
-    System.out.println("======= Your user id is: " + user.getUserId() + " ========");
-  }
+    try {
+      System.out.println("======= Your user id is: " + user.getUserId() + " ========");
+      System.out.println("You have successfully signed up. Go to the login page.....");
+    } catch (NullPointerException e) {
+      System.out.println("Something went Wrong!\n "
+          + "Please try Again.");
+    }
+    }
 
 }
 

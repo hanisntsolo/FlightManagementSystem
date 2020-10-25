@@ -17,5 +17,11 @@ D:/FM/FlightManagementApplication/FlightManagementApplication/src/META-INF/persi
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/empdb</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="flightDataBase@localhost" uuid="6e00433c-3e4d-42fb-935c-36d7f4de81c6">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/flightDataBase</jdbc-url>
+    </data-source>
   </component>
 </project>
