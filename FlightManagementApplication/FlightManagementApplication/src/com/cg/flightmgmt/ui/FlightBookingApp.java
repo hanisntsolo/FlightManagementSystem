@@ -102,10 +102,9 @@ public class FlightBookingApp {
               case 3:
                 break;
               case 4:// Cancel Booking
-                deleteUser();
                 break;
               case 5:// Remove user
-
+                deleteUser();
                 break;
               case 6:
                 System.out.println("Logged out");
