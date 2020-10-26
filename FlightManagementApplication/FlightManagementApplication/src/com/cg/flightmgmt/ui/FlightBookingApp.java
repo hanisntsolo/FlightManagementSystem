@@ -136,8 +136,7 @@ public class FlightBookingApp {
     } catch (UserNotFoundException e) {
       System.out.println("User not found in database.");;
     }
-    System.out.println("You have successfully signed up. Go to the login page.....");
-    System.out.println("======= Your user id is: " + user.getUserId() + " ========");
+    System.out.println("User successfully removed.");
     return user;
   }
 
