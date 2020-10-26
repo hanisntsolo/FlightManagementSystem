@@ -2,6 +2,9 @@ package com.cg.flightmgmt.dto;
 
 import javax.persistence.*;
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /*
  * Various schedules are fetched and
@@ -9,13 +12,13 @@ import java.util.Objects;
  * This class stores a flight that is scheduled along with its schedule
  * and the vacancy.
  */
-
 public class ScheduledFlight {
 private Flight flight;
 private int availableSeats;
 @Embedded
 private Schedule schedule;
 private double fares; //cost per seat
+
 	public ScheduledFlight() {
 	}
 	public ScheduledFlight(Flight flight,int availableSeats,Schedule schedule,double fares) {

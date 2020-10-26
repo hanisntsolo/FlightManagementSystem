@@ -1,6 +1,7 @@
 package com.cg.flightmgmt.ui;
+import com.cg.flightmgmt.dto.User;
 
-/*
+/**
  * This is the main program to
  * initiate the app and perform
  * operations on Flight reservation.
@@ -37,7 +38,7 @@ public class FlightBookingApp {
   static IUserService userService= new UserServiceImpl();
   public static void main(String[] args){
 
-    System.out.println("===========WELCOME TO EASEMYFLIGHT=============");
+    System.out.println("\n\n===========WELCOME TO EASEMYFLIGHT=============");
     System.out.println("-----------------------------------------------");
     System.out.println("1. Log in as admin");
     System.out.println("2. Log in as user");
@@ -131,6 +132,13 @@ public class FlightBookingApp {
     }catch (UserNotFoundException e){
       return false;
     }
+  }
+  public static void updateUser() throws UserNotFoundException {
+    System.out.println("Enter your user Id:");
+    BigInteger userId = sc.nextBigInteger();
+    System.out.println("Enter Password:");
+    String password = sc.next();
+    userService.updateUser(new User(userId, password));
   }
 
   public  static User signUp(){

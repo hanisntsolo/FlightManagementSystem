@@ -11,7 +11,8 @@ import java.util.Objects;
  */
 @Embeddable
 public class Schedule {
-	
+	//==========Attributes============//
+	@Id
 	private Airport sourceAirport;
 	private Airport destinationAirport;
 	private LocalDateTime arrivalTime;

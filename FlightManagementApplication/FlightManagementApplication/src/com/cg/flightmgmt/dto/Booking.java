@@ -6,6 +6,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /*
  * This class stores the details of a booking
@@ -29,7 +32,6 @@ private double ticketCost;
 @OneToOne
 private Flight flight;
 private int noOfPassengers;
-
 	public Booking() {
 	}
 

@@ -17,6 +17,7 @@ import java.util.Objects;
 @Entity
 @Table(name="airport")
 public class Airport {
+	//==========Attributes============//
 	@Id
 	private int airportId;
 	private String airportName;

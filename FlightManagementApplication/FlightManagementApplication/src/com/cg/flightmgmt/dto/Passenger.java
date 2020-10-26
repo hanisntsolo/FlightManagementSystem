@@ -7,6 +7,9 @@ import javax.persistence.Table;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /*
  * This class stores all the details of the travelling passenger.

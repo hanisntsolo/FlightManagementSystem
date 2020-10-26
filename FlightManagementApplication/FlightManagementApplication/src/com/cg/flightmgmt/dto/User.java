@@ -5,6 +5,11 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /*
  * The functionality of a user being
@@ -38,6 +43,7 @@ private List<Booking> bookingList= new ArrayList<>();
 		this.password = password;
 		this.email = email;
 		this.mobileNumber = mobileNumber;
+//		this.isAdmin = isAdmin;
 	}
 
 	public User(BigInteger userId, String password){
@@ -88,37 +94,39 @@ private List<Booking> bookingList= new ArrayList<>();
 		this.bookingList = bookingList;
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		User user = (User) o;
-		return userId.equals(user.userId) &&
-				userType.equals(user.userType) &&
-				userName.equals(user.userName) &&
-				password.equals(user.password) &&
-				email.equals(user.email) &&
-				mobileNumber.equals(user.mobileNumber);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(userId, userType, userName, password, email, mobileNumber);
-	}
-
-	@Override
-	public String toString() {
-		return "User{" +
-				"userId=" + userId +
-				", userType='" + userType + '\'' +
-				", userName='" + userName + '\'' +
-				", password='" + password + '\'' +
-				", email='" + email + '\'' +
-				", mobileNumber='" + mobileNumber + '\'' +
-				'}';
-	}
+//	@Override
+//	public boolean equals(Object o) {
+//		if (this == o) {
+//			return true;
+//		}
+//		if (o == null || getClass() != o.getClass()) {
+//			return false;
+//		}
+//		User user = (User) o;
+//		return isAdmin == user.isAdmin &&
+//				userId.equals(user.userId) &&
+//				userType.equals(user.userType) &&
+//				userName.equals(user.userName) &&
+//				password.equals(user.password) &&
+//				email.equals(user.email) &&
+//				mobileNumber.equals(user.mobileNumber);
+//	}
+//
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(userId, userType, userName, password, email, mobileNumber, isAdmin);
+//	}
+//
+//	@Override
+//	public String toString() {
+//		return "User{" +
+//				"userId=" + userId +
+//				", userType='" + userType + '\'' +
+//				", userName='" + userName + '\'' +
+//				", password='" + password + '\'' +
+//				", email='" + email + '\'' +
+//				", mobileNumber='" + mobileNumber + '\'' +
+//				", isAdmin=" + isAdmin +
+//				'}';
+//	}
 }

@@ -8,10 +8,12 @@ import com.cg.flightmgmt.repository.UserRepositoryImpl;
 import java.math.BigInteger;
 
 public class UserServiceImpl implements IUserService {
+  
   IUserRepository userRepository= new UserRepositoryImpl();
   @Override
   public User addUser(User user) {
     return userRepository.addUser(user);
+
   }
   @Override
   public User validateUser(User user) throws UserNotFoundException {
