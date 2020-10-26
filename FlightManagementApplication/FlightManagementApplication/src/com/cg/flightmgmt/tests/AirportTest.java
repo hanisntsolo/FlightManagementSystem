@@ -24,38 +24,50 @@ class AirportTest {
 
   @org.junit.jupiter.api.Test
   void getAirportId() {
+    assertEquals(155, airport.getAirportId(),0);
   }
 
   @org.junit.jupiter.api.Test
   void setAirportId() {
+    airport.setAirportId(200);
+    assertEquals(200, airport.getAirportId());
   }
 
   @org.junit.jupiter.api.Test
   void getAirportName() {
+    assertEquals("CCS Airport", airport.getAirportName());
   }
 
   @org.junit.jupiter.api.Test
   void setAirportName() {
+    airport.setAirportName("Dubai International Airport");
+    assertEquals("Dubai International Airport", airport.getAirportName());
   }
 
   @org.junit.jupiter.api.Test
   void getAirportLocation() {
+    assertEquals("Pune",airport.getAirportLocation());
   }
 
   @org.junit.jupiter.api.Test
   void setAirportLocation() {
+  airport.setAirportLocation("New York");
+  assertEquals("New York", airport.getAirportLocation());
   }
 
   @org.junit.jupiter.api.Test
   void testEquals() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void testHashCode() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void testToString() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.AfterAll
