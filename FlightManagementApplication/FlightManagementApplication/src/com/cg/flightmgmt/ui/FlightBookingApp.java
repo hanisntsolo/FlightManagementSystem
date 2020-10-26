@@ -1,6 +1,7 @@
 package com.cg.flightmgmt.ui;
+import com.cg.flightmgmt.dto.User;
 
-/*
+/**
  * This is the main program to
  * initiate the app and perform
  * operations on Flight reservation.
@@ -37,7 +38,7 @@ public class FlightBookingApp {
   static IUserService userService= new UserServiceImpl();
   public static void main(String[] args){
 
-    System.out.println("===========WELCOME TO EASEMYFLIGHT=============");
+    System.out.println("\n\n===========WELCOME TO EASEMYFLIGHT=============");
     System.out.println("-----------------------------------------------");
     System.out.println("1. Log in as admin");
     System.out.println("2. Log in as user");
@@ -132,6 +133,13 @@ public class FlightBookingApp {
       return false;
     }
   }
+  public static void updateUser() throws UserNotFoundException {
+    System.out.println("Enter your user Id:");
+    BigInteger userId = sc.nextBigInteger();
+    System.out.println("Enter Password:");
+    String password = sc.next();
+    userService.updateUser(new User(userId, password));
+  }
 
   public  static void signUp(){
     System.out.println("Enter name: ");
@@ -143,9 +151,14 @@ public class FlightBookingApp {
     System.out.println("Enter mobile no: ");
     String mobileNo= sc.next();
     User user= userService.addUser(new User("user", name, password, email, mobileNo));
-    System.out.println("You have successfully signed up. Go to the login page.....");
-    System.out.println("======= Your user id is: " + user.getUserId() + " ========");
-  }
+    try {
+      System.out.println("======= Your user id is: " + user.getUserId() + " ========");
+      System.out.println("You have successfully signed up. Go to the login page.....");
+    } catch (NullPointerException e) {
+      System.out.println("Something went Wrong!\n "
+          + "Please try Again.");
+    }
+    }
 
 }
 

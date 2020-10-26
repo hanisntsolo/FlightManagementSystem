@@ -2,15 +2,22 @@ package com.cg.flightmgmt.dto;
 
 import java.math.BigInteger;
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * This class stores all the details of a flight.
  */
+@Entity
+@Table(name = "flight")
 public class Flight {
-private BigInteger flightId;
-private String carrierName;
-private String flightModel;
-private int seatCapacity;
+  //==========Attributes============//
+  @Id
+  private BigInteger flightId;
+  private String carrierName;
+  private String flightModel;
+  private int seatCapacity;
 
   public Flight() {
   }

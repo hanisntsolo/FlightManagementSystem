@@ -2,13 +2,20 @@ package com.cg.flightmgmt.dto;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * All airport flight operations are
  * taken care in this class.
  * This class stores a flight schedule.
  */
+@Entity
+@Table(name = "schedule")
 public class Schedule {
-	
+	//==========Attributes============//
+	@Id
 	private Airport sourceAirport;
 	private Airport destinationAirport;
 	private LocalDateTime arrivalTime;

@@ -4,6 +4,9 @@ import java.math.BigInteger;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * This class stores the details of a booking
@@ -11,14 +14,18 @@ import java.util.Objects;
  * Every booking stores a list of passengers travelling in it
  * as well as the flight details.
  */
+@Entity
+@Table(name="booking")
 public class Booking {
-private BigInteger bookingId;
-private User userId;
-private LocalDate bookingDate;
-private List <Passenger>passengerList;
-private double ticketCost;
-private Flight flight;
-private int noOfPassengers;
+	//==========Attributes============//
+	@Id
+	private BigInteger bookingId;
+	private User userId;
+	private LocalDate bookingDate;
+	private List <Passenger>passengerList;
+	private double ticketCost;
+	private Flight flight;
+	private int noOfPassengers;
 
 	public Booking() {
 	}
