@@ -4,7 +4,7 @@
   <persistence-unit name="NewPersistenceUnit">
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
     <properties>
-      <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/flightDataBase"/>
+      <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/flightManagement"/>
       <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
       <property name="hibernate.connection.username" value="postgres"/>
       <property name="hibernate.connection.password" value="9335432395"/>

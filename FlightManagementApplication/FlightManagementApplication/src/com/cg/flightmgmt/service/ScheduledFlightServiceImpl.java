@@ -44,9 +44,7 @@ public class ScheduledFlightServiceImpl implements IScheduledFlightService {
   }
 
   @Override
-  public List<ScheduledFlight> viewAllScheduledFlights(Date date1, Date date2) {
-	  List<ScheduledFlight> list2=new ArrayList<ScheduledFlight>();
-	  list2=scheduledFlightRepository.viewAllScheduledFlights();
-    return list2;
+  public List<ScheduledFlight> viewAllScheduledFlights(String source, String destination) {
+    return null;
   }
 }

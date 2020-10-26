@@ -97,7 +97,7 @@ public class FlightBookingApp {
               break;
             case 2:// check availability
               break;
-            case 3:// Make Booking
+            case 3:
               break;
             case 4:// Cancel Booking
               break;
@@ -141,7 +141,7 @@ public class FlightBookingApp {
     userService.updateUser(new User(userId, password));
   }
 
-  public  static void signUp(){
+  public  static User signUp(){
     System.out.println("Enter name: ");
     String name= sc.nextLine();
     System.out.println("Enter password: ");
@@ -151,14 +151,10 @@ public class FlightBookingApp {
     System.out.println("Enter mobile no: ");
     String mobileNo= sc.next();
     User user= userService.addUser(new User("user", name, password, email, mobileNo));
-    try {
-      System.out.println("======= Your user id is: " + user.getUserId() + " ========");
-      System.out.println("You have successfully signed up. Go to the login page.....");
-    } catch (NullPointerException e) {
-      System.out.println("Something went Wrong!\n "
-          + "Please try Again.");
-    }
-    }
+    System.out.println("You have successfully signed up. Go to the login page.....");
+    System.out.println("======= Your user id is: " + user.getUserId() + " ========");
+    return user;
+  }
 
 }
 
