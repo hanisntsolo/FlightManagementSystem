@@ -1,18 +1,15 @@
 package com.cg.flightmgmt.dto;
 
+import javax.persistence.Embeddable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-/**
+/*
  * All airport flight operations are
  * taken care in this class.
  * This class stores a flight schedule.
  */
-@Entity
-@Table(name = "schedule")
+@Embeddable
 public class Schedule {
 	//==========Attributes============//
 	@Id
@@ -20,13 +17,15 @@ public class Schedule {
 	private Airport destinationAirport;
 	private LocalDateTime arrivalTime;
 	private LocalDateTime departureTime;
+	private LocalDate arrivalDate;
 	public Schedule() {}
-		public Schedule(Airport sourceAirport,Airport destinationAirport,LocalDateTime arrivalTime,LocalDateTime departureTime)
+		public Schedule(Airport sourceAirport,Airport destinationAirport,LocalDateTime arrivalTime,LocalDateTime departureTime, LocalDate arrivalDate)
 		{
 			this.sourceAirport=sourceAirport;
 			this.destinationAirport=destinationAirport;
 			this.arrivalTime=arrivalTime;
 			this.departureTime=departureTime;
+			this.arrivalDate= arrivalDate;
 		}
 		public Airport getSourceAirport() {
 			return sourceAirport;
@@ -51,6 +50,14 @@ public class Schedule {
 		}
 		public void setDepartureTime(LocalDateTime departureTime) {
 			this.departureTime = departureTime;
+		}
+
+		public LocalDate getArrivalDate() {
+			return arrivalDate;
+		}
+
+		public void setArrivalDate(LocalDate arrivalDate) {
+			this.arrivalDate = arrivalDate;
 		}
 
 	@Override

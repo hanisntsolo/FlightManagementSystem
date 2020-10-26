@@ -1,6 +1,9 @@
 package com.cg.flightmgmt.dto;
 
+import javax.persistence.*;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,7 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**
+/*
  * The functionality of a user being
  * 1.General user to do a booking
  * 2.Administrator to validate bookings, add/modify flights etc.
@@ -16,18 +19,19 @@ import javax.persistence.Table;
  *  information.
  */
 @Entity
-@Table(name = "user")
+@Table(name="appUser")
+@SequenceGenerator(name = "seq", initialValue = 14356, allocationSize = 50)
 public class User {
-	//==========Attributes============//
-	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
-	private BigInteger userId;
-	private String userType;
-	private String userName;
-	private String password;
-	private String email;
-	private String mobileNumber;
-//	private boolean isAdmin;
+@GeneratedValue(strategy = GenerationType.SEQUENCE, generator= "seq")
+@Id
+private BigInteger userId;
+private String userType;
+private String userName;
+private String password;
+private String email;
+private String mobileNumber;
+@OneToMany(mappedBy= "userId")
+private List<Booking> bookingList= new ArrayList<>();
 
 	public User() {
 	}
@@ -83,12 +87,12 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-//	public boolean isAdmin() {
-//		return isAdmin;
-//	}
-//	public void setAdmin(boolean admin) {
-//		isAdmin = admin;
-//	}
+	public List<Booking> getBookingList() {
+		return bookingList;
+	}
+	public void setBookingList(List<Booking> bookingList) {
+		this.bookingList = bookingList;
+	}
 
 //	@Override
 //	public boolean equals(Object o) {
