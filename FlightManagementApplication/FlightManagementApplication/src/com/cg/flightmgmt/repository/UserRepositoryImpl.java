@@ -1,5 +1,6 @@
 package com.cg.flightmgmt.repository;
 
+import com.cg.flightmgmt.dto.Booking;
 import java.math.BigInteger;
 
 import com.cg.flightmgmt.dto.User;
@@ -25,17 +26,40 @@ public class UserRepositoryImpl implements IUserRepository {
     }
     @Override
     public User validateUser(User user) throws UserNotFoundException
-    {
-        return null;
+    {   EntityManagerFactory factory = Persistence
+                .createEntityManagerFactory("NewPersistenceUnit");
+        EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
+        // Validate logic
+        em.getTransaction().commit();
+        em.close();
+        factory.close();
+        return user;
     }
     @Override
     public User updateUser(User user) throws UserNotFoundException
-    {
-        return null;
+    {   EntityManagerFactory factory = Persistence
+            .createEntityManagerFactory("NewPersistenceUnit");
+        EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
+        // Updating into database
+        em.getTransaction().commit();
+        em.close();
+        factory.close();
+        return user;
     }
     @Override
     public User removeUser(BigInteger userid) throws UserNotFoundException
-    {
-        return null;
+    {   EntityManagerFactory factory = Persistence
+        .createEntityManagerFactory("NewPersistenceUnit");
+        EntityManager em = factory.createEntityManager();
+        //Remove from database
+        User user = em.find(User.class, userid);
+        em.getTransaction().begin();
+        em.remove(user);
+        em.getTransaction().commit();
+        em.close();
+        factory.close();
+        return user;
     }
 }

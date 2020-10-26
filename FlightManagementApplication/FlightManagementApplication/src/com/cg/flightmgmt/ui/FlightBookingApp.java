@@ -36,91 +36,113 @@ import java.util.Scanner;
 public class FlightBookingApp {
   static Scanner sc= new Scanner(System.in);
   static IUserService userService= new UserServiceImpl();
-  public static void main(String[] args){
+  public static void main(String[] args) {
+    while (true) {
+      System.out.println("\n\n===========WELCOME TO EASEMYFLIGHT=============");
+      System.out.println("-----------------------------------------------");
+      System.out.println("1. Log in as admin");
+      System.out.println("2. Log in as user");
+      System.out.println("3. If you don't have an account, please sign up...");
+      System.out.println(("Enter your choice: "));
+      int logChoice = Integer.parseInt(sc.nextLine());
 
-    System.out.println("\n\n===========WELCOME TO EASEMYFLIGHT=============");
-    System.out.println("-----------------------------------------------");
-    System.out.println("1. Log in as admin");
-    System.out.println("2. Log in as user");
-    System.out.println("3. If you don't have an account, please sign up...");
-    System.out.println(("Enter your choice: "));
-    int logChoice= Integer.parseInt(sc.nextLine());
+      if (logChoice == 1) {
+        if (validateUser()) {
+          while (true) {
+            System.out.println(
+                "1. Add Flights\n2. Modify Flights\n3. Delete Flight\n4. Search Flight\n5. Show Flights\n"
+                    + "6. Add Schedule\n7. Modify Schedule\n8. Delete Schedule\n9. Search Schedule\n10. Show Schedule\n11. Log out");
+            int choice = sc.nextInt();
+            switch (choice) {
 
-    if(logChoice==1) {
-      if(validateUser()) {
-        while (true) {
-          System.out.println("1. Add Flights\n2. Modify Flights\n3. Delete Flight\n4. Search Flight\n5. Show Flights\n"
-                  + "6. Add Schedule\n7. Modify Schedule\n8. Delete Schedule\n9. Search Schedule\n10. Show Schedule\n11. Log out");
-          int choice = sc.nextInt();
-          switch (choice) {
+              case 1:// add flight
+                break;
+              case 2:// modify flight
+                break;
+              case 3:// delete flight
+                break;
+              case 4:// search flight
+                break;
+              case 5:// show flight
+                break;
+              case 6:// add schedule
+                break;
+              case 7:// modify schedule
+                break;
+              case 8:// delete schedule
+                break;
+              case 9:// search schedule
+                break;
+              case 10:// show schedule
+                break;
+              case 11:
+                System.out.println("Logged out");
+                System.exit(0);
+                break;
+              default:
+                System.out.println("Choose from the given options.....");
 
-            case 1:// add flight
-              break;
-            case 2:// modify flight
-              break;
-            case 3:// delete flight
-              break;
-            case 4:// search flight
-              break;
-            case 5:// show flight
-              break;
-            case 6:// add schedule
-              break;
-            case 7:// modify schedule
-              break;
-            case 8:// delete schedule
-              break;
-            case 9:// search schedule
-              break;
-            case 10:// show schedule
-              break;
-            case 11:
-              System.out.println("Logged out");
-              System.exit(0);
-              break;
-            default:
-              System.out.println("Choose from the given options.....");
-
+            }
           }
+        } else {
+          System.out.println("User not found....\nYou have entered wrong id or password!");
         }
-      }else{
-        System.out.println("User not found....\nYou have entered wrong id or password!");
-      }
-    }else if(logChoice==2) {
-      if(validateUser()) {
-        while (true) {
-          System.out.println("1. Search Flights\n2. check availability\n3. Make Booking\n4. Cancel Booking\n5. Log out");
-          int choice = sc.nextInt();
-          switch (choice) {
+      } else if (logChoice == 2) {
+        if (validateUser()) {
+          while (true) {
+            System.out.println(
+                "1. Search Flights\n2. check availability\n3. Make Booking\n4. Cancel Booking\n5.Remove user\n6. Log out");
+            int choice = sc.nextInt();
+            switch (choice) {
 
-            case 1:// search flights
-              break;
-            case 2:// check availability
-              break;
-            case 3:
-              break;
-            case 4:// Cancel Booking
-              break;
-            case 5:
-              System.out.println("Logged out");
-              System.exit(0);
-              break;
-            default:
-              System.out.println("Choose from the given options.....");
+              case 1:// search flights
+                break;
+              case 2:// check availability
+                break;
+              case 3:
+                break;
+              case 4:// Cancel Booking
+                deleteUser();
+                break;
+              case 5:// Remove user
 
+                break;
+              case 6:
+                System.out.println("Logged out");
+                System.exit(0);
+                break;
+              default:
+                System.out.println("Choose from the given options.....");
+
+            }
           }
+        } else {
+          System.out.println("User not found....\nYou have entered wrong id or password!");
         }
-      }else{
-        System.out.println("User not found....\nYou have entered wrong id or password!");
-      }
-    }else if(logChoice==3) {
-      signUp();
-    }else{
+      } else if (logChoice == 3) {
+        signUp();
+      } else {
         System.out.println("Enter correct choice....");
       }
       sc.close();
     }
+  }
+  //Method to remove user
+  public static User deleteUser(){
+    System.out.println("Enter userId to be removed: ");
+    BigInteger userId= sc.nextBigInteger();
+    User user= null;
+    try {
+      user = userService.removeUser(userId);
+    } catch (UserNotFoundException e) {
+      System.out.println("User not found in database.");;
+    }
+    System.out.println("You have successfully signed up. Go to the login page.....");
+    System.out.println("======= Your user id is: " + user.getUserId() + " ========");
+    return user;
+  }
 
+  //Method to validate common user
   public static Boolean validateUser(){
     System.out.println("Enter user id:");
     BigInteger userId= sc.nextBigInteger();
@@ -133,6 +155,22 @@ public class FlightBookingApp {
       return false;
     }
   }
+  //Method to validate Admin
+//  public static Boolean validateAdmin() {
+//    System.out.println("Enter Admin Id:");
+//    BigInteger adminId = sc.nextBigInteger();
+//    System.out.println("Enter Password:");
+//    String password = sc.next();
+//    try {
+//
+//      if(User.)
+//      return true;
+//    } catch (UserNotFoundException e) {
+//      e.printStackTrace();
+//    }
+//    return false;
+//  }
+
   public static void updateUser() throws UserNotFoundException {
     System.out.println("Enter your user Id:");
     BigInteger userId = sc.nextBigInteger();

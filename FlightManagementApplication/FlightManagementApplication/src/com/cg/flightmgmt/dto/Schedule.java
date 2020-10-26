@@ -4,6 +4,8 @@ import javax.persistence.Embeddable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
+import javax.persistence.Id;
+
 /*
  * All airport flight operations are
  * taken care in this class.
