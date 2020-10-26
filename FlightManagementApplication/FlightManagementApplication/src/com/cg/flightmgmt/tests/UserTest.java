@@ -8,12 +8,17 @@ import org.junit.jupiter.api.Test;
 
 class UserTest {
 
+  @org.junit.jupiter.api.BeforeAll
+  public static void  beforeClass() {
+    System.out.println("This will run before any of the test cases!");
+  }
   @BeforeEach
   void setUp() {
   }
 
-  @AfterEach
+  @org.junit.jupiter.api.AfterEach
   void tearDown() {
+    System.out.println("This will run after each test case is executed");
   }
 
   @org.junit.jupiter.api.Test
@@ -62,5 +67,10 @@ class UserTest {
 
   @org.junit.jupiter.api.Test
   void setEmail() {
+  }
+
+  @org.junit.jupiter.api.AfterAll
+  public static void afterClass() {
+    System.out.println ("This will execute after all test cases!");
   }
 }
