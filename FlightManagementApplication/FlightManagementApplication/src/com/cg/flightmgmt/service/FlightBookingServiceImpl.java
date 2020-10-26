@@ -14,7 +14,7 @@ public class FlightBookingServiceImpl implements IFlightBookingService {
   }
 
   @Override
-  public Booking cancelBooking(BigInteger bookingid) throws BookingNotFoundException {
+  public Booking cancelBooking(BigInteger bookingId) throws BookingNotFoundException {
     return null;
   }
 
@@ -24,17 +24,17 @@ public class FlightBookingServiceImpl implements IFlightBookingService {
   }
 
   @Override
-  public List<Booking> viewBookingList(Date bookingdate) {
+  public List<Booking> viewBookingList(Date bookingDate) {
     return null;
   }
 
   @Override
-  public List<Booking> viewBookingList(BigInteger flightid) {
+  public List<Booking> viewBookingList(BigInteger flightId) {
     return null;
   }
 
   @Override
-  public List<Booking> viewBookingHistory(BigInteger userid) {
+  public List<Booking> viewBookingHistory(BigInteger userId) {
     return null;
   }
 

@@ -23,7 +23,7 @@ public class FlightServiceImpl implements IFlightService {
   }
 
   @Override
-  public Flight removeFlight(BigInteger flightNo) {
+  public Flight removeFlight(BigInteger flightId) {
     return null;
   }
 

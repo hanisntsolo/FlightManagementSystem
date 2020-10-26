@@ -14,12 +14,12 @@ public class ScheduledFlightServiceImpl implements IScheduledFlightService {
   }
 
   @Override
-  public Flight viewFlightSchedule(BigInteger flightno) {
+  public Flight viewFlightSchedule(BigInteger flightId) {
     return null;
   }
 
   @Override
-  public Flight removeFlightSchedule(BigInteger flightno) {
+  public Flight removeFlightSchedule(BigInteger flightId) {
     return null;
   }
 
@@ -34,7 +34,7 @@ public class ScheduledFlightServiceImpl implements IScheduledFlightService {
   }
 
   @Override
-  public List<ScheduledFlight> viewAllScheduledFlights(Date arrivaldate) {
+  public List<ScheduledFlight> viewAllScheduledFlights(Date arrivalDate) {
     return null;
   }
 
