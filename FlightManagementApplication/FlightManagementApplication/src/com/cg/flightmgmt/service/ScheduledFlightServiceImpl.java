@@ -7,39 +7,46 @@ import java.sql.Date;
 import java.util.List;
 
 public class ScheduledFlightServiceImpl implements IScheduledFlightService {
+	ScheduledFlightRepository scheduledFlightRepository=new ScheduledFlightRepository();
 
   @Override
   public Flight addFlightSchedule(Flight flight) {
-    return null;
+    return scheduledFlightRepository.addFlightSchedule(flight);
   }
 
   @Override
   public Flight viewFlightSchedule(BigInteger flightId) {
-    return null;
+    return scheduledFlightRepository.viewFlightSchedule(flightId);
   }
 
   @Override
   public Flight removeFlightSchedule(BigInteger flightId) {
-    return null;
+    return scheduledFlightRepository.removeFlightSchedule(flightId);
   }
 
   @Override
   public Flight updateFlightSchedule(ScheduledFlight flight) {
-    return null;
+    return scheduledFlightRepository.updateFlightSchedule(flight);
   }
 
   @Override
   public List<ScheduledFlight> viewAllScheduledFlights() {
-    return null;
+	  List<ScheduledFlight> list=new ArrayList<ScheduledFlight>();
+	  list=scheduledFlightRepository.viewAllScheduledFlights();
+    return list;
   }
 
   @Override
   public List<ScheduledFlight> viewAllScheduledFlights(Date arrivalDate) {
-    return null;
+	  List<ScheduledFlight> list1=new ArrayList<ScheduledFlight>();
+	  list1=scheduledFlightRepository.viewAllScheduledFlights();
+    return list1;
   }
 
   @Override
   public List<ScheduledFlight> viewAllScheduledFlights(Date date1, Date date2) {
-    return null;
+	  List<ScheduledFlight> list2=new ArrayList<ScheduledFlight>();
+	  list2=scheduledFlightRepository.viewAllScheduledFlights();
+    return list2;
   }
 }

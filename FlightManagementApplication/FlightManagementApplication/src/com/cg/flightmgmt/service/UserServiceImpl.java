@@ -5,10 +5,11 @@ import com.cg.flightmgmt.exception.UserNotFoundException;
 import java.math.BigInteger;
 
 public class UserServiceImpl implements IUserService {
+	
 
   @Override
   public User addUser(User user) {
-    return null;
+    return user;
   }
 
   @Override
