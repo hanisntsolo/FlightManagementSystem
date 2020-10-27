@@ -16,6 +16,6 @@ public interface IScheduledFlightRepository {
 	public Flight updateFlightSchedule(ScheduledFlight flight);
 	public List<ScheduledFlight> viewAllScheduledFlights();
 	public List<ScheduledFlight> viewAllScheduledFlights(Date arrivalDate);
-	public List<ScheduledFlight> viewAllScheduledFlights(String source, String destination);
+	public List<ScheduledFlight> viewAllScheduledFlights(Date date1, Date date2);
 
 }
