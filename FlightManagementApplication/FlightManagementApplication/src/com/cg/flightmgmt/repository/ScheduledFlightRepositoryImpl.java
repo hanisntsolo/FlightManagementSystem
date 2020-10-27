@@ -36,7 +36,7 @@ public class ScheduledFlightRepositoryImpl implements IScheduledFlightRepository
                 .createEntityManagerFactory("NewPersistenceUnit");
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
-        Flight flight= em.find(Flight.class, flightNo);
+        Flight flight= em.find(Flight.class, flightId);
         em.close();
         factory.close();
             return flight;
@@ -98,15 +98,16 @@ public class ScheduledFlightRepositoryImpl implements IScheduledFlightRepository
     {
 
 
-        EntityManagerFactory factory = Persistence
-                .createEntityManagerFactory("NewPersistenceUnit");
-        EntityManager em = factory.createEntityManager();
-        em.getTransaction().begin();
-        List<ScheduledFlight> flightList= em.createQuery("select Flight from ScheduledFlights f where f.arrivalDate between :date1 and :date2",
-                ScheduledFlight.class).setParameter("arrivalDate", date1,date2).getResultList();
-        em.close();
-        factory.close();
-        return flightList;
+//        EntityManagerFactory factory = Persistence
+//                .createEntityManagerFactory("NewPersistenceUnit");
+//        EntityManager em = factory.createEntityManager();
+//        em.getTransaction().begin();
+//        List<ScheduledFlight> flightList= em.createQuery("select Flight from ScheduledFlights f where f.arrivalDate between :date1 and :date2",
+//                ScheduledFlight.class).setParameter("arrivalDate", date1,date2).getResultList();
+//        em.close();
+//        factory.close();
+//        return flightList;
+        return null;
 
     }
 }
