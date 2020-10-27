@@ -1,5 +1,7 @@
 package com.cg.flightmgmt.tests;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -20,46 +22,57 @@ class FlightTest {
 
   @org.junit.jupiter.api.Test
   void getFlightId() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void setFlightId() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void getCarrierName() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void setCarrierName() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void getFlightModel() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void setFlightModel() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void getSeatCapacity() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void setSeatCapacity() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void testEquals() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void testHashCode() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void testToString() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.AfterAll
