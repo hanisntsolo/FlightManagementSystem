@@ -22,8 +22,8 @@ public class FlightBookingServiceImpl implements IFlightBookingService {
   }
 
   @Override
-  public Booking viewBooking(BigInteger bookingid) throws BookingNotFoundException {
-    return FlightBookingRepository.viewBooking(bookingid);
+  public Booking viewBooking(BigInteger bookingId) throws BookingNotFoundException {
+    return FlightBookingRepository.viewBooking(bookingId);
   }
 
   @Override

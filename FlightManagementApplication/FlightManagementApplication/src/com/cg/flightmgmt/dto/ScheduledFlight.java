@@ -12,6 +12,7 @@ import javax.persistence.Table;
  * This class stores a flight that is scheduled along with its schedule
  * and the vacancy.
  */
+
 public class ScheduledFlight {
 private Flight flight;
 private int availableSeats;
