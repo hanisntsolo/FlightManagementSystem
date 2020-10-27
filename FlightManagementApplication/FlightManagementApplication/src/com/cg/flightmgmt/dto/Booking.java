@@ -1,29 +1,41 @@
 package com.cg.flightmgmt.dto;
 
+import javax.persistence.*;
 import java.math.BigInteger;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-/**
+/*
  * This class stores the details of a booking
  * made by a particular userId.
  * Every booking stores a list of passengers travelling in it
  * as well as the flight details.
  */
+@Entity
+@Table(name= "booking")
+//@SequenceGenerator(name = "seq", initialValue = 12000, allocationSize = 50)
 public class Booking {
+@GeneratedValue(strategy = GenerationType.AUTO)
+@Id
 private BigInteger bookingId;
+@ManyToOne
 private User userId;
 private LocalDate bookingDate;
-private List <Passenger>passengerList;
+@ManyToMany(mappedBy = "bookingList")
+private List<Passenger> passengerList= new ArrayList<Passenger>();
 private double ticketCost;
+@OneToOne
 private Flight flight;
 private int noOfPassengers;
-
 	public Booking() {
 	}
 
-	public Booking(BigInteger bookingId, User userId, LocalDate bookingDate,
+	public Booking(BigInteger bookingId, LocalDate bookingDate,
 			List<Passenger> passengerList, double ticketCost, Flight flight, int noOfPassengers) {
 		this.bookingId = bookingId;
 		this.userId = userId;
@@ -98,14 +110,14 @@ private int noOfPassengers;
 	@Override
 	public int hashCode() {
 		return Objects
-				.hash(bookingId, userId, bookingDate, passengerList, ticketCost, flight, noOfPassengers);
+				.hash(bookingId,  bookingDate, passengerList, ticketCost, flight, noOfPassengers);
 	}
 
 	@Override
 	public String toString() {
 		return "Booking{" +
 				"bookingId=" + bookingId +
-				", userId=" + userId +
+				"userId=" + userId +
 				", bookingDate=" + bookingDate +
 				", passengerList=" + passengerList +
 				", ticketCost=" + ticketCost +
