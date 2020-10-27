@@ -26,20 +26,18 @@ public class FlightRepositoryImpl implements IFlightRepository {
     @Override
     public Flight viewFlight(BigInteger flightId) throws FlightNotFoundException
     {
-        EntityManagerFactory factory = Persistence
-                .createEntityManagerFactory("NewPersistenceUnit");
-        EntityManager em = factory.createEntityManager();
-        em.getTransaction().begin();
-        Flight flight= em.find(Flight.class, flightId);
-        em.close();
-        factory.close();
-        if(flight==null){
-            throw new FlightNotFoundException("Flight not found!");
-        }
-        else
-        {
-            return flight;
-        }
+
+           EntityManagerFactory factory = Persistence
+                   .createEntityManagerFactory("NewPersistenceUnit");
+           EntityManager em = factory.createEntityManager();
+           em.getTransaction().begin();
+           Flight flight = em.find(Flight.class, flightId);
+           em.close();
+           factory.close();
+
+               return flight;
+
+
     }
     @Override
     public List<Flight> viewAllFlights()

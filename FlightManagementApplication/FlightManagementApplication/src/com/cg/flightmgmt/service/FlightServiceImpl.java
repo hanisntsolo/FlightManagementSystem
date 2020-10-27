@@ -6,7 +6,7 @@ import com.cg.flightmgmt.repository.FlightBookingRepositoryImpl;
 import com.cg.flightmgmt.repository.IFlightRepository;
 
 import java.math.BigInteger;
-import java.util.Set;
+import java.util.List;
 
 public class FlightServiceImpl implements IFlightService {
   FlightServiceImpl Flight=new FlightServiceImpl();
@@ -23,7 +23,7 @@ public class FlightServiceImpl implements IFlightService {
   }
 
   @Override
-  public Set<Flight> viewAllFlights() {
+  public List<Flight> viewAllFlights() {
     return Flight.viewAllFlights();
   }
 
