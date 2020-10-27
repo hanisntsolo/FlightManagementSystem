@@ -39,7 +39,7 @@ public class ScheduledFlightServiceImpl implements IScheduledFlightService {
   }
 
   @Override
-  public List<ScheduledFlight> viewAllScheduledFlights(Date date1, Date date2) {
+  public List<ScheduledFlight> viewAllScheduledFlights(String source, String destination) {
     return null;
   }
 }

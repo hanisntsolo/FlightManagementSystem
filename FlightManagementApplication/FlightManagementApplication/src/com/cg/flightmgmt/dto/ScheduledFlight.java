@@ -1,17 +1,19 @@
 package com.cg.flightmgmt.dto;
 
+import javax.persistence.*;
 import java.util.Objects;
 
-/**
+/*
  * Various schedules are fetched and
  * manipulated through this class.
  * This class stores a flight that is scheduled along with its schedule
  * and the vacancy.
  */
-public class ScheduledFlight {
 
+public class ScheduledFlight {
 private Flight flight;
 private int availableSeats;
+@Embedded
 private Schedule schedule;
 private double fares; //cost per seat
 	public ScheduledFlight() {

@@ -1,22 +1,32 @@
 package com.cg.flightmgmt.dto;
 
+import javax.persistence.*;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-/**
+/*
  * The functionality of a user being
  * 1.General user to do a booking
  * 2.Administrator to validate bookings, add/modify flights etc.
  * This class stores the user type (admin or the customer) and all user
  *  information.
  */
+@Entity
+@Table(name="appUser")
+@SequenceGenerator(name = "seq", initialValue = 14356, allocationSize = 50)
 public class User {
+@GeneratedValue(strategy = GenerationType.SEQUENCE, generator= "seq")
+@Id
 private BigInteger userId;
 private String userType;
 private String userName;
 private String password;
 private String email;
 private String mobileNumber;
+@OneToMany(mappedBy= "userId")
+private List<Booking> bookingList= new ArrayList<>();
 
 	public User() {
 	}
@@ -70,6 +80,12 @@ private String mobileNumber;
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public List<Booking> getBookingList() {
+		return bookingList;
+	}
+	public void setBookingList(List<Booking> bookingList) {
+		this.bookingList = bookingList;
 	}
 
 	@Override

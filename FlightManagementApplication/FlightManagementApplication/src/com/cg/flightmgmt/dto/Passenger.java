@@ -1,27 +1,38 @@
 package com.cg.flightmgmt.dto;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import java.math.BigInteger;
+import java.util.List;
 import java.util.Objects;
 
-/**
+/*
  * This class stores all the details of the travelling passenger.
  */
+@Entity
+@Table(name= "passenger")
 public class Passenger {
+@Id
 private BigInteger pnrNumber;
 private String passengerName;
 private int age;
 private BigInteger passengerUIN;
 private Double luggage;
+@ManyToMany
+private List<Booking> bookingList;
 	public Passenger() {
 
 	}
-	public Passenger(BigInteger pnrNumber,String passengerName,int age,BigInteger passengerUIN,Double luggage)
+	public Passenger(BigInteger pnrNumber, String passengerName, int age, BigInteger passengerUIN, Double luggage, List<Booking> bookingList)
 	{
 		this.pnrNumber=pnrNumber;
 		this.passengerName=passengerName;
 		this.age=age;
 		this.passengerUIN=passengerUIN;
 		this.luggage=luggage;
+		this.bookingList = bookingList;
 	}
 	public BigInteger getPnrNumber() {
 		return pnrNumber;
@@ -53,7 +64,8 @@ private Double luggage;
 	public void setLuggage(Double luggage) {
 		this.luggage = luggage;
 	}
-
+	public List<Booking> getBookingList(){return bookingList;}
+	public void setBookingList(List<Booking> bookingList){this.bookingList= bookingList;}
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {

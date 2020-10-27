@@ -96,7 +96,7 @@ public class FlightBookingApp {
               break;
             case 2:// check availability
               break;
-            case 3:// Make Booking
+            case 3:
               break;
             case 4:// Cancel Booking
               break;
@@ -133,7 +133,7 @@ public class FlightBookingApp {
     }
   }
 
-  public  static void signUp(){
+  public  static User signUp(){
     System.out.println("Enter name: ");
     String name= sc.nextLine();
     System.out.println("Enter password: ");
@@ -145,6 +145,7 @@ public class FlightBookingApp {
     User user= userService.addUser(new User("user", name, password, email, mobileNo));
     System.out.println("You have successfully signed up. Go to the login page.....");
     System.out.println("======= Your user id is: " + user.getUserId() + " ========");
+    return user;
   }
 
 }
