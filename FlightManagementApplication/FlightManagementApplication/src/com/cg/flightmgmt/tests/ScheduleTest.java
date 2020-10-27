@@ -23,46 +23,57 @@ class ScheduleTest {
 
   @org.junit.jupiter.api.Test
   void getSourceAirport() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void setSourceAirport() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void getDestinationAirport() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void setDestinationAirport() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void getArrivalTime() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void setArrivalTime() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void getDepartureTime() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void setDepartureTime() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void testEquals() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void testHashCode() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void testToString() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.AfterAll
