@@ -2,44 +2,51 @@ package com.cg.flightmgmt.service;
 
 import com.cg.flightmgmt.dto.Booking;
 import com.cg.flightmgmt.exception.BookingNotFoundException;
+import com.cg.flightmgmt.repository.FlightBookingRepositoryImpl;
+import com.cg.flightmgmt.repository.IFlightBookingRepository;
+
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 
 public class FlightBookingServiceImpl implements IFlightBookingService {
-
+      IFlightBookingRepository FlightBookingRepository= new FlightBookingRepositoryImpl();
   @Override
   public Booking addBooking(Booking booking) {
-    return null;
+    return FlightBookingRepository.addBooking(booking);
   }
 
   @Override
   public Booking cancelBooking(BigInteger bookingId) throws BookingNotFoundException {
-    return null;
+    return FlightBookingRepository.cancelBooking(bookingId);
   }
 
   @Override
   public Booking viewBooking(BigInteger bookingid) throws BookingNotFoundException {
-    return null;
+    return FlightBookingRepository.viewBooking(bookingid);
   }
 
   @Override
   public List<Booking> viewBookingList(Date bookingDate) {
-    return null;
+
+    return FlightBookingRepository.viewBookingList(bookingDate);
   }
 
   @Override
   public List<Booking> viewBookingList(BigInteger flightId) {
-    return null;
+
+    return FlightBookingRepository.viewBookingList(flightId);
   }
 
   @Override
   public List<Booking> viewBookingHistory(BigInteger userId) {
-    return null;
+
+    return FlightBookingRepository.viewBookingHistory(userId);
   }
 
   @Override
   public Booking updateBooking(Booking booking) {
-    return null;
+
+    return FlightBookingRepository.updateBooking(booking);
   }
 }
