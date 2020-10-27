@@ -17,16 +17,16 @@ public class UserServiceImpl implements IUserService {
   }
   @Override
   public User validateUser(User user) throws UserNotFoundException {
-    return null;
+    return userRepository.validateUser(user);
   }
 
   @Override
   public User updateUser(User user) throws UserNotFoundException {
-    return null;
+    return userRepository.updateUser(user);
   }
 
   @Override
   public User removeUser(BigInteger userId) throws UserNotFoundException {
-    return null;
+    return userRepository.removeUser(userId);
   }
 }
