@@ -4,10 +4,11 @@ import com.cg.flightmgmt.dto.Flight;
 import com.cg.flightmgmt.dto.ScheduledFlight;
 import java.math.BigInteger;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ScheduledFlightServiceImpl implements IScheduledFlightService {
-	ScheduledFlightRepository scheduledFlightRepository=new ScheduledFlightRepository();
+  ScheduledFlightServiceImpl scheduledFlightRepository=new ScheduledFlightServiceImpl();
 
   @Override
   public Flight addFlightSchedule(Flight flight) {
