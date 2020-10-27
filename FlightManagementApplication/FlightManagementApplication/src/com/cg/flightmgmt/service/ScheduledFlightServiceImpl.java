@@ -2,8 +2,11 @@ package com.cg.flightmgmt.service;
 
 import com.cg.flightmgmt.dto.Flight;
 import com.cg.flightmgmt.dto.ScheduledFlight;
+import com.cg.flightmgmt.repository.ScheduledFlightRepository;
+
 import java.math.BigInteger;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ScheduledFlightServiceImpl implements IScheduledFlightService {
