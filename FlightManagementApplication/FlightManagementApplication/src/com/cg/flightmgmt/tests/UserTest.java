@@ -2,86 +2,95 @@ package com.cg.flightmgmt.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import com.cg.flightmgmt.dto.User;
+import org.junit.jupiter.api.*;
+
+import java.math.BigInteger;
 
 class UserTest {
-
-  @org.junit.jupiter.api.BeforeAll
+  private static User user;
+  private static User user1;
+  @BeforeAll
   public static void  beforeClass() {
     System.out.println("This will run before any of the test cases!");
   }
   @BeforeEach
   void setUp() {
+    user = new User("User","Jordan","ab_cd&789","jordan123@xyz.com","4964852671");
+    user1 = new User(new BigInteger("46319543"),"ab_cd&789");
+    System.out.println("Running tests..........");
   }
 
-  @org.junit.jupiter.api.AfterEach
+  @AfterEach
   void tearDown() {
     System.out.println("This will run after each test case is executed");
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void getMobileNumber() {
-    fail("This test is yet to be written !");
+    assertEquals("4964852671", user.getMobileNumber());
   }
-
-  @org.junit.jupiter.api.Test
+  @Test
   void setMobileNumber() {
-    fail("This test is yet to be written !");
+    user.setMobileNumber("4964851571");
+    assertEquals("4964851571",user.getMobileNumber());
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void getUserId() {
-    fail("This test is yet to be written !");
+    assertEquals(BigInteger.valueOf(Long.parseLong("46319543")),user1.getUserId());
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void setUserId() {
-    fail("This test is yet to be written !");
+    user1.setUserId(BigInteger.valueOf(46311864));
+    assertNotEquals(46319461,user1.getUserId());
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void getUserType() {
-    fail("This test is yet to be written !");
+    assertEquals("User",user.getUserType());
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void setUserType() {
-    fail("This test is yet to be written !");
+    user.setUserType("admin");
+    assertEquals("admin",user.getUserType());
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void getUserName() {
-    fail("This test is yet to be written !");
+    assertEquals("Jordan",user.getUserName());
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void setUserName() {
-    fail("This test is yet to be written !");
+    user.setUserName("Michael");
+    assertNotEquals("Jordan",user.getUserName());
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void getPassword() {
-    fail("This test is yet to be written !");
+    assertEquals("ab_cd&789",user.getPassword());
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void setPassword() {
-    fail("This test is yet to be written !");
+    user.setPassword("xy_kj&789");
+    assertEquals("xy_kj&789",user.getPassword());
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void getEmail() {
-    fail("This test is yet to be written !");
+    assertEquals("jordan123@xyz.com",user.getEmail());
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void setEmail() {
-    fail("This test is yet to be written !");
+    user.setEmail("julie245@abc.com");
+    assertNotEquals("jordan123@xyz.com",user.getEmail());
   }
-
-  @org.junit.jupiter.api.AfterAll
+  @AfterAll
   public static void afterClass() {
     System.out.println ("This will execute after all test cases!");
   }

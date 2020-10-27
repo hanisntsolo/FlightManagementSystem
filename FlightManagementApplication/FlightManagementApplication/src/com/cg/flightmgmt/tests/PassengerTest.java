@@ -2,91 +2,106 @@ package com.cg.flightmgmt.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import com.cg.flightmgmt.dto.Booking;
+import com.cg.flightmgmt.dto.Passenger;
+import org.junit.jupiter.api.*;
+
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 class PassengerTest {
+  private static Passenger passenger;
+  private static List<Booking> bookingList;
+  private Passenger o;
 
-  @org.junit.jupiter.api.BeforeAll
+  @BeforeAll
   public static void  beforeClass() {
     System.out.println("This will run before any of the test cases!");
   }
   @BeforeEach
   void setUp() {
+    bookingList = new ArrayList<>();
+    passenger = new Passenger(new BigInteger("469532187649"),"Thomas",45,new BigInteger("793546182796"),7.4,bookingList);
+    System.out.println("Running tests............");
   }
 
-  @org.junit.jupiter.api.AfterEach
+  @AfterEach
   void tearDown() {
     System.out.println("This will run after each test case is executed");
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void getPnrNumber() {
-    fail("This test is yet to be written !");
+    assertEquals(new BigInteger("469532187649"),passenger.getPnrNumber());
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void setPnrNumber() {
-    fail("This test is yet to be written !");
+    passenger.setPnrNumber(new BigInteger("469532187649"));
+    assertEquals(new BigInteger("469532187649"),passenger.getPnrNumber());
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void getPassengerName() {
-    fail("This test is yet to be written !");
+    assertEquals("Thomas",passenger.getPassengerName());
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void setPassengerName() {
-    fail("This test is yet to be written !");
+    passenger.setPassengerName("Roger");
+    assertNotEquals("Zara",passenger.getPassengerName());
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void getAge() {
-    fail("This test is yet to be written !");
+    assertEquals(45,passenger.getAge());
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void setAge() {
-    fail("This test is yet to be written !");
+    passenger.setAge(41);
+    assertEquals(41,passenger.getAge());
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void getPassengerUIN() {
-    fail("This test is yet to be written !");
+    assertEquals(new BigInteger("793546182796"),passenger.getPassengerUIN());
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void setPassengerUIN() {
-    fail("This test is yet to be written !");
+    passenger.setPassengerUIN(new BigInteger("462394269249"));
+    assertNotEquals(new BigInteger("433179544476"),passenger.getPassengerUIN());
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void getLuggage() {
-    fail("This test is yet to be written !");
+    assertNotEquals(5.0,passenger.getLuggage());
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void setLuggage() {
-    fail("This test is yet to be written !");
+    passenger.setLuggage(9.6);
+    assertEquals(9.6,passenger.getLuggage());
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void testEquals() {
-    fail("This test is yet to be written !");
-  }
+    assertEquals(passenger.equals(o),false);  }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void testHashCode() {
-    fail("This test is yet to be written !");
+    assertEquals(passenger.hashCode(), Objects.hash(new BigInteger("469532187649"),"Thomas",45,new BigInteger("793546182796"),7.4));
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void testToString() {
-    fail("This test is yet to be written !");
+    assertEquals(passenger.toString(), "Passenger{pnrNumber=469532187649, passengerName='Thomas', age=45, passengerUIN=793546182796, luggage=7.4}");
   }
 
-  @org.junit.jupiter.api.AfterAll
+  @AfterAll
   public static void afterClass() {
     System.out.println ("This will execute after all test cases!");
   }
