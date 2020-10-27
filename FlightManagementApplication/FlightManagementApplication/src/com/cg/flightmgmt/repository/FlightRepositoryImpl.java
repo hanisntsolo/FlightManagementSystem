@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.math.BigInteger;
+import java.util.List;
 import java.util.Set;
 
 public class FlightRepositoryImpl implements IFlightRepository {
@@ -41,14 +42,14 @@ public class FlightRepositoryImpl implements IFlightRepository {
         }
     }
     @Override
-    public Set<Flight> viewAllFlights()
+    public List<Flight> viewAllFlights()
     {
         EntityManagerFactory factory = Persistence
                 .createEntityManagerFactory("NewPersistenceUnit");
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
 
-        Set<Flight> flightSet= (Set<Flight>) em.createQuery("select * from Flight", Flight.class).getResultList();
+        List<Flight> flightSet=  em.createQuery("select * from Flight", Flight.class).getResultList();
         em.close();
         factory.close();
         return flightSet;
