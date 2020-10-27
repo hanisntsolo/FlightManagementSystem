@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ScheduledFlightServiceImpl implements IScheduledFlightService {
+
   ScheduledFlightServiceImpl scheduledFlightRepository=new ScheduledFlightServiceImpl();
 
   @Override
