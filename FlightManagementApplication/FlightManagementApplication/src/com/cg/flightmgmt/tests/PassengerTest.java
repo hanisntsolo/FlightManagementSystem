@@ -2,13 +2,15 @@ package com.cg.flightmgmt.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class PassengerTest {
 
-  @org.junit.jupiter.api.BeforeAll
+  @BeforeAll
   public static void  beforeClass() {
     System.out.println("This will run before any of the test cases!");
   }
@@ -16,77 +18,77 @@ class PassengerTest {
   void setUp() {
   }
 
-  @org.junit.jupiter.api.AfterEach
+  @AfterEach
   void tearDown() {
     System.out.println("This will run after each test case is executed");
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void getPnrNumber() {
     fail("This test is yet to be written !");
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void setPnrNumber() {
     fail("This test is yet to be written !");
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void getPassengerName() {
     fail("This test is yet to be written !");
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void setPassengerName() {
     fail("This test is yet to be written !");
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void getAge() {
     fail("This test is yet to be written !");
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void setAge() {
     fail("This test is yet to be written !");
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void getPassengerUIN() {
     fail("This test is yet to be written !");
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void setPassengerUIN() {
     fail("This test is yet to be written !");
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void getLuggage() {
     fail("This test is yet to be written !");
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void setLuggage() {
     fail("This test is yet to be written !");
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void testEquals() {
     fail("This test is yet to be written !");
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void testHashCode() {
     fail("This test is yet to be written !");
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void testToString() {
     fail("This test is yet to be written !");
   }
 
-  @org.junit.jupiter.api.AfterAll
+  @AfterAll
   public static void afterClass() {
     System.out.println ("This will execute after all test cases!");
   }

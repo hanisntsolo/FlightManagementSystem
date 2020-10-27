@@ -35,7 +35,7 @@ private int noOfPassengers;
 	public Booking() {
 	}
 
-	public Booking(BigInteger bookingId, LocalDate bookingDate,
+	public Booking(BigInteger bookingId, User userId, LocalDate bookingDate,
 			List<Passenger> passengerList, double ticketCost, Flight flight, int noOfPassengers) {
 		this.bookingId = bookingId;
 		this.userId = userId;
