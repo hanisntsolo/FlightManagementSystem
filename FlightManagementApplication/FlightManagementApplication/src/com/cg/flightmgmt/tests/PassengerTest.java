@@ -23,54 +23,67 @@ class PassengerTest {
 
   @org.junit.jupiter.api.Test
   void getPnrNumber() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void setPnrNumber() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void getPassengerName() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void setPassengerName() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void getAge() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void setAge() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void getPassengerUIN() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void setPassengerUIN() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void getLuggage() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void setLuggage() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void testEquals() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void testHashCode() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void testToString() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.AfterAll

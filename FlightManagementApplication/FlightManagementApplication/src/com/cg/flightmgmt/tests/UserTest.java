@@ -23,50 +23,62 @@ class UserTest {
 
   @org.junit.jupiter.api.Test
   void getMobileNumber() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void setMobileNumber() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void getUserId() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void setUserId() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void getUserType() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void setUserType() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void getUserName() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void setUserName() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void getPassword() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void setPassword() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void getEmail() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.Test
   void setEmail() {
+    fail("This test is yet to be written !");
   }
 
   @org.junit.jupiter.api.AfterAll
