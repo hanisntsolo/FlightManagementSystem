@@ -36,6 +36,10 @@ private List<Booking> bookingList= new ArrayList<>();
 	public User() {
 	}
 
+	public User(BigInteger userId) {
+		this.userId = userId;
+	}
+
 	public User(String userType, String userName, String password,
 			String email, String mobileNumber) {
 		this.userType = userType;
