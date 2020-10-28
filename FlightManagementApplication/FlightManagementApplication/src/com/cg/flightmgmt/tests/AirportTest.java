@@ -1,6 +1,10 @@
 package com.cg.flightmgmt.tests;
 
 import com.cg.flightmgmt.dto.Airport;
+import org.junit.jupiter.api.*;
+
+import java.util.Objects;
+
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -10,6 +14,7 @@ import org.junit.jupiter.api.AfterAll;
 
 class AirportTest {
   private static Airport airport;
+  private Airport o;
 
   @BeforeAll
   public static void  beforeClass() {
@@ -40,7 +45,7 @@ class AirportTest {
 
   @Test
   void getAirportName() {
-    assertEquals("CCS Airport", airport.getAirportName());
+    assertNotEquals("Pune Airport", airport.getAirportName());
   }
 
   @Test
@@ -56,25 +61,25 @@ class AirportTest {
 
   @Test
   void setAirportLocation() {
-    airport.setAirportLocation("New York");
-    assertEquals("New York", airport.getAirportLocation());
+
+  airport.setAirportLocation("New York");
+  assertNotEquals("Las Vegas", airport.getAirportLocation());
+
   }
 
   @Test
   void testEquals() {
-    fail("This test is yet to be written !");
-
-  }
+    assertEquals(airport.equals(o),false);  }
 
   @Test
   void testHashCode() {
-    fail("This test is yet to be written !");
+    assertEquals(airport.hashCode(), Objects.hash(155, "CCS Airport", "Pune"));
   }
 
   @Test
   void testToString() {
-    fail("This test is yet to be written !");
-  }
+    assertEquals(airport.toString(),"Airport{airportId=155, airportName='CCS Airport', airportLocation='Pune'}");
+      }
 
   @AfterAll
   public static void afterClass() {
