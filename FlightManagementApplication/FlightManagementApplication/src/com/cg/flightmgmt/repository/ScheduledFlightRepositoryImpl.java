@@ -78,7 +78,7 @@ public class ScheduledFlightRepositoryImpl implements IScheduledFlightRepository
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
 
-        List<ScheduledFlight> flightList=  em.createQuery("select * from ScheduledFlight", ScheduledFlight.class).getResultList();
+        List<ScheduledFlight> flightList=  em.createQuery("select sf from ScheduledFlight sf", ScheduledFlight.class).getResultList();
         em.getTransaction().commit();
         em.close();
         factory.close();

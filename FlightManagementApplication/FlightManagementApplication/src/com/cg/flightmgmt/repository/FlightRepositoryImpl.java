@@ -48,7 +48,7 @@ public class FlightRepositoryImpl implements IFlightRepository {
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
 
-        List<Flight> flightSet=  em.createQuery("select * from Flight", Flight.class).getResultList();
+        List<Flight> flightSet=  em.createQuery("select f from Flight f", Flight.class).getResultList();
         em.getTransaction().commit();
         em.close();
         factory.close();
