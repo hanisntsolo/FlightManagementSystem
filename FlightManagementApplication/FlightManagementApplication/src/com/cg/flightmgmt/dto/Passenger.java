@@ -1,9 +1,6 @@
 package com.cg.flightmgmt.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Objects;
@@ -17,25 +14,26 @@ import javax.persistence.Table;
 @Entity
 @Table(name= "passenger")
 public class Passenger {
+@GeneratedValue(strategy = GenerationType.AUTO)
 @Id
 private BigInteger pnrNumber;
 private String passengerName;
 private int age;
 private BigInteger passengerUIN;
 private Double luggage;
-@ManyToMany
-private List<Booking> bookingList;
+@ManyToOne
+private Booking booking;
 	public Passenger() {
 
 	}
-	public Passenger(BigInteger pnrNumber, String passengerName, int age, BigInteger passengerUIN, Double luggage, List<Booking> bookingList)
+	public Passenger(BigInteger pnrNumber, String passengerName, int age, BigInteger passengerUIN, Double luggage)
 	{
 		this.pnrNumber=pnrNumber;
 		this.passengerName=passengerName;
 		this.age=age;
 		this.passengerUIN=passengerUIN;
 		this.luggage=luggage;
-		this.bookingList = bookingList;
+		//this.bookingList = bookingList;
 	}
 	public BigInteger getPnrNumber() {
 		return pnrNumber;
@@ -67,8 +65,9 @@ private List<Booking> bookingList;
 	public void setLuggage(Double luggage) {
 		this.luggage = luggage;
 	}
-	public List<Booking> getBookingList(){return bookingList;}
-	public void setBookingList(List<Booking> bookingList){this.bookingList= bookingList;}
+	public Booking getBooking(){return booking;}
+	public void setBooking(Booking booking){this.booking= booking; }
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {
@@ -82,7 +81,8 @@ private List<Booking> bookingList;
 				pnrNumber.equals(passenger.pnrNumber) &&
 				passengerName.equals(passenger.passengerName) &&
 				passengerUIN.equals(passenger.passengerUIN) &&
-				luggage.equals(passenger.luggage);
+				luggage.equals(passenger.luggage) &&
+				booking.getBookingId().equals(passenger.booking.getBookingId());
 	}
 
 	@Override
@@ -98,6 +98,7 @@ private List<Booking> bookingList;
 				", age=" + age +
 				", passengerUIN=" + passengerUIN +
 				", luggage=" + luggage +
+				", booking=" + booking +
 				'}';
 	}
 }

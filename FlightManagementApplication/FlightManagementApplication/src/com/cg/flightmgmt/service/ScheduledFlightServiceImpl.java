@@ -7,6 +7,7 @@ import com.cg.flightmgmt.repository.ScheduledFlightRepositoryImpl;
 
 import java.math.BigInteger;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,17 +36,13 @@ public class ScheduledFlightServiceImpl implements IScheduledFlightService {
   }
 
   @Override
-  public List<ScheduledFlight> viewAllScheduledFlights() {
-//	  List<ScheduledFlight> list=new ArrayList<ScheduledFlight>();
-//	  Flight list=scheduledFlightRepository.viewAllScheduledFlights();
-    return null;
+  public List<ScheduledFlight> viewAllScheduledFlights(String source, String destination, LocalDate date) {
+    return scheduledFlightRepository.viewAllScheduledFlights(source, destination, date);
   }
 
   @Override
-  public List<ScheduledFlight> viewAllScheduledFlights(Date arrivalDate) {
-	  List<ScheduledFlight> list1=new ArrayList<ScheduledFlight>();
-	  list1=scheduledFlightRepository.viewAllScheduledFlights();
-    return list1;
+  public List<ScheduledFlight> viewAllScheduledFlights(LocalDate arrivalDate) {
+	  return scheduledFlightRepository.viewAllScheduledFlights(arrivalDate);
   }
 
   @Override

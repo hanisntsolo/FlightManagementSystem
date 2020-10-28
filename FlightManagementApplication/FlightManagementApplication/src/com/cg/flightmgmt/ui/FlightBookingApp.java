@@ -26,6 +26,7 @@ import com.cg.flightmgmt.dto.*;
  *
  */
 import com.cg.flightmgmt.dto.User;
+
 import com.cg.flightmgmt.exception.FlightNotFoundException;
 import com.cg.flightmgmt.exception.UserNotFoundException;
 import com.cg.flightmgmt.repository.FlightRepositoryImpl;
@@ -35,7 +36,9 @@ import com.cg.flightmgmt.service.ScheduledFlightServiceImpl;
 import com.cg.flightmgmt.service.UserServiceImpl;
 
 
+
 import java.math.BigInteger;
+
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -44,6 +47,8 @@ import java.util.Scanner;
 
 public class FlightBookingApp {
   static Scanner sc= new Scanner(System.in);
+  static IFlightBookingService flightBookingService= new FlightBookingServiceImpl();
+  static IScheduledFlightService scheduledFlightService= new ScheduledFlightServiceImpl();
   static IUserService userService= new UserServiceImpl();
   static FlightServiceImpl flightService=new FlightServiceImpl();
   static ScheduledFlightServiceImpl scheduledFlightService=new ScheduledFlightServiceImpl();
@@ -72,7 +77,8 @@ public class FlightBookingApp {
     int logChoice= Integer.parseInt(sc.nextLine());
 
     if(logChoice==1) {
-      if(validateUser()) {
+      User user= validateUser();
+      if(user!= null) {
         while (true) {
           System.out.println("1. Add Flights\n2. Modify Flights\n3. Delete Flight\n4. Search Flight\n5. Show Flights\n"
                   + "6. Add Schedule\n7. Modify Schedule\n8. Delete Schedule\n9. Search Schedule\n10. Show Schedule\n11. Log out");
@@ -227,27 +233,24 @@ public class FlightBookingApp {
         System.out.println("User not found....\nYou have entered wrong id or password!");
       }
     }else if(logChoice==2) {
-      if(validateUser()) {
+      User user= validateUser();
+      if(user!= null) {
         while (true) {
-          System.out.println("1. Search Flights\n2. check availability\n3. Make Booking\n4. Cancel Booking\n5. Log out");
+          System.out.println("1. check availability\n2. Make Booking\n3. Cancel Booking\n4. Log out");
           int choice = sc.nextInt();
           switch (choice) {
-
-            case 1:// search flights
+            case 1: checkAvailability();
               break;
-            case 2:// check availability
+            case 2: makeBooking(user);
               break;
-            case 3:
+            case 3: cancelBooking();
               break;
-            case 4:// Cancel Booking
-              break;
-            case 5:
+            case 4:
               System.out.println("Logged out");
               System.exit(0);
               break;
             default:
               System.out.println("Choose from the given options.....");
-
           }
         }
       }else{
@@ -261,27 +264,27 @@ public class FlightBookingApp {
       sc.close();
     }
 
-  public static Boolean validateUser(){
+  public static User validateUser(){
     System.out.println("Enter user id:");
     BigInteger userId= sc.nextBigInteger();
     System.out.println("Enter password:");
     String password= sc.next();
     try {
-      userService.validateUser(new User(userId, password));
-      return true;
+      User user= userService.validateUser(new User(userId, password));
+      return user;
     }catch (UserNotFoundException e){
-      return false;
+      return null;
     }
   }
-  public static void updateUser() throws UserNotFoundException {
+  /*public static void updateUser() throws UserNotFoundException {
     System.out.println("Enter your user Id:");
     BigInteger userId = sc.nextBigInteger();
     System.out.println("Enter Password:");
     String password = sc.next();
     userService.updateUser(new User(userId, password));
-  }
+  }*/
 
-  public  static User signUp(){
+  public  static void signUp(){
     System.out.println("Enter name: ");
     String name= sc.nextLine();
     System.out.println("Enter password: ");
@@ -293,8 +296,67 @@ public class FlightBookingApp {
     User user= userService.addUser(new User("user", name, password, email, mobileNo));
     System.out.println("You have successfully signed up. Go to the login page.....");
     System.out.println("======= Your user id is: " + user.getUserId() + " ========");
-    return user;
   }
 
+  public static List<ScheduledFlight> checkAvailability(){
+    System.out.println("Enter source: ");
+    String source= sc.next();
+    System.out.println("Enter destination: ");
+    String destination= sc.next();
+    System.out.println("Enter date: ");
+    String[] dateArr= sc.next().split("-");
+    LocalDate date= LocalDate.of(Integer.parseInt(dateArr[0]), Integer.parseInt(dateArr[1]), Integer.parseInt(dateArr[2]));
+    List<ScheduledFlight> list= scheduledFlightService.viewAllScheduledFlights(source, destination, date);
+    if(list!= null)
+      System.out.println(list);
+    else
+      System.out.println("No flights available");
+    return list;
+  }
+
+  public static void cancelBooking() {
+    System.out.println("Please enter booking id: ");
+    BigInteger bookingId = sc.nextBigInteger();
+    try {
+      flightBookingService.cancelBooking(bookingId);
+      System.out.println("Booking cancelled");
+    } catch (BookingNotFoundException e) {
+      System.out.println("Booking not found!");
+    }
+  }
+
+  public static void makeBooking(User user){
+    List<Passenger> passengers_list= new ArrayList<>();
+    List<ScheduledFlight> flight_list= checkAvailability();
+    if(flight_list==null)
+      return;
+    System.out.println("Enter your choice: ");
+    int choice= sc.nextInt();
+    System.out.println("Enter no of passengers: ");
+    int noOfPassenger= sc.nextInt();
+    System.out.println("Enter details of passengers: ");
+    for(int i=0; i<noOfPassenger; i++){
+      Passenger psngr= new Passenger();
+      System.out.println("Enter passenger " + (i+1) + " details");
+      System.out.println("Enter passenger name: ");
+      psngr.setPassengerName(sc.nextLine());
+      System.out.println("Enter passenger age: ");
+      psngr.setAge(sc.nextInt());
+      System.out.println("Enter passenger UIN: ");
+      psngr.setPassengerUIN(sc.nextBigInteger());
+      System.out.println("Enter luggage: ");
+      psngr.setLuggage(sc.nextDouble());
+      passengers_list.add(psngr);
+    }
+    double cost= flight_list.get(choice-1).getFares();
+    Flight flight= flight_list.get(choice-1).getFlight();
+    Booking booking= new Booking(user, LocalDate.now(), passengers_list, cost, flight, noOfPassenger);
+    Booking confirmedBooking= flightBookingService.addBooking(booking);
+    for(Passenger passenger: passengers_list){
+      passenger.setBooking(confirmedBooking);
+    }
+    System.out.println("Your booking is confirmed");
+    System.out.println(confirmedBooking);
+  }
 }
 
