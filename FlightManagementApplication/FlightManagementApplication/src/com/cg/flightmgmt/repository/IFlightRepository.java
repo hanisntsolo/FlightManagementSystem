@@ -12,6 +12,7 @@ public interface IFlightRepository {
 	public Flight addFlight(Flight flight);
 	public Flight viewFlight(BigInteger flightId) throws FlightNotFoundException;
 	public List<Flight> viewAllFlights();
+
 	public Flight removeFlight(BigInteger flightId);
 	public Flight updateFlight(Flight flight);
 }

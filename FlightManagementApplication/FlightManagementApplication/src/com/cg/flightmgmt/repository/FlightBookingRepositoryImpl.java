@@ -21,6 +21,7 @@ public class FlightBookingRepositoryImpl implements IFlightBookingRepository{
         entityManager.persist(booking);
         entityManager.getTransaction().commit();
         //EntityManagerFactory factory = Persistence
+
         //.createEntityManagerFactory("NewPersistenceUnit");
 //        EntityManager em = factory.createEntityManager();
 //        em.getTransaction().begin();
@@ -31,6 +32,7 @@ public class FlightBookingRepositoryImpl implements IFlightBookingRepository{
         return booking;
     }
     public Booking cancelBooking(BigInteger bookingId) throws BookingNotFoundException{
+
         entityManager= jpaUtil.getEntityManager();
         entityManager.getTransaction().begin();
         entityManager.persist(bookingId);
@@ -55,6 +57,7 @@ public class FlightBookingRepositoryImpl implements IFlightBookingRepository{
         }
     }
     public Booking viewBooking(BigInteger bookingId) throws BookingNotFoundException{
+
         entityManager= jpaUtil.getEntityManager();
         entityManager.getTransaction().begin();
         entityManager.persist(bookingId);
@@ -66,6 +69,7 @@ public class FlightBookingRepositoryImpl implements IFlightBookingRepository{
 //        em.getTransaction().begin();
         Booking booking= entityManager.find(Booking.class, bookingId);
         // em.close();
+
         //factory.close();
         if(booking==null){
             throw new BookingNotFoundException("Booking not found!");
@@ -87,6 +91,7 @@ public class FlightBookingRepositoryImpl implements IFlightBookingRepository{
     }
     public List<Booking> viewBookingList(BigInteger flightId){
         entityManager=jpaUtil.getEntityManager();
+
 //        EntityManagerFactory factory = Persistence
 //                .createEntityManagerFactory("NewPersistenceUnit");
 //        EntityManager em = factory.createEntityManager();
@@ -99,6 +104,7 @@ public class FlightBookingRepositoryImpl implements IFlightBookingRepository{
     }
     public List<Booking> viewBookingHistory(BigInteger userId){
         entityManager=jpaUtil.getEntityManager();
+
 //        EntityManagerFactory factory = Persistence
 //                .createEntityManagerFactory("NewPersistenceUnit");
 //        EntityManager em = factory.createEntityManager();

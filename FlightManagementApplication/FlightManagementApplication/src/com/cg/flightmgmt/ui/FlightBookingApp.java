@@ -1,7 +1,7 @@
 package com.cg.flightmgmt.ui;
 import com.cg.flightmgmt.dto.*;
 
-/**
+/*******************************************************************************
  * This is the main program to
  * initiate the app and perform
  * operations on Flight reservation.
@@ -24,18 +24,19 @@ import com.cg.flightmgmt.dto.*;
  *    d. Cancel or modify the flight, schedule and route details.
  *
  *
- */
+ ******************************************************************************/
 import com.cg.flightmgmt.dto.User;
-
+import com.cg.flightmgmt.exception.BookingNotFoundException;
 import com.cg.flightmgmt.exception.FlightNotFoundException;
 import com.cg.flightmgmt.exception.UserNotFoundException;
 import com.cg.flightmgmt.repository.FlightRepositoryImpl;
+import com.cg.flightmgmt.service.FlightBookingServiceImpl;
 import com.cg.flightmgmt.service.FlightServiceImpl;
+import com.cg.flightmgmt.service.IFlightBookingService;
+import com.cg.flightmgmt.service.IScheduledFlightService;
 import com.cg.flightmgmt.service.IUserService;
 import com.cg.flightmgmt.service.ScheduledFlightServiceImpl;
 import com.cg.flightmgmt.service.UserServiceImpl;
-
-
 
 import java.math.BigInteger;
 
@@ -43,6 +44,8 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import  java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class FlightBookingApp {
@@ -51,13 +54,13 @@ public class FlightBookingApp {
   static IScheduledFlightService scheduledFlightService= new ScheduledFlightServiceImpl();
   static IUserService userService= new UserServiceImpl();
   static FlightServiceImpl flightService=new FlightServiceImpl();
-  static ScheduledFlightServiceImpl scheduledFlightService=new ScheduledFlightServiceImpl();
- static BigInteger flightId;
- static String carrierName;
- static String flightModel;
+//  static ScheduledFlightServiceImpl scheduledFlightService=new ScheduledFlightServiceImpl();
+  static BigInteger flightId;
+  static String carrierName;
+  static String flightModel;
   static int seatCapacity;
   static Flight flight;
- static int availableSeats;
+  static int availableSeats;
   static Schedule schedule;
   static double fares;
   static int airportId;
@@ -67,8 +70,8 @@ public class FlightBookingApp {
   static  Airport destinationAirport;
 
   public static void main(String[] args) throws Exception{
-
-    System.out.println("\n\n===========WELCOME TO EASEMYFLIGHT=============");
+    System.out.println("*******************************************************");
+    System.out.println("\n\n===========WELCOME TO EASE_MY_FLIGHT=============");
     System.out.println("-----------------------------------------------");
     System.out.println("1. Log in as admin");
     System.out.println("2. Log in as user");
@@ -80,8 +83,17 @@ public class FlightBookingApp {
       User user= validateUser();
       if(user!= null) {
         while (true) {
-          System.out.println("1. Add Flights\n2. Modify Flights\n3. Delete Flight\n4. Search Flight\n5. Show Flights\n"
-                  + "6. Add Schedule\n7. Modify Schedule\n8. Delete Schedule\n9. Search Schedule\n10. Show Schedule\n11. Log out");
+          System.out.println("1. Add Flights\n"
+                           + "2. Modify Flights\n"
+                           + "3. Delete Flight\n"
+                           + "4. Search Flight\n"
+                           + "5. Show Flights\n"
+                           + "6. Add Schedule\n"
+                           + "7. Modify Schedule\n"
+                           + "8. Delete Schedule\n"
+                           + "9. Search Schedule\n"
+                           + "10. Show Schedule\n"
+                           + "11. Log out");
           int choice = sc.nextInt();
 
           switch (choice) {
@@ -217,7 +229,7 @@ public class FlightBookingApp {
             case 10:// show schedule
                 System.out.println("Enter Date: ");
                 String d1=sc.nextLine();
-                Date arrivalDate = Date.valueOf(d1);
+                LocalDate arrivalDate = LocalDate.parse(d1);
                 System.out.println(scheduledFlightService.viewAllScheduledFlights( arrivalDate));
               break;
             case 11:

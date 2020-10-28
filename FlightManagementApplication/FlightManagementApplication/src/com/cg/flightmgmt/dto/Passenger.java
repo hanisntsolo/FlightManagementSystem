@@ -35,7 +35,11 @@ private Booking booking;
 		this.luggage=luggage;
 		//this.bookingList = bookingList;
 	}
-	public BigInteger getPnrNumber() {
+
+  public Passenger(BigInteger bigInteger, String thomas, int i, BigInteger bigInteger1, double v, List<Booking> bookingList) {
+  }
+
+  public BigInteger getPnrNumber() {
 		return pnrNumber;
 	}
 	public void setPnrNumber(BigInteger pnrNumber) {

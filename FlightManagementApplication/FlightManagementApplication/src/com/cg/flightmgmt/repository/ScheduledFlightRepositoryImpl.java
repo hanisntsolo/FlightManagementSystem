@@ -101,20 +101,19 @@ public class ScheduledFlightRepositoryImpl implements IScheduledFlightRepository
     }
 
     @Override
-    public List<ScheduledFlight> viewAllScheduledFlights(LocalDate date1,LocalDate date2)
-    {
-
+    public List<ScheduledFlight> viewAllScheduledFlights(LocalDate date1,LocalDate date2) {
 
         EntityManagerFactory factory = Persistence
-                .createEntityManagerFactory("NewPersistenceUnit");
+            .createEntityManagerFactory("NewPersistenceUnit");
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
-        List<ScheduledFlight> flightList= em.createQuery("select f from ScheduledFlights f where f.arrivalDate between :date1 and :date2",
-                ScheduledFlight.class).getResultList();
+        List<ScheduledFlight> flightList = em.createQuery(
+            "select f from ScheduledFlights f where f.arrivalDate between :date1 and :date2",
+            ScheduledFlight.class).getResultList();
         em.close();
         factory.close();
         return flightList;
-
+    }
     @Override
     public List<ScheduledFlight> viewAllScheduledFlights(String source, String destination, LocalDate date){
         EntityManagerFactory factory = Persistence
