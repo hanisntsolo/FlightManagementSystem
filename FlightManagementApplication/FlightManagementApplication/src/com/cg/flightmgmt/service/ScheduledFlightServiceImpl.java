@@ -3,13 +3,19 @@ package com.cg.flightmgmt.service;
 import com.cg.flightmgmt.dto.Flight;
 import com.cg.flightmgmt.dto.Schedule;
 import com.cg.flightmgmt.dto.ScheduledFlight;
-import com.cg.flightmgmt.exception.FlightNotFoundException;
+
+import com.cg.flightmgmt.repository.ScheduledFlightRepository;
+
+import java.math.BigInteger;
+import java.sql.Date;
+
 import com.cg.flightmgmt.repository.IScheduledFlightRepository;
 import com.cg.flightmgmt.repository.ScheduledFlightRepositoryImpl;
 
 import java.math.BigInteger;
 import java.sql.Date;
 import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.List;
 

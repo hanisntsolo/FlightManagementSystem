@@ -82,7 +82,7 @@ private double fares; //cost per seat
 	@Override
 	public String toString() {
 		return "ScheduledFlight{" +
-				"flight=" + flight +
+				"flight=" + flight.getFlightId() +
 				", availableSeats=" + availableSeats +
 				", schedule=" + schedule +
 				", fares=" + fares +

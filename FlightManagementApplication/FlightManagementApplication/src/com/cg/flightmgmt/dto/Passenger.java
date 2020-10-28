@@ -33,8 +33,17 @@ private Booking booking;
 		this.age=age;
 		this.passengerUIN=passengerUIN;
 		this.luggage=luggage;
-		//this.bookingList = bookingList;
 	}
+
+	public Passenger(BigInteger pnrNumber, String passengerName, int age, BigInteger passengerUIN, Double luggage, Booking booking) {
+		this.pnrNumber = pnrNumber;
+		this.passengerName = passengerName;
+		this.age = age;
+		this.passengerUIN = passengerUIN;
+		this.luggage = luggage;
+		this.booking = booking;
+	}
+
 	public BigInteger getPnrNumber() {
 		return pnrNumber;
 	}
@@ -68,27 +77,39 @@ private Booking booking;
 	public Booking getBooking(){return booking;}
 	public void setBooking(Booking booking){this.booking= booking; }
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		Passenger passenger = (Passenger) o;
-		return age == passenger.age &&
-				pnrNumber.equals(passenger.pnrNumber) &&
-				passengerName.equals(passenger.passengerName) &&
-				passengerUIN.equals(passenger.passengerUIN) &&
-				luggage.equals(passenger.luggage) &&
-				booking.getBookingId().equals(passenger.booking.getBookingId());
-	}
+//	@Override
+//	public boolean equals(Object o) {
+//		if (this == o) {
+//			return true;
+//		}
+//		if (o == null || getClass() != o.getClass()) {
+//			return false;
+//		}
+//		Passenger passenger = (Passenger) o;
+//		return age == passenger.age &&
+//				pnrNumber.equals(passenger.pnrNumber) &&
+//				passengerName.equals(passenger.passengerName) &&
+//				passengerUIN.equals(passenger.passengerUIN) &&
+//				luggage.equals(passenger.luggage) &&
+//				booking.getBookingId().equals(passenger.booking.getBookingId());
+//	}
 
 	@Override
 	public int hashCode() {
 		return Objects.hash(pnrNumber, passengerName, age, passengerUIN, luggage);
 	}
+
+	/*@Override
+	public String toString() {
+		return "Passenger{" +
+				"pnrNumber=" + pnrNumber +
+				", passengerName='" + passengerName + '\'' +
+				", age=" + age +
+				", passengerUIN=" + passengerUIN +
+				", luggage=" + luggage +
+				", booking=" + booking +
+				'}';
+	}*/
 
 	@Override
 	public String toString() {
@@ -98,7 +119,6 @@ private Booking booking;
 				", age=" + age +
 				", passengerUIN=" + passengerUIN +
 				", luggage=" + luggage +
-				", booking=" + booking +
 				'}';
 	}
 }

@@ -17,7 +17,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
-/**
+/*******************************************************************************
  * This is the main program to
  * initiate the app and perform
  * operations on Flight reservation.
@@ -46,6 +46,7 @@ public class FlightBookingApp {
   static IScheduledFlightService scheduledFlightService= new ScheduledFlightServiceImpl();
   static IUserService userService= new UserServiceImpl();
   static FlightServiceImpl flightService=new FlightServiceImpl();
+
  static IAirportService airportService=new AirportServiceImp();
 
  static BigInteger flightId;
@@ -53,7 +54,7 @@ public class FlightBookingApp {
  static String flightModel;
   static int seatCapacity;
   static Flight flight;
- static int availableSeats;
+  static int availableSeats;
   static Schedule schedule;
   static double fares;
   static int airportId;
@@ -64,8 +65,8 @@ public class FlightBookingApp {
   static ScheduledFlight scheduledFlight;
 
   public static void main(String[] args) throws Exception{
-
-    System.out.println("\n\n===========WELCOME TO EASEMYFLIGHT=============");
+    System.out.println("*******************************************************");
+    System.out.println("\n\n===========WELCOME TO EASE_MY_FLIGHT=============");
     System.out.println("-----------------------------------------------");
     System.out.println("1. Log in as admin");
     System.out.println("2. Log in as user");
@@ -77,10 +78,17 @@ public class FlightBookingApp {
       User user= validateUser();
       if(user!= null) {
         while (true) {
-
-          System.out.println("1. Add Flights\n2. Modify Flights\n3. Delete Flight\n4. Search Flight\n5. Show Flights\n"
-                  + "6. Add Schedule\n7. Modify Schedule\n8. Delete Schedule\n9. Search Schedule\n10. Show Schedule\n11. Log out");
-            System.out.println("Enter your next choice :");
+          System.out.println("1. Add Flights\n"
+                           + "2. Modify Flights\n"
+                           + "3. Delete Flight\n"
+                           + "4. Search Flight\n"
+                           + "5. Show Flights\n"
+                           + "6. Add Schedule\n"
+                           + "7. Modify Schedule\n"
+                           + "8. Delete Schedule\n"
+                           + "9. Search Schedule\n"
+                           + "10. Show Schedule\n"
+                           + "11. Log out");
           int choice = sc.nextInt();
 
           switch (choice) {
