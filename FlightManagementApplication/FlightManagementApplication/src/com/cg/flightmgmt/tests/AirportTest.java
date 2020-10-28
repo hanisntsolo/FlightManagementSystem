@@ -6,6 +6,11 @@ import org.junit.jupiter.api.*;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.AfterAll;
 
 class AirportTest {
   private static Airport airport;
@@ -56,8 +61,10 @@ class AirportTest {
 
   @Test
   void setAirportLocation() {
+
   airport.setAirportLocation("New York");
   assertNotEquals("Las Vegas", airport.getAirportLocation());
+
   }
 
   @Test

@@ -2,6 +2,7 @@ package com.cg.flightmgmt.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
 import com.cg.flightmgmt.dto.Booking;
 import com.cg.flightmgmt.dto.Passenger;
 import org.junit.jupiter.api.*;
@@ -10,6 +11,13 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 
 class PassengerTest {
   private static Passenger passenger;

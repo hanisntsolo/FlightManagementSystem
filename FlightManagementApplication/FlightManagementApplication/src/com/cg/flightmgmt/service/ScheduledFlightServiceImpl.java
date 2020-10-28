@@ -2,14 +2,18 @@ package com.cg.flightmgmt.service;
 
 import com.cg.flightmgmt.dto.Flight;
 import com.cg.flightmgmt.dto.ScheduledFlight;
+import com.cg.flightmgmt.repository.IScheduledFlightRepository;
+import com.cg.flightmgmt.repository.ScheduledFlightRepositoryImpl;
+
 import java.math.BigInteger;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ScheduledFlightServiceImpl implements IScheduledFlightService {
 
-  ScheduledFlightServiceImpl scheduledFlightRepository=new ScheduledFlightServiceImpl();
+  IScheduledFlightRepository scheduledFlightRepository=new ScheduledFlightRepositoryImpl();
 
   @Override
   public Flight addFlightSchedule(Flight flight) {
@@ -32,17 +36,13 @@ public class ScheduledFlightServiceImpl implements IScheduledFlightService {
   }
 
   @Override
-  public List<ScheduledFlight> viewAllScheduledFlights() {
-//	  List<ScheduledFlight> list=new ArrayList<ScheduledFlight>();
-//	  Flight list=scheduledFlightRepository.viewAllScheduledFlights();
-    return null;
+  public List<ScheduledFlight> viewAllScheduledFlights(String source, String destination, LocalDate date) {
+    return scheduledFlightRepository.viewAllScheduledFlights(source, destination, date);
   }
 
   @Override
-  public List<ScheduledFlight> viewAllScheduledFlights(Date arrivalDate) {
-	  List<ScheduledFlight> list1=new ArrayList<ScheduledFlight>();
-	  list1=scheduledFlightRepository.viewAllScheduledFlights();
-    return list1;
+  public List<ScheduledFlight> viewAllScheduledFlights(LocalDate arrivalDate) {
+	  return scheduledFlightRepository.viewAllScheduledFlights(arrivalDate);
   }
 
   @Override

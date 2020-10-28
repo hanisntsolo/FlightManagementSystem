@@ -2,10 +2,14 @@ package com.cg.flightmgmt.dto;
 
 import javax.persistence.Embeddable;
 import javax.persistence.Id;
+import java.sql.Date;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Objects;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /*
  * All airport flight operations are
@@ -15,14 +19,15 @@ import javax.persistence.Id;
 @Embeddable
 public class Schedule {
 	//==========Attributes============//
-	@Id
+	@OneToOne
 	private Airport sourceAirport;
+	@OneToOne
 	private Airport destinationAirport;
 	private LocalDateTime arrivalTime;
 	private LocalDateTime departureTime;
 	private LocalDate arrivalDate;
 	public Schedule() {}
-		public Schedule(Airport sourceAirport,Airport destinationAirport,LocalDateTime arrivalTime,LocalDateTime departureTime, LocalDate arrivalDate)
+		public Schedule(Airport sourceAirport,Airport destinationAirport, LocalDateTime arrivalTime, LocalDateTime departureTime, LocalDate arrivalDate)
 		{
 			this.sourceAirport=sourceAirport;
 			this.destinationAirport=destinationAirport;
