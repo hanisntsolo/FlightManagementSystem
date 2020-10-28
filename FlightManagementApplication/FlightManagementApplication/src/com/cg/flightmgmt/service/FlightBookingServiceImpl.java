@@ -15,7 +15,7 @@ public class FlightBookingServiceImpl implements IFlightBookingService {
   public Booking addBooking(Booking booking) {
     return FlightBookingRepository.addBooking(booking);
   }
-
+  IFlightBookingRepository flightBookingRepository= new FlightBookingRepositoryImpl();
   @Override
   public Booking cancelBooking(BigInteger bookingId) throws BookingNotFoundException {
     return FlightBookingRepository.cancelBooking(bookingId);

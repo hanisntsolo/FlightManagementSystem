@@ -1,6 +1,7 @@
 package com.cg.flightmgmt.dto;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -13,7 +14,11 @@ import javax.persistence.Table;
  * and the vacancy.
  */
 
-public class ScheduledFlight {
+@Entity
+@Table(name= "scheduledflight")
+public class ScheduledFlight implements Serializable{
+@Id
+@OneToOne
 private Flight flight;
 private int availableSeats;
 @Embedded

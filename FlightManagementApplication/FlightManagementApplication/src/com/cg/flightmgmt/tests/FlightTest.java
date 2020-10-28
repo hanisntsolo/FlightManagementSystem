@@ -1,14 +1,22 @@
 package com.cg.flightmgmt.tests;
 
-import static org.junit.jupiter.api.Assertions.fail;
+import com.cg.flightmgmt.dto.Flight;
+import org.junit.jupiter.api.*;
 
+import java.math.BigInteger;
+import java.util.Objects;
+
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+
 class FlightTest {
+  private static Flight flight;
+  private Object o;
 
   @BeforeAll
   public static void  beforeClass() {
@@ -16,6 +24,8 @@ class FlightTest {
   }
   @BeforeEach
   void setUp() {
+    flight = new Flight(new BigInteger("2354"),"Boeing","Boeing 747 NJ",300);
+    System.out.println("Running tests..........");
   }
 
   @AfterEach
@@ -25,57 +35,61 @@ class FlightTest {
 
   @Test
   void getFlightId() {
-    fail("This test is yet to be written !");
+    assertEquals(BigInteger.valueOf(2354),flight.getFlightId());
   }
 
   @Test
   void setFlightId() {
-    fail("This test is yet to be written !");
+    flight.setFlightId(BigInteger.valueOf(3976));
+    assertEquals(BigInteger.valueOf(3976),flight.getFlightId());
   }
 
   @Test
   void getCarrierName() {
-    fail("This test is yet to be written !");
+    assertNotEquals("Indigo",flight.getCarrierName());
   }
 
   @Test
   void setCarrierName() {
-    fail("This test is yet to be written !");
+    flight.setCarrierName("Spice Jet");
+    assertEquals("Spice Jet",flight.getCarrierName());
   }
 
   @Test
   void getFlightModel() {
-    fail("This test is yet to be written !");
+    assertEquals("Boeing 747 NJ",flight.getFlightModel());
   }
 
   @Test
   void setFlightModel() {
-    fail("This test is yet to be written !");
+    flight.setFlightModel("Boeing 465 NY");
+    assertNotEquals("Boeing 349 NZ",flight.getFlightModel());
   }
 
   @Test
   void getSeatCapacity() {
-    fail("This test is yet to be written !");
+    assertNotEquals(360,flight.getSeatCapacity());
   }
 
   @Test
   void setSeatCapacity() {
-    fail("This test is yet to be written !");
+    flight.setSeatCapacity(350);
+    assertEquals(350,flight.getSeatCapacity());
   }
 
   @Test
   void testEquals() {
-    fail("This test is yet to be written !");
+    assertEquals(flight.equals(o),false);
   }
 
   @Test
   void testHashCode() {
-    fail("This test is yet to be written !");
+    assertEquals(flight.hashCode(), Objects.hash(2354,"Boeing","Boeing 747 NJ",300));
   }
 
   @Test
   void testToString() {
-    fail("This test is yet to be written !");
+    assertEquals(flight.toString(), "Flight{flightId=2354, carrierName='Boeing', flightModel='Boeing 747 NJ', seatCapacity=300}");
   }
 
   @AfterAll
