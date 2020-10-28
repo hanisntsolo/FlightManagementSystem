@@ -32,6 +32,7 @@ public class FlightRepositoryImpl implements IFlightRepository {
            EntityManager em = factory.createEntityManager();
            em.getTransaction().begin();
            Flight flight = em.find(Flight.class, flightId);
+        em.getTransaction().commit();
            em.close();
            factory.close();
 
@@ -48,6 +49,7 @@ public class FlightRepositoryImpl implements IFlightRepository {
         em.getTransaction().begin();
 
         List<Flight> flightSet=  em.createQuery("select * from Flight", Flight.class).getResultList();
+        em.getTransaction().commit();
         em.close();
         factory.close();
         return flightSet;
@@ -61,6 +63,7 @@ public class FlightRepositoryImpl implements IFlightRepository {
         em.getTransaction().begin();
         Flight flight= em.find(Flight.class, flightId);
         em.remove(flight);
+        em.getTransaction().commit();
         em.close();
         factory.close();
         return flight;
@@ -73,6 +76,7 @@ public class FlightRepositoryImpl implements IFlightRepository {
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
         em.createQuery("UPDATE Flight SET seatCapacity = :flight.seatCapacity").executeUpdate();
+        em.getTransaction().commit();
         em.close();
         factory.close();
         return flight;

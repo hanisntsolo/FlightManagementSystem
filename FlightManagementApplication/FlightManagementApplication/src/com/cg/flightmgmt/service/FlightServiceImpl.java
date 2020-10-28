@@ -3,13 +3,14 @@ package com.cg.flightmgmt.service;
 import com.cg.flightmgmt.dto.Flight;
 import com.cg.flightmgmt.exception.FlightNotFoundException;
 import com.cg.flightmgmt.repository.FlightBookingRepositoryImpl;
+import com.cg.flightmgmt.repository.FlightRepositoryImpl;
 import com.cg.flightmgmt.repository.IFlightRepository;
 
 import java.math.BigInteger;
 import java.util.List;
 
 public class FlightServiceImpl implements IFlightService {
-  FlightServiceImpl Flight=new FlightServiceImpl();
+  IFlightRepository Flight=new FlightRepositoryImpl();
 
   @Override
   public Flight addFlight(Flight flight) {
