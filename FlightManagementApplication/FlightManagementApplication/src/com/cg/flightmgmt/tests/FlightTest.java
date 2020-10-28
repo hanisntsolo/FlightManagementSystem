@@ -1,68 +1,98 @@
 package com.cg.flightmgmt.tests;
 
+import com.cg.flightmgmt.dto.Flight;
+import org.junit.jupiter.api.*;
+
+import java.math.BigInteger;
+import java.util.Objects;
+
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 
 class FlightTest {
+  private static Flight flight;
+  private Object o;
 
-  @org.junit.jupiter.api.BeforeAll
+  @BeforeAll
   public static void  beforeClass() {
     System.out.println("This will run before any of the test cases!");
   }
   @BeforeEach
   void setUp() {
+    flight = new Flight(new BigInteger("2354"),"Boeing","Boeing 747 NJ",300);
+    System.out.println("Running tests..........");
   }
 
-  @org.junit.jupiter.api.AfterEach
+  @AfterEach
   void tearDown() {
     System.out.println("This will run after each test case is executed");
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void getFlightId() {
+    assertEquals(BigInteger.valueOf(2354),flight.getFlightId());
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void setFlightId() {
+    flight.setFlightId(BigInteger.valueOf(3976));
+    assertEquals(BigInteger.valueOf(3976),flight.getFlightId());
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void getCarrierName() {
+    assertNotEquals("Indigo",flight.getCarrierName());
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void setCarrierName() {
+    flight.setCarrierName("Spice Jet");
+    assertEquals("Spice Jet",flight.getCarrierName());
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void getFlightModel() {
+    assertEquals("Boeing 747 NJ",flight.getFlightModel());
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void setFlightModel() {
+    flight.setFlightModel("Boeing 465 NY");
+    assertNotEquals("Boeing 349 NZ",flight.getFlightModel());
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void getSeatCapacity() {
+    assertNotEquals(360,flight.getSeatCapacity());
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void setSeatCapacity() {
+    flight.setSeatCapacity(350);
+    assertEquals(350,flight.getSeatCapacity());
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void testEquals() {
+    assertEquals(flight.equals(o),false);
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void testHashCode() {
+    assertEquals(flight.hashCode(), Objects.hash(2354,"Boeing","Boeing 747 NJ",300));
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void testToString() {
+    assertEquals(flight.toString(), "Flight{flightId=2354, carrierName='Boeing', flightModel='Boeing 747 NJ', seatCapacity=300}");
   }
 
-  @org.junit.jupiter.api.AfterAll
+  @AfterAll
   public static void afterClass() {
     System.out.println ("This will execute after all test cases!");
   }

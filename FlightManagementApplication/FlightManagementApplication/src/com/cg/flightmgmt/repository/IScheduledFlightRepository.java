@@ -2,6 +2,7 @@ package com.cg.flightmgmt.repository;
 
 import java.math.BigInteger;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -15,7 +16,8 @@ public interface IScheduledFlightRepository {
 	public Flight removeFlightSchedule(BigInteger flightId);
 	public Flight updateFlightSchedule(ScheduledFlight flight);
 	public List<ScheduledFlight> viewAllScheduledFlights();
-	public List<ScheduledFlight> viewAllScheduledFlights(Date arrivalDate);
-	public List<ScheduledFlight> viewAllScheduledFlights(String source, String destination);
+	public List<ScheduledFlight> viewAllScheduledFlights(LocalDate arrivalDate);
+	public List<ScheduledFlight> viewAllScheduledFlights(LocalDate date1, LocalDate date2);
+	public List<ScheduledFlight> viewAllScheduledFlights(String source, String destination, LocalDate date);
 
 }

@@ -5,10 +5,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterAll;
 
 class ScheduleTest {
 
-  @org.junit.jupiter.api.BeforeAll
+  @BeforeAll
   public static void  beforeClass() {
     System.out.println("This will run before any of the test cases!");
   }
@@ -16,56 +18,67 @@ class ScheduleTest {
   void setUp() {
   }
 
-  @org.junit.jupiter.api.AfterEach
+  @AfterEach
   void tearDown() {
     System.out.println("This will run after each test case is executed");
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void getSourceAirport() {
+    fail("This test is yet to be written !");
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void setSourceAirport() {
+    fail("This test is yet to be written !");
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void getDestinationAirport() {
+    fail("This test is yet to be written !");
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void setDestinationAirport() {
+    fail("This test is yet to be written !");
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void getArrivalTime() {
+    fail("This test is yet to be written !");
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void setArrivalTime() {
+    fail("This test is yet to be written !");
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void getDepartureTime() {
+    fail("This test is yet to be written !");
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void setDepartureTime() {
+    fail("This test is yet to be written !");
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void testEquals() {
+    fail("This test is yet to be written !");
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void testHashCode() {
+    fail("This test is yet to be written !");
   }
 
-  @org.junit.jupiter.api.Test
+  @Test
   void testToString() {
+    fail("This test is yet to be written !");
   }
 
-  @org.junit.jupiter.api.AfterAll
+  @AfterAll
   public static void afterClass() {
     System.out.println ("This will execute after all test cases!");
   }
