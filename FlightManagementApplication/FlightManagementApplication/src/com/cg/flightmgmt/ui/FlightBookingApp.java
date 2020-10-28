@@ -1,49 +1,44 @@
 package com.cg.flightmgmt.ui;
+
 import com.cg.flightmgmt.dto.*;
+import com.cg.flightmgmt.exception.BookingNotFoundException;
+import com.cg.flightmgmt.exception.FlightNotFoundException;
+import com.cg.flightmgmt.exception.UserNotFoundException;
+import com.cg.flightmgmt.service.*;
+
+import java.math.BigInteger;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Scanner;
 
 /**
  * This is the main program to
  * initiate the app and perform
  * operations on Flight reservation.
- *
+ * <p>
  * The functionalities provided by the system.
  * There are two categories of people who would access the system: customer and
  * administrator.
  * Each of these would have some exclusive privileges.
  * 1. The customer can:
- *    a. Create his user account.
- *    b. Login into the application.
- *    c. Check for available flights.
- *    d. Make a booking.
- *    e. View the bookings made.
- *    f. Cancel or modify a booking.
+ * a. Create his user account.
+ * b. Login into the application.
+ * c. Check for available flights.
+ * d. Make a booking.
+ * e. View the bookings made.
+ * f. Cancel or modify a booking.
  * 2. The administrator can:
- *    a. Login into the application.
- *    b. Add flight, schedule and route details.
- *    c. View the flight, schedule and route details.
- *    d. Cancel or modify the flight, schedule and route details.
- *
- *
+ * a. Login into the application.
+ * b. Add flight, schedule and route details.
+ * c. View the flight, schedule and route details.
+ * d. Cancel or modify the flight, schedule and route details.
  */
-import com.cg.flightmgmt.dto.User;
-
-import com.cg.flightmgmt.exception.FlightNotFoundException;
-import com.cg.flightmgmt.exception.UserNotFoundException;
-import com.cg.flightmgmt.repository.FlightRepositoryImpl;
-import com.cg.flightmgmt.service.FlightServiceImpl;
-import com.cg.flightmgmt.service.IUserService;
-import com.cg.flightmgmt.service.ScheduledFlightServiceImpl;
-import com.cg.flightmgmt.service.UserServiceImpl;
-
-
-
-import java.math.BigInteger;
-
-import java.sql.Date;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import  java.time.LocalDateTime;
-import java.util.Scanner;
 
 public class FlightBookingApp {
   static Scanner sc= new Scanner(System.in);
@@ -51,7 +46,8 @@ public class FlightBookingApp {
   static IScheduledFlightService scheduledFlightService= new ScheduledFlightServiceImpl();
   static IUserService userService= new UserServiceImpl();
   static FlightServiceImpl flightService=new FlightServiceImpl();
-  static ScheduledFlightServiceImpl scheduledFlightService=new ScheduledFlightServiceImpl();
+ static IAirportService airportService=new AirportServiceImp();
+
  static BigInteger flightId;
  static String carrierName;
  static String flightModel;
@@ -65,6 +61,7 @@ public class FlightBookingApp {
   static String airportLocation;
   static Airport sourceAirport;
   static  Airport destinationAirport;
+  static ScheduledFlight scheduledFlight;
 
   public static void main(String[] args) throws Exception{
 
@@ -80,145 +77,54 @@ public class FlightBookingApp {
       User user= validateUser();
       if(user!= null) {
         while (true) {
+
           System.out.println("1. Add Flights\n2. Modify Flights\n3. Delete Flight\n4. Search Flight\n5. Show Flights\n"
                   + "6. Add Schedule\n7. Modify Schedule\n8. Delete Schedule\n9. Search Schedule\n10. Show Schedule\n11. Log out");
+            System.out.println("Enter your next choice :");
           int choice = sc.nextInt();
 
           switch (choice) {
 
             case 1:// add flight
 
-              System.out.println("Enter Flight Id");
-               flightId = sc.nextBigInteger();
-              System.out.println("Enter Carrier Name");
-               carrierName= sc.nextLine();
-              System.out.println("Enter Flight Model");
-               flightModel = sc.nextLine();
-              System.out.println("Enter Seat Capacity");
-               seatCapacity = sc.nextInt();
-               flight = new Flight(flightId,carrierName,flightModel,seatCapacity);
-              flightService.addFlight(flight);
-              System.out.println(flight.toString());
+              addFlight();
               break;
 
 
             case 2:// modify flight
               break;
             case 3:// delete flight
-                 System.out.println("Enter Flight Id of Flight to be deleted");
-                  flightId=sc.nextBigInteger();
-                 flightService.removeFlight(flightId);
+                 deleteFlight();
               break;
 
             case 4:// search flight
-              try {
-                System.out.println("Enter Flight Id of Flight to be searched ");
-                 flightId=sc.nextBigInteger();
-                 flight=flightService.viewFlight(flightId);
-                if(flight==null)
-                {
-                  throw new FlightNotFoundException("Flight not Found");
-                }
-                else
-                  System.out.println(flight);
-              }
-              catch (FlightNotFoundException fe)
-
-              {
-                System.out.println(fe.getMessage());
-              }
-              break;
+                searchFlight();
+             break;
 
             case 5:// show flight
-              System.out.println(flightService.viewAllFlights());
+                showFlight();
               break;
 
             case 6:// add schedule
-               System.out.println("Enter Flight id");
-              flightId=sc.nextBigInteger();
-
-              System.out.println("Enter Carrier Name ");
-              carrierName=sc.nextLine();
-
-              System.out.println("Enter Flight Model");
-              flightModel=sc.nextLine();
-
-              System.out.println("Enter Seat Capacity");
-              seatCapacity=sc.nextInt();
-
-              flight=new Flight(flightId,carrierName,flightModel,seatCapacity);
-
-              System.out.println("Enter no. of Available Seats");
-              availableSeats=sc.nextInt();
-
-              System.out.println("Enter Source Airport ID");
-               airportId=sc.nextInt();
-
-              System.out.println("Enter Source Airport name");
-               airportName=sc.nextLine();
-
-               System.out.println("Enter Source Airport Location");
-               airportLocation=sc.nextLine();
-
-               sourceAirport=new Airport(airportId,airportName,airportLocation);
-
-               System.out.println("Enter Destination Airport ID");
-               airportId=sc.nextInt();
-
-               System.out.println("Enter Destination Airport Name");
-               airportName=sc.nextLine();
-
-               System.out.println("Enter Destination Airport Location");
-               airportLocation=sc.nextLine();
-
-               destinationAirport=new Airport(airportId,airportName,airportLocation);
-
-                 System.out.println("Enter Arrival Time");
-                 String str=sc.nextLine();
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-                LocalDateTime arrivalTime = LocalDateTime.parse(str, formatter);
-
-                System.out.println("Enter Departure Time");
-                String s1=sc.nextLine();
-                LocalDateTime departureTime = LocalDateTime.parse(s1, formatter);
-
-                System.out.println("Enter Arrival Date");
-                String s2=sc.nextLine();
-                DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                LocalDate arrivalDate1=LocalDate.parse(s2,formatter1);
-
-                Schedule schedule=new Schedule(sourceAirport,destinationAirport,arrivalTime,departureTime,arrivalDate1);
-
-                System.out.println("Enter Fares of Flight");
-                fares = sc.nextDouble();
-
-                ScheduledFlight scheduledFlight=new ScheduledFlight(flight,availableSeats,schedule,fares);
-
-                scheduledFlightService.addFlightSchedule(flight);
+               addSchedule();
 
               break;
 
             case 7:// modify schedule
+                modifySchedule();
               break;
 
             case 8:// delete schedule
-                System.out.println("Enter Flight ID of the flight to be deleted");
-                flightId=sc.nextBigInteger();
-                scheduledFlightService.removeFlightSchedule(flightId);
+                deleteSchedule();
               break;
 
             case 9:// search schedule
-                System.out.println("Enter FlightID: ");
-               flightId=sc.nextBigInteger();
-             System.out.println(scheduledFlightService.viewFlightSchedule(flightId));
+                searchSchedule();
 
              break;
 
             case 10:// show schedule
-                System.out.println("Enter Date: ");
-                String d1=sc.nextLine();
-                Date arrivalDate = Date.valueOf(d1);
-                System.out.println(scheduledFlightService.viewAllScheduledFlights( arrivalDate));
+                showSchedule();
               break;
             case 11:
               System.out.println("Logged out");
@@ -357,6 +263,188 @@ public class FlightBookingApp {
     }
     System.out.println("Your booking is confirmed");
     System.out.println(confirmedBooking);
+  }
+  public static  void addFlight()
+  {
+      System.out.println("Enter Flight Id");
+      flightId = sc.nextBigInteger();
+      System.out.println("Enter Carrier Name");
+      sc.nextLine();
+      carrierName= sc.nextLine();
+      System.out.println("Enter Flight Model");
+      flightModel = sc.nextLine();
+      System.out.println("Enter Seat Capacity");
+      seatCapacity = sc.nextInt();
+      flight = new Flight(flightId,carrierName,flightModel,seatCapacity);
+      flightService.addFlight(flight);
+      System.out.println(flight.toString());
+      System.out.println("-----YOU HAVE SUCCESSFULLY ADDED FLIGHT DETAILS-----");
+  }
+  public static void modifyFlight()
+  {
+     //code to update flight
+  }
+  public static void deleteFlight()
+  {
+      System.out.println("Enter Flight Id of Flight to be deleted");
+      flightId=sc.nextBigInteger();
+      try {
+          flightService.removeFlight(flightId);
+      }
+      catch(FlightNotFoundException fe)
+      {
+          System.out.println(fe.getMessage());
+      }
+      System.out.println("---SUCCESSFULLY DELETED-----");
+  }
+  public static void searchFlight()
+  {
+      try {
+          System.out.println("Enter Flight Id of Flight to be searched ");
+          flightId=sc.nextBigInteger();
+          flight=flightService.viewFlight(flightId);
+          if(flight==null)
+          {
+              throw new FlightNotFoundException("Flight not Found");
+          }
+          else {
+              System.out.println(flight);
+          }
+      }
+      catch (FlightNotFoundException fe)
+
+      {
+          System.out.println(fe.getMessage());
+      }
+  }
+  public static void showFlight()
+  {
+      List<Flight> flightList=flightService.viewAllFlights();
+      Iterator itr=flightList.iterator();
+      while (itr.hasNext())
+      {
+          System.out.println(itr.next());
+      }
+  }
+  public static void addSchedule()
+  {
+      System.out.println("Enter Flight id");
+      flightId=sc.nextBigInteger();
+      try {
+          flight=flightService.viewFlight(flightId);
+
+      } catch (FlightNotFoundException e) {
+          e.printStackTrace();
+      }
+
+      System.out.println("Enter no. of Available Seats");
+      availableSeats=sc.nextInt();
+
+      System.out.println("Enter Source Airport ID");
+      airportId=sc.nextInt();
+
+      System.out.println("Enter Source Airport name");
+      sc.nextLine();
+      airportName=sc.nextLine();
+
+      System.out.println("Enter Source Airport Location");
+      airportLocation=sc.nextLine();
+
+      sourceAirport=new Airport(airportId,airportName,airportLocation);
+      airportService.addAirport(sourceAirport);
+
+      System.out.println("Enter Destination Airport ID");
+      airportId=sc.nextInt();
+
+      System.out.println("Enter Destination Airport Name");
+      sc.nextLine();
+      airportName=sc.nextLine();
+
+      System.out.println("Enter Destination Airport Location");
+      airportLocation=sc.nextLine();
+
+      destinationAirport=new Airport(airportId,airportName,airportLocation);
+      airportService.addAirport(destinationAirport);
+
+      System.out.println("Enter Arrival Time in format(YYYY-MM-DD-HH-MM)");
+      String[] arrivalTimeArr=sc.next().split("-");
+      LocalDateTime arrivalTime = LocalDateTime.of(Integer.parseInt(arrivalTimeArr[0]),Integer.parseInt(arrivalTimeArr[1]),Integer.parseInt(arrivalTimeArr[2]),Integer.parseInt(arrivalTimeArr[3]),Integer.parseInt(arrivalTimeArr[4]));
+
+      System.out.println("Enter Departure Time in Format(YYYY-MM-DD-HH-MM)");
+      String[] departureTimeArr=sc.next().split("-");
+      LocalDateTime departureTime = LocalDateTime.of(Integer.parseInt(departureTimeArr[0]),Integer.parseInt(departureTimeArr[1]),Integer.parseInt(departureTimeArr[2]),Integer.parseInt(departureTimeArr[3]),Integer.parseInt(departureTimeArr[4]));
+
+      System.out.println("Enter Arrival Date in Format(YYYY-MM-DD)");
+      String[] arrivalDateArr=sc.next().split("-");
+      LocalDate arrivalDate = LocalDate.of(Integer.parseInt(arrivalDateArr[0]),Integer.parseInt(arrivalDateArr[1]),Integer.parseInt(arrivalDateArr[2]));
+      Schedule schedule=new Schedule(sourceAirport,destinationAirport,arrivalTime,departureTime,arrivalDate);
+
+      System.out.println("Enter Fares of Flight");
+      fares = sc.nextDouble();
+
+      scheduledFlight=new ScheduledFlight(flight,availableSeats,schedule,fares);
+
+      scheduledFlightService.addFlightSchedule(scheduledFlight);
+
+      System.out.println("--------FLIGHT SCHEDULE SUCCESSFULLY ADDED-----");
+  }
+  public static void modifySchedule()
+  {
+      System.out.println("Enter FlightId");
+      flightId=sc.nextBigInteger();
+      System.out.println("Enter updated Available Seats ");
+      int availableSeat=sc.nextInt();
+      try {
+          scheduledFlight = scheduledFlightService.viewFlightSchedule(flightId);
+          scheduledFlightService.updateFlightSchedule(flightId, availableSeat);
+      }
+      catch(FlightNotFoundException fe)
+      {
+          System.out.println(fe.getMessage());
+      }
+      System.out.println("------SUCCESSFULLY UPDATED-----");
+  }
+  public static void deleteSchedule()
+  {
+      System.out.println("Enter Flight ID of the flight to be deleted");
+      flightId=sc.nextBigInteger();
+      try {
+          scheduledFlightService.removeFlightSchedule(flightId);
+      }
+      catch(FlightNotFoundException fe)
+      {
+          System.out.println(fe.getMessage());
+      }
+      System.out.println("-------FLIGHT SCHEDULE SUCCESSFULLY DELETED----");
+  }
+  public static void  searchSchedule()
+  {
+      System.out.println("Enter FlightID: ");
+      flightId=sc.nextBigInteger();
+      try {
+          System.out.println(scheduledFlightService.viewFlightSchedule(flightId));
+      }
+      catch(FlightNotFoundException fe)
+      {
+          System.out.println(fe.getMessage());
+      }
+  }
+  public static void showSchedule()
+  {
+      System.out.println("Enter Date: ");
+      String[] arrivalDateArr=sc.next().split("-");
+      LocalDate arrivalDate = LocalDate.of(Integer.parseInt(arrivalDateArr[0]),Integer.parseInt(arrivalDateArr[1]),Integer.parseInt(arrivalDateArr[2]));
+try {
+    List<ScheduledFlight> scheduledFlightList = scheduledFlightService.viewAllScheduledFlights(arrivalDate);
+    Iterator<ScheduledFlight> itr1 = scheduledFlightList.iterator();
+    while (itr1.hasNext()) {
+        System.out.println(itr1.next());
+    }
+}
+catch (FlightNotFoundException fe)
+{
+    System.out.println(fe.getMessage());
+}
   }
 }
 

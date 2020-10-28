@@ -8,7 +8,9 @@ import java.util.Set;
 
 import com.cg.flightmgmt.dto.Booking;
 import com.cg.flightmgmt.dto.Flight;
+import com.cg.flightmgmt.dto.Schedule;
 import com.cg.flightmgmt.dto.ScheduledFlight;
+import com.cg.flightmgmt.exception.FlightNotFoundException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -30,44 +32,70 @@ public class ScheduledFlightRepositoryImpl implements IScheduledFlightRepository
         return flight;
     }
     @Override
-    public Flight viewFlightSchedule(BigInteger flightId)
+    public ScheduledFlight addFlightSchedule(ScheduledFlight sFlight)
     {
 
         EntityManagerFactory factory = Persistence
                 .createEntityManagerFactory("NewPersistenceUnit");
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
-        Flight flight= em.find(Flight.class, flightId);
+        em.persist(sFlight);
         em.getTransaction().commit();
         em.close();
         factory.close();
-            return flight;
+        return sFlight;
     }
     @Override
-    public Flight removeFlightSchedule(BigInteger flightId)
+    public ScheduledFlight viewFlightSchedule(BigInteger flightId) throws FlightNotFoundException
+    {
+
+        EntityManagerFactory factory = Persistence
+                .createEntityManagerFactory("NewPersistenceUnit");
+        EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
+        ScheduledFlight flight= em.find(ScheduledFlight.class, flightId);
+        em.getTransaction().commit();
+        if(flight!=null) {
+            em.close();
+            factory.close();
+            return flight;
+        }
+        else
+        {
+            throw new FlightNotFoundException("Flight Not Found");
+        }
+    }
+    @Override
+    public ScheduledFlight removeFlightSchedule(BigInteger flightId) throws FlightNotFoundException
     {
         EntityManagerFactory factory = Persistence
                 .createEntityManagerFactory("NewPersistenceUnit");
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
-        Flight flight= em.find(Flight.class, flightId);
-        em.remove(flight);
-        em.getTransaction().commit();
-        em.close();
-        factory.close();
-        return flight;
+        ScheduledFlight flight= em.find(ScheduledFlight.class, flightId);
+        if(flight!=null) {
+            em.remove(flight);
+            em.getTransaction().commit();
+            em.close();
+            factory.close();
+            return flight;
+        }
+        else
+        {
+            throw new FlightNotFoundException("Flight Not Found");
+        }
     }
     @Override
-    public Flight updateFlightSchedule(ScheduledFlight flight)
+    public ScheduledFlight updateFlightSchedule(BigInteger flightId,int availableSeats)
     {
-       /* EntityManagerFactory factory = Persistence
+        EntityManagerFactory factory = Persistence
                 .createEntityManagerFactory("NewPersistenceUnit");
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
-       em.createQuery("UPDATE ScheduledFlight SET availableSeats = :flight.availableSeats,Schedule = :flight.schedule").executeUpdate();
+       em.createQuery("UPDATE ScheduledFlight  SET availableSeats = :availableSeats ").setParameter("availableSeats",availableSeats).executeUpdate();
         em.getTransaction().commit();
         em.close();
-        factory.close();*/
+        factory.close();
         return null;
     }
     @Override
@@ -86,7 +114,7 @@ public class ScheduledFlightRepositoryImpl implements IScheduledFlightRepository
         return flightList;
     }
     @Override
-    public List<ScheduledFlight> viewAllScheduledFlights(LocalDate arrivalDate)
+    public List<ScheduledFlight> viewAllScheduledFlights(LocalDate arrivalDate) throws FlightNotFoundException
     {
         EntityManagerFactory factory = Persistence
                 .createEntityManagerFactory("NewPersistenceUnit");
@@ -94,10 +122,16 @@ public class ScheduledFlightRepositoryImpl implements IScheduledFlightRepository
         em.getTransaction().begin();
         List<ScheduledFlight> flightList= em.createQuery("select f from ScheduledFlight f where f.schedule.arrivalDate = :arrivalDate",
                 ScheduledFlight.class).setParameter("arrivalDate", arrivalDate).getResultList();
-        em.getTransaction().commit();
-        em.close();
-        factory.close();
-        return flightList;
+        if(flightList!=null) {
+            em.getTransaction().commit();
+            em.close();
+            factory.close();
+            return flightList;
+        }
+        else
+        {
+            throw new FlightNotFoundException("Flight Not Found");
+        }
     }
 
     @Override

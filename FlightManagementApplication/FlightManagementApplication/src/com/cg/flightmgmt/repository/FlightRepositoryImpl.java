@@ -33,10 +33,16 @@ public class FlightRepositoryImpl implements IFlightRepository {
            em.getTransaction().begin();
            Flight flight = em.find(Flight.class, flightId);
         em.getTransaction().commit();
-           em.close();
-           factory.close();
+            if (flight != null) {
+                em.close();
+                factory.close();
 
-               return flight;
+                return flight;
+            }
+             else {
+                throw new FlightNotFoundException("Flight not found");
+            }
+
 
 
     }
@@ -55,31 +61,37 @@ public class FlightRepositoryImpl implements IFlightRepository {
         return flightSet;
     }
 @Override
-    public Flight removeFlight(BigInteger flightId)
+    public Flight removeFlight(BigInteger flightId) throws FlightNotFoundException
     {
         EntityManagerFactory factory = Persistence
                 .createEntityManagerFactory("NewPersistenceUnit");
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
         Flight flight= em.find(Flight.class, flightId);
-        em.remove(flight);
-        em.getTransaction().commit();
-        em.close();
-        factory.close();
-        return flight;
+        if(flight!=null) {
+            em.remove(flight);
+            em.getTransaction().commit();
+            em.close();
+            factory.close();
+            return flight;
+        }
+        else
+        {
+            throw new FlightNotFoundException("Flight Not Found");
+        }
     }
     @Override
     public Flight updateFlight(Flight flight)
     {
-        EntityManagerFactory factory = Persistence
-                .createEntityManagerFactory("NewPersistenceUnit");
-        EntityManager em = factory.createEntityManager();
-        em.getTransaction().begin();
-        em.createQuery("UPDATE Flight SET seatCapacity = :flight.seatCapacity").executeUpdate();
-        em.getTransaction().commit();
-        em.close();
-        factory.close();
-        return flight;
+        //EntityManagerFactory factory = Persistence
+        //        .createEntityManagerFactory("NewPersistenceUnit");
+      //  EntityManager em = factory.createEntityManager();
+       // em.getTransaction().begin();
+     //   em.createQuery("UPDATE Flight SET seatCapacity = :flight.seatCapacity").executeUpdate();
+      //  em.getTransaction().commit();
+      //  em.close();
+      //  factory.close();
+       return null;
     }
 
 }
