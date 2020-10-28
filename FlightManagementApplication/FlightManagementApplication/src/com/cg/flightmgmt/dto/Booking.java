@@ -26,7 +26,7 @@ private BigInteger bookingId;
 @ManyToOne
 private User userId;
 private LocalDate bookingDate;
-@ManyToMany(mappedBy = "bookingList")
+@OneToMany(mappedBy = "booking")
 private List<Passenger> passengerList= new ArrayList<Passenger>();
 private double ticketCost;
 @OneToOne
@@ -35,9 +35,8 @@ private int noOfPassengers;
 	public Booking() {
 	}
 
-	public Booking(BigInteger bookingId, User userId, LocalDate bookingDate,
+	public Booking(User userId, LocalDate bookingDate,
 			List<Passenger> passengerList, double ticketCost, Flight flight, int noOfPassengers) {
-		this.bookingId = bookingId;
 		this.userId = userId;
 		this.bookingDate = bookingDate;
 		this.passengerList = passengerList;

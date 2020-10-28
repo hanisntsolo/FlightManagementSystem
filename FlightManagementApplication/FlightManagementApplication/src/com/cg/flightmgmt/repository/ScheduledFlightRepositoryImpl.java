@@ -110,6 +110,7 @@ public class ScheduledFlightRepositoryImpl implements IScheduledFlightRepository
         return null;
     }
 
+    @Override
     public List<ScheduledFlight> viewAllScheduledFlights(String source, String destination, LocalDate date){
         EntityManagerFactory factory = Persistence
                 .createEntityManagerFactory("NewPersistenceUnit");
