@@ -1,6 +1,7 @@
 package com.cg.flightmgmt.service;
 
 import com.cg.flightmgmt.dto.Flight;
+import com.cg.flightmgmt.dto.Schedule;
 import com.cg.flightmgmt.dto.ScheduledFlight;
 
 import com.cg.flightmgmt.repository.ScheduledFlightRepository;
@@ -20,7 +21,7 @@ import java.util.List;
 
 public class ScheduledFlightServiceImpl implements IScheduledFlightService {
 
-  IScheduledFlightRepository scheduledFlightRepository=new ScheduledFlightRepositoryImpl();
+  IScheduledFlightRepository scheduledFlightRepository = new ScheduledFlightRepositoryImpl();
 
   @Override
   public Flight addFlightSchedule(Flight flight) {
@@ -28,18 +29,18 @@ public class ScheduledFlightServiceImpl implements IScheduledFlightService {
   }
 
   @Override
-  public Flight viewFlightSchedule(BigInteger flightId) {
+  public ScheduledFlight viewFlightSchedule(BigInteger flightId) throws FlightNotFoundException {
     return scheduledFlightRepository.viewFlightSchedule(flightId);
   }
 
   @Override
-  public Flight removeFlightSchedule(BigInteger flightId) {
+  public ScheduledFlight removeFlightSchedule(BigInteger flightId) throws FlightNotFoundException {
     return scheduledFlightRepository.removeFlightSchedule(flightId);
   }
 
   @Override
-  public Flight updateFlightSchedule(ScheduledFlight flight) {
-    return scheduledFlightRepository.updateFlightSchedule(flight);
+  public ScheduledFlight updateFlightSchedule(BigInteger flightId,int availableSeat) {
+    return scheduledFlightRepository.updateFlightSchedule(flightId,availableSeat);
   }
 
   @Override
@@ -48,12 +49,16 @@ public class ScheduledFlightServiceImpl implements IScheduledFlightService {
   }
 
   @Override
-  public List<ScheduledFlight> viewAllScheduledFlights(LocalDate arrivalDate) {
-	  return scheduledFlightRepository.viewAllScheduledFlights(arrivalDate);
+  public List<ScheduledFlight> viewAllScheduledFlights(LocalDate arrivalDate) throws FlightNotFoundException {
+    return scheduledFlightRepository.viewAllScheduledFlights(arrivalDate);
   }
 
   @Override
   public List<ScheduledFlight> viewAllScheduledFlights(String source, String destination) {
     return null;
+  }
+@Override
+  public ScheduledFlight addFlightSchedule(ScheduledFlight sFlight) {
+return scheduledFlightRepository.addFlightSchedule(sFlight);
   }
 }

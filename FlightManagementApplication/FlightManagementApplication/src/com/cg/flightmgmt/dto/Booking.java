@@ -45,7 +45,10 @@ private int noOfPassengers;
 		this.noOfPassengers = noOfPassengers;
 	}
 
-	public BigInteger getBookingId() {
+    public Booking(BigInteger bigInteger, User user, LocalDate date, List<Passenger> passengers, double v, Flight flight, int i) {
+    }
+
+    public BigInteger getBookingId() {
 	return bookingId;
 	}
 	public void setBookingId(BigInteger bookingId) {

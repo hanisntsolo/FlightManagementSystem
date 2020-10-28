@@ -38,6 +38,7 @@ public class FlightRepositoryImpl implements IFlightRepository {
                return flight;
            }
 
+
     }
     @Override
     public List<Flight> viewAllFlights()
@@ -51,7 +52,7 @@ public class FlightRepositoryImpl implements IFlightRepository {
         return flightSet;
     }
 @Override
-    public Flight removeFlight(BigInteger flightId)
+    public Flight removeFlight(BigInteger flightId) throws FlightNotFoundException
     {
         entityManager= jpaUtil.getEntityManager();
 
@@ -74,6 +75,7 @@ public class FlightRepositoryImpl implements IFlightRepository {
         entityManager.close();
 //        factory.close();
         return flight;
+
     }
 
 }

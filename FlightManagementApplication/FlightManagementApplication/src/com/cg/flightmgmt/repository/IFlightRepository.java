@@ -16,3 +16,4 @@ public interface IFlightRepository {
 	public Flight removeFlight(BigInteger flightId);
 	public Flight updateFlight(Flight flight);
 }
+

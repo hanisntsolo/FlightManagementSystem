@@ -29,7 +29,7 @@ public class FlightServiceImpl implements IFlightService {
   }
 
   @Override
-  public Flight removeFlight(BigInteger flightId) {
+  public Flight removeFlight(BigInteger flightId) throws FlightNotFoundException {
 
     return Flight.removeFlight(flightId);
   }
