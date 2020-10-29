@@ -15,11 +15,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name= "flight")
 public class Flight {
-@Id
-private BigInteger flightId;
-private String carrierName;
-private String flightModel;
-private int seatCapacity;
+  @Id
+  private BigInteger flightId;
+  private String carrierName;
+  private String flightModel;
+  private int seatCapacity;
 
   public Flight() {
   }

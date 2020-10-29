@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AirportTest {
   private static Airport airport;
-  private Airport o;
+  private static Airport o;
 
   @BeforeAll
   public static void  beforeClass() {

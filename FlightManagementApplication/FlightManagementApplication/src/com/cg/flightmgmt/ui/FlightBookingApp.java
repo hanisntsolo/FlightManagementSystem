@@ -62,7 +62,7 @@ public class FlightBookingApp {
   static String airportName;
   static String airportLocation;
   static Airport sourceAirport;
-  static  Airport destinationAirport;
+  static Airport destinationAirport;
   static ScheduledFlight scheduledFlight;
 
   public static void main(String[] args) throws Exception{
@@ -95,43 +95,31 @@ public class FlightBookingApp {
           switch (choice) {
 
             case 1:// add flight
-
               addFlight();
               break;
-
-
             case 2:// modify flight
               break;
             case 3:// delete flight
                  deleteFlight();
               break;
-
             case 4:// search flight
                 searchFlight();
              break;
-
             case 5:// show flight
                 showFlight();
               break;
-
             case 6:// add schedule
                addSchedule();
-
               break;
-
             case 7:// modify schedule
                 modifySchedule();
               break;
-
             case 8:// delete schedule
                 deleteSchedule();
               break;
-
             case 9:// search schedule
                 searchSchedule();
-
              break;
-
             case 10:// show schedule
                 showSchedule();
               break;
@@ -151,7 +139,10 @@ public class FlightBookingApp {
       User user= validateUser();
       if(user!= null) {
         while (true) {
-          System.out.println("1. check availability\n2. Make Booking\n3. Cancel Booking\n4. Log out");
+          System.out.println("1. check availability\n"
+                           + "2. Make Booking\n"
+                           + "3. Cancel Booking\n"
+                           + "4. Log out");
           int choice = sc.nextInt();
           switch (choice) {
             case 1: checkAvailability();
@@ -169,7 +160,8 @@ public class FlightBookingApp {
           }
         }
       }else{
-        System.out.println("User not found....\nYou have entered wrong id or password!");
+        System.out.println("User not found....\n"
+            + "You have entered wrong id or password!");
       }
     }else if(logChoice==3) {
       signUp();
