@@ -116,8 +116,9 @@ public class ScheduledFlightRepositoryImpl implements IScheduledFlightRepository
                 .createEntityManagerFactory("NewPersistenceUnit");
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
-        return em.createQuery("select f " + "from ScheduledFlight f " + "where f.schedule.sourceAirport.airportLocation= :source "
-                + "and f.schedule.destinationAirport.airportLocation= :destination and f.schedule.arrivalDate= :date")
+        return em.createQuery("select f " + "from ScheduledFlight f " + "where lower(f.schedule.sourceAirport.airportLocation) = :source "
+                + "and lower(f.schedule.destinationAirport.airportLocation) = :destination and f.schedule.arrivalDate= :date", ScheduledFlight.class)
+                .setParameter("source", source.toLowerCase()).setParameter("destination", destination.toLowerCase()).setParameter("date", date)
                 .getResultList();
     }
 

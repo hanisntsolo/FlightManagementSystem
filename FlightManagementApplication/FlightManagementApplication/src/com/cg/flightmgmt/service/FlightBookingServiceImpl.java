@@ -10,43 +10,43 @@ import java.util.Date;
 import java.util.List;
 
 public class FlightBookingServiceImpl implements IFlightBookingService {
-      IFlightBookingRepository FlightBookingRepository= new FlightBookingRepositoryImpl();
+      IFlightBookingRepository flightBookingRepository= new FlightBookingRepositoryImpl();
   @Override
   public Booking addBooking(Booking booking) {
-    return FlightBookingRepository.addBooking(booking);
+    return flightBookingRepository.addBooking(booking);
   }
-  IFlightBookingRepository flightBookingRepository= new FlightBookingRepositoryImpl();
+
   @Override
   public Booking cancelBooking(BigInteger bookingId) throws BookingNotFoundException {
-    return FlightBookingRepository.cancelBooking(bookingId);
+    return flightBookingRepository.cancelBooking(bookingId);
   }
 
   @Override
   public Booking viewBooking(BigInteger bookingId) throws BookingNotFoundException {
-    return FlightBookingRepository.viewBooking(bookingId);
+    return flightBookingRepository.viewBooking(bookingId);
   }
 
   @Override
   public List<Booking> viewBookingList(Date bookingDate) {
 
-    return FlightBookingRepository.viewBookingList(bookingDate);
+    return flightBookingRepository.viewBookingList(bookingDate);
   }
 
   @Override
   public List<Booking> viewBookingList(BigInteger flightId) {
 
-    return FlightBookingRepository.viewBookingList(flightId);
+    return flightBookingRepository.viewBookingList(flightId);
   }
 
   @Override
   public List<Booking> viewBookingHistory(BigInteger userId) {
 
-    return FlightBookingRepository.viewBookingHistory(userId);
+    return flightBookingRepository.viewBookingHistory(userId);
   }
 
   @Override
   public Booking updateBooking(Booking booking) {
 
-    return FlightBookingRepository.updateBooking(booking);
+    return flightBookingRepository.updateBooking(booking);
   }
 }

@@ -27,7 +27,7 @@ private BigInteger bookingId;
 private User userId;
 private LocalDate bookingDate;
 @OneToMany(mappedBy = "booking")
-private List<Passenger> passengerList= new ArrayList<Passenger>();
+private List<Passenger> passengerList;
 private double ticketCost;
 @OneToOne
 private Flight flight;
@@ -116,7 +116,7 @@ private int noOfPassengers;
 	public String toString() {
 		return "Booking{" +
 				"bookingId=" + bookingId +
-				"userId=" + userId +
+				", userId=" + userId +
 				", bookingDate=" + bookingDate +
 				", passengerList=" + passengerList +
 				", ticketCost=" + ticketCost +

@@ -27,14 +27,15 @@ public class FlightBookingRepositoryImpl implements IFlightBookingRepository{
         EntityManagerFactory factory = Persistence
                 .createEntityManagerFactory("NewPersistenceUnit");
         EntityManager em = factory.createEntityManager();
-        em.getTransaction().begin();
         Booking booking= em.find(Booking.class, bookingId);
         if(booking==null){
             em.close();
             factory.close();
             throw new BookingNotFoundException("Booking not found!");
         }else{
+            em.getTransaction().begin();
             em.remove(booking);
+            em.getTransaction().commit();
             em.close();
             factory.close();
             return booking;

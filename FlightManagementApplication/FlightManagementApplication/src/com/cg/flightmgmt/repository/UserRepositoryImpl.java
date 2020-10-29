@@ -27,23 +27,22 @@ public class UserRepositoryImpl implements IUserRepository {
         return user;
     }
     @Override
-    public User validateUser(User user) throws UserNotFoundException
-    {
+    public User validateUser(User user) throws UserNotFoundException {
         em.getTransaction().begin();
-        try {
-            User user1 = em.find(User.class, user.getUserId());
+        User user1 = em.find(User.class, user.getUserId());
+        if (user1 == null) {
+            throw new UserNotFoundException("User not found!");
+        } else {
             if (user1.getPassword().equals(user.getPassword())) {
                 em.close();
                 factory.close();
                 return user1;
+            } else{
+            return null;
             }
-        } catch (Exception e) {
-            em.close();
-            factory.close();
-            e.printStackTrace();
         }
-        return user;
     }
+
     @Override
     public User updateUser(User user) throws UserNotFoundException
     {
