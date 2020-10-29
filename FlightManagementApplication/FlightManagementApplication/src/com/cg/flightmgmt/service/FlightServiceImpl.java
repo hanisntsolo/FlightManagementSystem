@@ -13,7 +13,7 @@ public class FlightServiceImpl implements IFlightService {
   IFlightRepository Flight=new FlightRepositoryImpl();
 
   @Override
-  public Flight addFlight(Flight flight) {
+  public Flight addFlight(Flight flight) throws Exception{
 
     return Flight.addFlight(flight);
   }

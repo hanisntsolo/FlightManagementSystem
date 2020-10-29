@@ -9,7 +9,7 @@ import com.cg.flightmgmt.exception.FlightNotFoundException;
 
 public interface IFlightRepository {
 
-	public Flight addFlight(Flight flight);
+	public Flight addFlight(Flight flight) throws Exception;
 	public Flight viewFlight(BigInteger flightId) throws FlightNotFoundException;
 	public List<Flight> viewAllFlights();
 	public Flight removeFlight(BigInteger flightId) throws FlightNotFoundException;
