@@ -46,7 +46,7 @@ public class FlightBookingApp {
   static IFlightService flightService=new FlightServiceImpl();
   static IAirportService airportService=new AirportServiceImp();
 
-  static int count= 0;
+//  static int count= 0;
   public static void main(String[] args){
           try {
               System.out.println("*******************************************************");
@@ -56,13 +56,14 @@ public class FlightBookingApp {
               System.out.println("2. Log in as user");
               System.out.println("3. If you don't have an account, please sign up...");
               System.out.println(("Enter your choice: "));
-              int logChoice;
-              if(count==0)
-                logChoice = Integer.parseInt(sc.nextLine());
-              else{
-                  sc.nextLine();
-                  logChoice= Integer.parseInt(sc.nextLine());
-              }
+              int logChoice = Integer.parseInt(sc.nextLine());
+//              if(count==0)
+//                logChoice = Integer.parseInt(sc.nextLine());
+//              else{
+//                  sc.nextLine();
+//                  logChoice= Integer.parseInt(sc.nextLine());
+//              }
+
               if (logChoice == 1) {
                   User user = validateUser();
                   if (user != null) {
