@@ -38,6 +38,7 @@ public class ScheduledFlightRepositoryImpl implements IScheduledFlightRepository
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
         Flight flight= em.find(Flight.class, flightId);
+        em.getTransaction().commit();
         em.close();
         factory.close();
             return flight;
@@ -51,6 +52,7 @@ public class ScheduledFlightRepositoryImpl implements IScheduledFlightRepository
         em.getTransaction().begin();
         Flight flight= em.find(Flight.class, flightId);
         em.remove(flight);
+        em.getTransaction().commit();
         em.close();
         factory.close();
         return flight;
@@ -63,6 +65,7 @@ public class ScheduledFlightRepositoryImpl implements IScheduledFlightRepository
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
        em.createQuery("UPDATE ScheduledFlight SET availableSeats = :flight.availableSeats,Schedule = :flight.schedule").executeUpdate();
+        em.getTransaction().commit();
         em.close();
         factory.close();*/
         return null;
@@ -76,7 +79,8 @@ public class ScheduledFlightRepositoryImpl implements IScheduledFlightRepository
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
 
-        List<ScheduledFlight> flightList=  em.createQuery("select f from ScheduledFlight f", ScheduledFlight.class).getResultList();
+        List<ScheduledFlight> flightList=  em.createQuery("select * from ScheduledFlight", ScheduledFlight.class).getResultList();
+        em.getTransaction().commit();
         em.close();
         factory.close();
         return flightList;
@@ -88,28 +92,28 @@ public class ScheduledFlightRepositoryImpl implements IScheduledFlightRepository
                 .createEntityManagerFactory("NewPersistenceUnit");
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
-        List<ScheduledFlight> flightList= em.createQuery("select f from ScheduledFlight f where f.schedule.arrivalDate = :arrivalDate",
-                ScheduledFlight.class).setParameter("arrivalDate", arrivalDate).getResultList();
+        List<ScheduledFlight> flightList= em.createQuery("select f from ScheduledFlights f where f.arrivalDate = :arrivalDate",
+        ScheduledFlight.class).setParameter("arrivalDate", arrivalDate).getResultList();
+        em.getTransaction().commit();
         em.close();
         factory.close();
         return flightList;
     }
 
     @Override
-    public List<ScheduledFlight> viewAllScheduledFlights(LocalDate date1,LocalDate date2)
-    {
-        /*EntityManagerFactory factory = Persistence
-                .createEntityManagerFactory("NewPersistenceUnit");
+    public List<ScheduledFlight> viewAllScheduledFlights(LocalDate date1,LocalDate date2) {
+
+        EntityManagerFactory factory = Persistence
+            .createEntityManagerFactory("NewPersistenceUnit");
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
-        List<ScheduledFlight> flightList= em.createQuery("select f from ScheduledFlight f where f.schedule.arrivalDate between :date1 and :date2",
-                ScheduledFlight.class).getResultList();
+        List<ScheduledFlight> flightList = em.createQuery(
+            "select f from ScheduledFlights f where f.arrivalDate between :date1 and :date2",
+            ScheduledFlight.class).getResultList();
         em.close();
         factory.close();
-        return flightList;*/
-        return null;
+        return flightList;
     }
-
     @Override
     public List<ScheduledFlight> viewAllScheduledFlights(String source, String destination, LocalDate date){
         EntityManagerFactory factory = Persistence

@@ -21,7 +21,7 @@ D:/CAPGEMINI JOINING/Project/LetsDoIt_Final/FlightManagementApplication/FlightMa
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/flightDataBase</jdbc-url>
     </data-source>
-    <data-source source="LOCAL" name="flightManagement@localhost" uuid="04c05c24-6192-4681-b32d-2f2cd4d880b7">
+    <data-source source="LOCAL" name="flightManagement@localhost" uuid="01d7052e-4554-4e9b-9347-efc7bd9d319f">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
