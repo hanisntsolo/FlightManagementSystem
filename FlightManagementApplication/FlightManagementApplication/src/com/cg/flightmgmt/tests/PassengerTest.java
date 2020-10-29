@@ -13,7 +13,7 @@ import java.util.Objects;
 
 class PassengerTest {
   private static Passenger passenger;
-  private static List<Booking> bookingList;
+  private static Booking booking;
   private Passenger o;
 
   @BeforeAll
@@ -22,8 +22,8 @@ class PassengerTest {
   }
   @BeforeEach
   void setUp() {
-    bookingList = new ArrayList<>();
-    passenger = new Passenger(new BigInteger("469532187649"),"Thomas",45,new BigInteger("793546182796"),7.4,bookingList);
+    booking= null;
+    passenger = new Passenger(new BigInteger("469532187649"),"Thomas",45,new BigInteger("793546182796"),7.4,booking);
     System.out.println("Running tests............");
   }
 

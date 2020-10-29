@@ -4,7 +4,7 @@ import com.cg.flightmgmt.dto.Flight;
 import com.cg.flightmgmt.dto.Schedule;
 import com.cg.flightmgmt.dto.ScheduledFlight;
 
-import com.cg.flightmgmt.repository.ScheduledFlightRepository;
+import com.cg.flightmgmt.exception.FlightNotFoundException;
 
 import java.math.BigInteger;
 import java.sql.Date;

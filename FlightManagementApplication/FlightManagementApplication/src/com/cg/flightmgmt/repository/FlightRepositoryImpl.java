@@ -14,13 +14,13 @@ public class FlightRepositoryImpl implements IFlightRepository {
     EntityManager entityManager;
     JPAUtil jpaUtil = new JPAUtil();
 
-   @Override
+    @Override
     public Flight addFlight(Flight flight)
     {
-     entityManager = jpaUtil.getEntityManager();
-     entityManager.getTransaction().begin();
-     entityManager.persist(flight);
-     entityManager.getTransaction().commit();
+        entityManager = jpaUtil.getEntityManager();
+        entityManager.getTransaction().begin();
+        entityManager.persist(flight);
+        entityManager.getTransaction().commit();
 //        factory.close();
         return flight;
     }
@@ -31,12 +31,12 @@ public class FlightRepositoryImpl implements IFlightRepository {
         entityManager.getTransaction().begin();
         entityManager.persist(flightId);
         entityManager.getTransaction().commit();
-           Flight flight = entityManager.find(Flight.class, flightId);
-           if(flight==null){
-               throw new FlightNotFoundException("Flight not found!");
-           }else {
-               return flight;
-           }
+        Flight flight = entityManager.find(Flight.class, flightId);
+        if(flight==null){
+            throw new FlightNotFoundException("Flight not found!");
+        }else {
+            return flight;
+        }
 
 
     }
@@ -45,37 +45,38 @@ public class FlightRepositoryImpl implements IFlightRepository {
     {
         entityManager = jpaUtil.getEntityManager();
 //        entityManager.getTransaction().begin();
-        List<Flight> flightSet=  entityManager.createQuery("select * from Flight", Flight.class).getResultList();
+        List<Flight> flightSet=  entityManager.createQuery("select f from Flight f", Flight.class).getResultList();
 //        entityManager.getTransaction().commit();
 //        entityManager.close();
 //        fact.close();
         return flightSet;
     }
-@Override
-    public Flight removeFlight(BigInteger flightId) throws FlightNotFoundException
-    {
+    @Override
+    public Flight removeFlight(BigInteger flightId) throws FlightNotFoundException{
         entityManager= jpaUtil.getEntityManager();
-
         Flight flight= entityManager.find(Flight.class, flightId);
-        entityManager.getTransaction().begin();
-        entityManager.remove(flight);
-        entityManager.getTransaction().commit();
-        entityManager.close();
-//        factory.close();
-        return flight;
+        if(flight==null){
+            entityManager.close();
+            throw new FlightNotFoundException("Flight not found!");
+        }
+        else {
+            entityManager.getTransaction().begin();
+            entityManager.remove(flight);
+            entityManager.getTransaction().commit();
+            entityManager.close();
+            return flight;
+        }
     }
+
     @Override
     public Flight updateFlight(Flight flight)
     {
         entityManager= jpaUtil.getEntityManager();
-
         entityManager.getTransaction().begin();
-        entityManager.createQuery("UPDATE Flight SET seatCapacity = :flight.seatCapacity").executeUpdate();
+        entityManager.createQuery("UPDATE Flight SET seatCapacity = :seatCapacity")
+                .setParameter("seatCapacity", flight.getSeatCapacity()).executeUpdate();
         entityManager.getTransaction().commit();
         entityManager.close();
-//        factory.close();
         return flight;
-
     }
-
 }

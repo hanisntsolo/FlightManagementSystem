@@ -43,9 +43,10 @@ import java.util.Scanner;
 public class FlightBookingApp {
   static Scanner sc= new Scanner(System.in);
   static IFlightBookingService flightBookingService= new FlightBookingServiceImpl();
+  static IPassengerService passengerService= new PassengerServiceImpl();
   static IScheduledFlightService scheduledFlightService= new ScheduledFlightServiceImpl();
   static IUserService userService= new UserServiceImpl();
-  static FlightServiceImpl flightService=new FlightServiceImpl();
+  static IFlightService flightService=new FlightServiceImpl();
 
  static IAirportService airportService=new AirportServiceImp();
 
@@ -178,6 +179,23 @@ public class FlightBookingApp {
       sc.close();
     }
 
+    public static User validateAdmin(){
+        System.out.println("Enter user id:");
+        BigInteger userId= sc.nextBigInteger();
+        System.out.println("Enter password:");
+        String password= sc.next();
+        try {
+            User user= userService.validateUser(new User(userId, password));
+            if(user.getUserType().equals("admin")) {
+                return user;
+            }else{
+                return null;
+            }
+        }catch (UserNotFoundException e){
+            return null;
+        }
+    }
+
   public static User validateUser(){
     System.out.println("Enter user id:");
     BigInteger userId= sc.nextBigInteger();
@@ -190,38 +208,70 @@ public class FlightBookingApp {
       return null;
     }
   }
-  /*public static void updateUser() throws UserNotFoundException {
-    System.out.println("Enter your user Id:");
-    BigInteger userId = sc.nextBigInteger();
-    System.out.println("Enter Password:");
-    String password = sc.next();
-    userService.updateUser(new User(userId, password));
-  }*/
 
-  public  static void signUp(){
-    System.out.println("Enter name: ");
-    String name= sc.nextLine();
-    System.out.println("Enter password: ");
-    String password= sc.next();
-    System.out.println("Enter email: ");
-    String email= sc.next();
-    System.out.println("Enter mobile no: ");
-    String mobileNo= sc.next();
-    User user= userService.addUser(new User("user", name, password, email, mobileNo));
-    System.out.println("You have successfully signed up. Go to the login page.....");
-    System.out.println("======= Your user id is: " + user.getUserId() + " ========");
-  }
+  public  static void signUp() {
+      System.out.println("Enter name: ");
+      String name = sc.nextLine();
+      System.out.println(
+              "Enter password (It contains at least 8 characters and at most 20 characters,\n" +
+              "at least one digit,\n" +
+              "at least one upper case alphabet,\n" +
+              "at least one lower case alphabet,\n" +
+              "at least one special character which includes !@#$%&*()-+=^,\n" +
+              "doesn’t contain any white space. ");
+      String password = sc.next();
+      while (true) {
+          if(!isValidPassword(password)){
+              System.out.println("Please enter password in the given format!");
+              password= sc.next();
+          }else{
+              break;
+          }
+      }
+      System.out.println("Enter email (example@xyz.com): ");
+      String email = sc.next();
+      while (true) {
+          if(!isValidEmail(email)){
+              System.out.println("Please enter a valid email!");
+              email= sc.next();
+          }else{
+              break;
+          }
+      }
+      System.out.println("Enter mobile no: ");
+      String mobileNo = sc.next();
+      while (true) {
+          if(!isValidMobile(mobileNo)){
+              System.out.println("Please enter a valid 10 digit mobile number!");
+              mobileNo= sc.next();
+          }else{
+              break;
+          }
+      }
+      User user = userService.addUser(new User("user", name, password, email, mobileNo));
+      System.out.println("You have successfully signed up. Go to the login page.....");
+      System.out.println("======= Your user id is: " + user.getUserId() + " ========");
+      }
 
   public static List<ScheduledFlight> checkAvailability(){
     System.out.println("Enter source: ");
     String source= sc.next();
     System.out.println("Enter destination: ");
     String destination= sc.next();
-    System.out.println("Enter date: ");
-    String[] dateArr= sc.next().split("-");
-    LocalDate date= LocalDate.of(Integer.parseInt(dateArr[0]), Integer.parseInt(dateArr[1]), Integer.parseInt(dateArr[2]));
-    List<ScheduledFlight> list= scheduledFlightService.viewAllScheduledFlights(source, destination, date);
-    if(list!= null)
+    System.out.println("Enter date (dd-mm-yyyy): ");
+    String date= sc.next();
+      while (true) {
+          if(!isValidDate(date)){
+              System.out.println("Please enter a valid date in the given format!");
+              date= sc.next();
+          }else{
+              break;
+          }
+      }
+    String[] dateArr= date.split("-");
+    LocalDate new_date= LocalDate.of(Integer.parseInt(dateArr[2]), Integer.parseInt(dateArr[1]), Integer.parseInt(dateArr[0]));
+    List<ScheduledFlight> list= scheduledFlightService.viewAllScheduledFlights(source, destination, new_date);
+    if(!list.isEmpty())
       System.out.println(list);
     else
       System.out.println("No flights available");
@@ -239,38 +289,56 @@ public class FlightBookingApp {
     }
   }
 
-  public static void makeBooking(User user){
+  public static Booking makeBooking(User user){
     List<Passenger> passengers_list= new ArrayList<>();
     List<ScheduledFlight> flight_list= checkAvailability();
-    if(flight_list==null)
-      return;
+    if(flight_list.isEmpty())
+      return null;
     System.out.println("Enter your choice: ");
     int choice= sc.nextInt();
     System.out.println("Enter no of passengers: ");
     int noOfPassenger= sc.nextInt();
     System.out.println("Enter details of passengers: ");
     for(int i=0; i<noOfPassenger; i++){
-      Passenger psngr= new Passenger();
       System.out.println("Enter passenger " + (i+1) + " details");
+      Passenger passenger= getPassengerDetails();
+      passengers_list.add(passenger);
+    }
+    double cost= flight_list.get(choice-1).getFares();
+    Flight flight= flight_list.get(choice-1).getFlight();
+    Booking booking= new Booking(user, LocalDate.now(), passengers_list, cost, flight, noOfPassenger);
+    for(Passenger passenger: passengers_list){
+        passengerService.addPassenger(passenger);
+    }
+    Booking confirmedBooking= flightBookingService.addBooking(booking);
+//    for(Passenger passenger: passengers_list){
+//      passenger.setBooking(confirmedBooking);
+//    }
+    System.out.println("\n======Your booking is confirmed======\n");
+    System.out.println(confirmedBooking);
+    return confirmedBooking;
+  }
+
+  public static Passenger getPassengerDetails(){
+      Passenger psngr= new Passenger();
       System.out.println("Enter passenger name: ");
       psngr.setPassengerName(sc.nextLine());
       System.out.println("Enter passenger age: ");
       psngr.setAge(sc.nextInt());
       System.out.println("Enter passenger UIN: ");
-      psngr.setPassengerUIN(sc.nextBigInteger());
+      BigInteger uin= sc.nextBigInteger();
+      while (true) {
+          if(!isValidUIN(uin.toString())){
+              System.out.println("Please enter a valid 12 digit user identification number!");
+              uin= sc.nextBigInteger();
+          }else{
+              break;
+          }
+      }
+      psngr.setPassengerUIN(uin);
       System.out.println("Enter luggage: ");
       psngr.setLuggage(sc.nextDouble());
-      passengers_list.add(psngr);
-    }
-    double cost= flight_list.get(choice-1).getFares();
-    Flight flight= flight_list.get(choice-1).getFlight();
-    Booking booking= new Booking(user, LocalDate.now(), passengers_list, cost, flight, noOfPassenger);
-    Booking confirmedBooking= flightBookingService.addBooking(booking);
-    for(Passenger passenger: passengers_list){
-      passenger.setBooking(confirmedBooking);
-    }
-    System.out.println("Your booking is confirmed");
-    System.out.println(confirmedBooking);
+      return psngr;
   }
   public static  void addFlight()
   {
@@ -454,5 +522,33 @@ catch (FlightNotFoundException fe)
     System.out.println(fe.getMessage());
 }
   }
+
+  public static boolean isValidDate(String date){
+      String regex= "^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](20)[2-9]\\d$";
+      return date.matches(regex);
+  }
+
+    public static boolean isValidPassword(String password){
+        String regex = "^(?=.*[0-9])"
+                + "(?=.*[a-z])(?=.*[A-Z])"
+                + "(?=.*[@#$%^&+=])"
+                + "(?=\\S+$).{8,20}$";
+        return password.matches(regex);
+    }
+
+    public static boolean isValidMobile(String mobileNo){
+        String regex= "^[0-9]{10}$";
+        return mobileNo.matches(regex);
+    }
+
+    public static boolean isValidEmail(String email){
+        String regex= "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$";
+        return email.matches(regex);
+    }
+
+    public static boolean isValidUIN(String uin){
+        String regex= "^[0-9]{12}$";
+        return uin.matches(regex);
+    }
 }
 
