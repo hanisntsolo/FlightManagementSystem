@@ -7,7 +7,7 @@ import javax.persistence.Persistence;
 public class JPAUtil {
     public static EntityManager getEntityManager()
     {
-        EntityManagerFactory fact= Persistence.createEntityManagerFactory("JPA-PU");
+        EntityManagerFactory fact= Persistence.createEntityManagerFactory("NewPersistenceUnit");
         EntityManager em=fact.createEntityManager();
         return em;
     }

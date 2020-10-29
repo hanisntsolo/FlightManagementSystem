@@ -20,90 +20,62 @@ public class FlightBookingRepositoryImpl implements IFlightBookingRepository{
         entityManager.getTransaction().begin();
         entityManager.persist(booking);
         entityManager.getTransaction().commit();
-        //EntityManagerFactory factory = Persistence
-
-        //.createEntityManagerFactory("NewPersistenceUnit");
-//        EntityManager em = factory.createEntityManager();
-//        em.getTransaction().begin();
-//        em.persist(booking);
-//        em.getTransaction().commit();
-//        em.close();
-//        factory.close();
+        entityManager.close();
         return booking;
     }
+
+    @Override
     public Booking cancelBooking(BigInteger bookingId) throws BookingNotFoundException{
 
         entityManager= jpaUtil.getEntityManager();
-        entityManager.getTransaction().begin();
-        entityManager.persist(bookingId);
-        entityManager.getTransaction().commit();
-
-        //EntityManagerFactory factory = Persistence
-        //.createEntityManagerFactory("NewPersistenceUnit");
-        //EntityManager em = factory.createEntityManager();
-        //em.getTransaction().begin();
         Booking booking= entityManager.find(Booking.class, bookingId);
         if(booking==null){
-            //em.close();
-            //factory.close();
+            entityManager.close();
             throw new BookingNotFoundException("Booking not found!");
         }else{
             entityManager.getTransaction().begin();
             entityManager.remove(booking);
             entityManager.getTransaction().commit();
             entityManager.close();
-//            fact.close();
             return booking;
         }
     }
+    @Override
     public Booking viewBooking(BigInteger bookingId) throws BookingNotFoundException{
 
         entityManager= jpaUtil.getEntityManager();
-        entityManager.getTransaction().begin();
-        entityManager.persist(bookingId);
-        entityManager.getTransaction().commit();
-
-//        EntityManagerFactory factory = Persistence
-//                .createEntityManagerFactory("NewPersistenceUnit");
-//        EntityManager em = factory.createEntityManager();
-//        em.getTransaction().begin();
         Booking booking= entityManager.find(Booking.class, bookingId);
-        // em.close();
-
-        //factory.close();
         if(booking==null){
+            entityManager.close();
             throw new BookingNotFoundException("Booking not found!");
         }else{
+            entityManager.close();
             return booking;
         }
     }
+
+    @Override
     public List<Booking> viewBookingList(Date bookingDate){
         entityManager=jpaUtil.getEntityManager();
-//        EntityManagerFactory factory = Persistence
-//                .createEntityManagerFactory("NewPersistenceUnit");
-//        EntityManager em = factory.createEntityManager();
-//        em.getTransaction().begin();
-        List<Booking> bookingList= entityManager.createQuery("select b from Booking b where b.bookingDate = :bookingDate",
+        List<Booking> bookingList=
+                entityManager.createQuery("select b from Booking b where b.bookingDate = :bookingDate",
                 Booking.class).setParameter("bookingDate", bookingDate).getResultList();
-//        em.close();
-//        factory.close();
+        entityManager.close();
         return bookingList;
     }
-    public List<Booking> viewBookingList(BigInteger flightId){
-        entityManager=jpaUtil.getEntityManager();
 
-//        EntityManagerFactory factory = Persistence
-//                .createEntityManagerFactory("NewPersistenceUnit");
-//        EntityManager em = factory.createEntityManager();
-//        em.getTransaction().begin();
+    @Override
+    public List<Booking> viewBookingList(BigInteger flightId){
+       /* entityManager=jpaUtil.getEntityManager();
+
         List<Booking> bookingList= entityManager.createQuery("select b from Booking b where b.flight = :flightId",
                 Booking.class).setParameter("flightId", flightId).getResultList();
 //        em.close();
-//        factory.close();
-        return bookingList;
+//        factory.close();*/
+        return null;
     }
     public List<Booking> viewBookingHistory(BigInteger userId){
-        entityManager=jpaUtil.getEntityManager();
+      /*  entityManager=jpaUtil.getEntityManager();
 
 //        EntityManagerFactory factory = Persistence
 //                .createEntityManagerFactory("NewPersistenceUnit");
@@ -113,7 +85,8 @@ public class FlightBookingRepositoryImpl implements IFlightBookingRepository{
                 Booking.class).setParameter("userId", userId).getResultList();
 //        em.close();
 //        factory.close();
-        return bookingList;
+        return bookingList*/
+        return  null;
     }
     public Booking updateBooking(Booking booking){
         return null;
