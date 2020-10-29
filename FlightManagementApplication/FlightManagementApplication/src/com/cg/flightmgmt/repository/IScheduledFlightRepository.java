@@ -22,6 +22,6 @@ public interface IScheduledFlightRepository {
 	public List<ScheduledFlight> viewAllScheduledFlights(LocalDate arrivalDate) throws FlightNotFoundException;
 	public List<ScheduledFlight> viewAllScheduledFlights(LocalDate date1, LocalDate date2);
 	public List<ScheduledFlight> viewAllScheduledFlights(String source, String destination, LocalDate date);
-	public ScheduledFlight addFlightSchedule(ScheduledFlight flight);
+	public ScheduledFlight addFlightSchedule(ScheduledFlight scheduledflight);
 
 }

@@ -7,11 +7,8 @@ import com.cg.flightmgmt.exception.UserNotFoundException;
 import com.cg.flightmgmt.service.*;
 
 import java.math.BigInteger;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -47,136 +44,127 @@ public class FlightBookingApp {
   static IScheduledFlightService scheduledFlightService= new ScheduledFlightServiceImpl();
   static IUserService userService= new UserServiceImpl();
   static IFlightService flightService=new FlightServiceImpl();
+  static IAirportService airportService=new AirportServiceImp();
 
- static IAirportService airportService=new AirportServiceImp();
-
- static BigInteger flightId;
- static String carrierName;
- static String flightModel;
-  static int seatCapacity;
-  static Flight flight;
-  static int availableSeats;
-  static Schedule schedule;
-  static double fares;
-  static int airportId;
-  static String airportName;
-  static String airportLocation;
-  static Airport sourceAirport;
-  static Airport destinationAirport;
-  static ScheduledFlight scheduledFlight;
-
-  public static void main(String[] args) throws Exception{
-    System.out.println("*******************************************************");
-    System.out.println("\n\n===========WELCOME TO EASE_MY_FLIGHT=============");
-    System.out.println("-----------------------------------------------");
-    System.out.println("1. Log in as admin");
-    System.out.println("2. Log in as user");
-    System.out.println("3. If you don't have an account, please sign up...");
-    System.out.println(("Enter your choice: "));
-    int logChoice= Integer.parseInt(sc.nextLine());
-
-    if(logChoice==1) {
-      User user= validateUser();
-      if(user!= null) {
-        while (true) {
-          System.out.println("1. Add Flights\n"
-                           + "2. Modify Flights\n"
-                           + "3. Delete Flight\n"
-                           + "4. Search Flight\n"
-                           + "5. Show Flights\n"
-                           + "6. Add Schedule\n"
-                           + "7. Modify Schedule\n"
-                           + "8. Delete Schedule\n"
-                           + "9. Search Schedule\n"
-                           + "10. Show Schedule\n"
-                           + "11. Log out");
-          int choice = sc.nextInt();
-
-          switch (choice) {
-
-            case 1:// add flight
-              addFlight();
-              break;
-            case 2:// modify flight
-              break;
-            case 3:// delete flight
-                 deleteFlight();
-              break;
-            case 4:// search flight
-                searchFlight();
-             break;
-            case 5:// show flight
-                showFlight();
-              break;
-            case 6:// add schedule
-               addSchedule();
-              break;
-            case 7:// modify schedule
-                modifySchedule();
-              break;
-            case 8:// delete schedule
-                deleteSchedule();
-              break;
-            case 9:// search schedule
-                searchSchedule();
-             break;
-            case 10:// show schedule
-                showSchedule();
-              break;
-            case 11:
-              System.out.println("Logged out");
-              System.exit(0);
-              break;
-            default:
-              System.out.println("Choose from the given options.....");
-
+  static int count= 0;
+  public static void main(String[] args){
+          try {
+              System.out.println("*******************************************************");
+              System.out.println("\n\n===========WELCOME TO EASE_MY_FLIGHT=============");
+              System.out.println("-----------------------------------------------");
+              System.out.println("1. Log in as admin");
+              System.out.println("2. Log in as user");
+              System.out.println("3. If you don't have an account, please sign up...");
+              System.out.println(("Enter your choice: "));
+              int logChoice;
+              if(count==0)
+                logChoice = Integer.parseInt(sc.nextLine());
+              else{
+                  sc.nextLine();
+                  logChoice= Integer.parseInt(sc.nextLine());
+              }
+              if (logChoice == 1) {
+                  User user = validateUser();
+                  if (user != null) {
+                      while (true) {
+                          System.out.println("1. Add Flights\n"
+                                  + "2. Modify Flights\n"
+                                  + "3. Delete Flight\n"
+                                  + "4. Search Flight\n"
+                                  + "5. Show Flights\n"
+                                  + "6. Add Schedule\n"
+                                  + "7. Modify Schedule\n"
+                                  + "8. Delete Schedule\n"
+                                  + "9. Search Schedule\n"
+                                  + "10. Show Schedule\n"
+                                  + "11. Log out");
+                          int choice = sc.nextInt();
+                          switch (choice) {
+                              case 1:
+                                  addFlight();     //add flight
+                                  break;
+                              case 2:
+                                  modifyFlight();  // modify flight
+                                  break;
+                              case 3:
+                                  deleteFlight();
+                                  break;               // delete flight
+                              case 4:
+                                  searchFlight();
+                                  break;               // search flight
+                              case 5:
+                                  showFlight();
+                                  break;               // show flight
+                              case 6:
+                                  addSchedule();
+                                  break;               // add schedule
+                              case 7:
+                                  modifySchedule();
+                                  break;                // modify schedule
+                              case 8:
+                                  deleteSchedule();
+                                  break;                // delete schedule
+                              case 9:
+                                  searchSchedule();
+                                  break;                // search schedule
+                              case 10:
+                                  showSchedule();
+                                  break;                // show schedule
+                              case 11:
+                                  System.out.println("Logged out");
+                                  System.exit(0);
+                                  break;
+                              default:
+                                  System.out.println("Choose from the given options.....");
+                          }
+                      }
+                  } else {
+                      System.out.println("User not found....\nYou have entered wrong id or password!");
+                  }
+              } else if (logChoice == 2) {
+                  User user = validateUser();
+                  if (user != null) {
+                      while (true) {
+                          System.out.println("1. check availability\n2. Make Booking\n3. Cancel Booking\n4. Log out");
+                          int choice = sc.nextInt();
+                          switch (choice) {
+                              case 1:
+                                  checkAvailability();
+                                  break;
+                              case 2:
+                                  makeBooking(user);
+                                  break;
+                              case 3:
+                                  cancelBooking();
+                                  break;
+                              case 4:
+                                  System.out.println("Logged out");
+                                  System.exit(0);
+                                  break;
+                              default:
+                                  System.out.println("Choose from the given options.....");
+                          }
+                      }
+                  } else {
+                      System.out.println("User not found....\nYou have entered wrong id or password!");
+                  }
+              } else if (logChoice == 3) {
+                  signUp();
+              } else {
+                  System.out.println("Enter correct choice....");
+              }
+          } catch (Exception e) {
+              System.out.println("Some error occurred, Please enter valid data!");
           }
-        }
-      }else{
-        System.out.println("User not found....\nYou have entered wrong id or password!");
       }
-    }else if(logChoice==2) {
-      User user= validateUser();
-      if(user!= null) {
-        while (true) {
-          System.out.println("1. check availability\n"
-                           + "2. Make Booking\n"
-                           + "3. Cancel Booking\n"
-                           + "4. Log out");
-          int choice = sc.nextInt();
-          switch (choice) {
-            case 1: checkAvailability();
-              break;
-            case 2: makeBooking(user);
-              break;
-            case 3: cancelBooking();
-              break;
-            case 4:
-              System.out.println("Logged out");
-              System.exit(0);
-              break;
-            default:
-              System.out.println("Choose from the given options.....");
-          }
-        }
-      }else{
-        System.out.println("User not found....\n"
-            + "You have entered wrong id or password!");
-      }
-    }else if(logChoice==3) {
-      signUp();
-    }else{
-        System.out.println("Enter correct choice....");
-      }
-      sc.close();
-    }
+
 
     public static User validateAdmin(){
+      try{
         System.out.println("Enter user id:");
         BigInteger userId= sc.nextBigInteger();
         System.out.println("Enter password:");
         String password= sc.next();
-        try {
             User user= userService.validateUser(new User(userId, password));
             if(user.getUserType().equals("admin")) {
                 return user;
@@ -185,23 +173,32 @@ public class FlightBookingApp {
             }
         }catch (UserNotFoundException e){
             return null;
-        }
+        }catch (Exception e){
+          System.out.println("Some error occurred, please enter valid data!");
+          return null;
+      }
     }
 
   public static User validateUser(){
-    System.out.println("Enter user id:");
-    BigInteger userId= sc.nextBigInteger();
-    System.out.println("Enter password:");
-    String password= sc.next();
     try {
-      User user= userService.validateUser(new User(userId, password));
-      return user;
-    }catch (UserNotFoundException e){
-      return null;
+        System.out.println("Enter user id:");
+        BigInteger userId = sc.nextBigInteger();
+        System.out.println("Enter password:");
+        String password = sc.next();
+        try {
+            User user = userService.validateUser(new User(userId, password));
+            return user;
+        } catch (UserNotFoundException e) {
+            return null;
+        }
+    }catch(Exception e){
+        System.out.println("Some error occurred, Please enter valid data!");
+        return null;
     }
   }
 
   public  static void signUp() {
+      try{
       System.out.println("Enter name: ");
       String name = sc.nextLine();
       System.out.println(
@@ -243,77 +240,93 @@ public class FlightBookingApp {
       User user = userService.addUser(new User("user", name, password, email, mobileNo));
       System.out.println("You have successfully signed up. Go to the login page.....");
       System.out.println("======= Your user id is: " + user.getUserId() + " ========");
+      }catch (Exception e){
+          System.out.println("Some error occurred, Please enter valid data!");
       }
+  }
 
-  public static List<ScheduledFlight> checkAvailability(){
-    System.out.println("Enter source: ");
-    String source= sc.next();
-    System.out.println("Enter destination: ");
-    String destination= sc.next();
-    System.out.println("Enter date (dd-mm-yyyy): ");
-    String date= sc.next();
-      while (true) {
-          if(!isValidDate(date)){
-              System.out.println("Please enter a valid date in the given format!");
-              date= sc.next();
-          }else{
-              break;
+  public static List<ScheduledFlight> checkAvailability() {
+      try {
+          System.out.println("Enter source: ");
+          String source = sc.next();
+          System.out.println("Enter destination: ");
+          String destination = sc.next();
+          System.out.println("Enter date (dd-mm-yyyy): ");
+          String date = sc.next();
+          while (true) {
+              if (!isValidDate(date)) {
+                  System.out.println("Please enter a valid date in the given format!");
+                  date = sc.next();
+              } else {
+                  break;
+              }
           }
+          String[] dateArr = date.split("-");
+          LocalDate new_date = LocalDate.of(Integer.parseInt(dateArr[2]), Integer.parseInt(dateArr[1]), Integer.parseInt(dateArr[0]));
+          List<ScheduledFlight> list = scheduledFlightService.viewAllScheduledFlights(source, destination, new_date);
+          if (!list.isEmpty())
+              System.out.println(list);
+          else
+              System.out.println("No flights available");
+          return list;
+      }catch (Exception e){
+          System.out.println("Some error occurred, Please enter valid data!");
+          return null;
       }
-    String[] dateArr= date.split("-");
-    LocalDate new_date= LocalDate.of(Integer.parseInt(dateArr[2]), Integer.parseInt(dateArr[1]), Integer.parseInt(dateArr[0]));
-    List<ScheduledFlight> list= scheduledFlightService.viewAllScheduledFlights(source, destination, new_date);
-    if(!list.isEmpty())
-      System.out.println(list);
-    else
-      System.out.println("No flights available");
-    return list;
   }
 
-  public static void cancelBooking() {
-    System.out.println("Please enter booking id: ");
-    BigInteger bookingId = sc.nextBigInteger();
-    try {
-      flightBookingService.cancelBooking(bookingId);
-      System.out.println("Booking cancelled");
-    } catch (BookingNotFoundException e) {
-      System.out.println("Booking not found!");
-    }
+  public static void cancelBooking () {
+      try {
+          System.out.println("Please enter booking id: ");
+          BigInteger bookingId = sc.nextBigInteger();
+          flightBookingService.cancelBooking(bookingId);
+          System.out.println("Booking cancelled");
+      } catch (BookingNotFoundException e) {
+          System.out.println("Booking not found!");
+      }catch (Exception e){
+          System.out.println("Some error occurred, Please enter valid data!");
+      }
   }
 
-  public static Booking makeBooking(User user){
-    List<Passenger> passengers_list= new ArrayList<>();
-    List<ScheduledFlight> flight_list= checkAvailability();
-    if(flight_list.isEmpty())
-      return null;
-    System.out.println("Enter your choice: ");
-    int choice= sc.nextInt();
-    System.out.println("Enter no of passengers: ");
-    int noOfPassenger= sc.nextInt();
-    System.out.println("Enter details of passengers: ");
-    for(int i=0; i<noOfPassenger; i++){
-      System.out.println("Enter passenger " + (i+1) + " details");
-      Passenger passenger= getPassengerDetails();
-      passengers_list.add(passenger);
-    }
-    double cost= flight_list.get(choice-1).getFares();
-    Flight flight= flight_list.get(choice-1).getFlight();
-    Booking booking= new Booking(user, LocalDate.now(), passengers_list, cost, flight, noOfPassenger);
-    for(Passenger passenger: passengers_list){
-        passengerService.addPassenger(passenger);
-    }
-    Booking confirmedBooking= flightBookingService.addBooking(booking);
+  public static Booking makeBooking(User user) {
+      try {
+          List<Passenger> passengers_list = new ArrayList<>();
+          List<ScheduledFlight> flight_list = checkAvailability();
+          if (flight_list.isEmpty())
+              return null;
+          System.out.println("Enter your choice: ");
+          int choice = sc.nextInt();
+          System.out.println("Enter no of passengers: ");
+          int noOfPassenger = sc.nextInt();
+          System.out.println("Enter details of passengers: ");
+          for (int i = 0; i < noOfPassenger; i++) {
+              System.out.println("Enter passenger " + (i + 1) + " details");
+              Passenger passenger = getPassengerDetails();
+              passengers_list.add(passenger);
+          }
+          double cost = flight_list.get(choice - 1).getFares();
+          Flight flight = flight_list.get(choice - 1).getFlight();
+          Booking booking = new Booking(user, LocalDate.now(), passengers_list, cost, flight, noOfPassenger);
+          for (Passenger passenger : passengers_list) {
+              passengerService.addPassenger(passenger);
+          }
+          Booking confirmedBooking = flightBookingService.addBooking(booking);
 //    for(Passenger passenger: passengers_list){
 //      passenger.setBooking(confirmedBooking);
 //    }
-    System.out.println("\n======Your booking is confirmed======\n");
-    System.out.println(confirmedBooking);
-    return confirmedBooking;
+          System.out.println("\n======Your booking is confirmed======\n");
+          System.out.println(confirmedBooking);
+          return confirmedBooking;
+      }catch (Exception e){
+          System.out.println("Some error occurred, Please enter valid data!");
+          return null;
+      }
   }
 
   public static Passenger getPassengerDetails(){
       Passenger psngr= new Passenger();
       System.out.println("Enter passenger name: ");
+      sc.nextLine();
       psngr.setPassengerName(sc.nextLine());
       System.out.println("Enter passenger age: ");
       psngr.setAge(sc.nextInt());
@@ -332,30 +345,46 @@ public class FlightBookingApp {
       psngr.setLuggage(sc.nextDouble());
       return psngr;
   }
-  public static  void addFlight()
-  {
-      System.out.println("Enter Flight Id");
-      flightId = sc.nextBigInteger();
-      System.out.println("Enter Carrier Name");
-      sc.nextLine();
-      carrierName= sc.nextLine();
-      System.out.println("Enter Flight Model");
-      flightModel = sc.nextLine();
-      System.out.println("Enter Seat Capacity");
-      seatCapacity = sc.nextInt();
-      flight = new Flight(flightId,carrierName,flightModel,seatCapacity);
-      flightService.addFlight(flight);
-      System.out.println(flight.toString());
-      System.out.println("-----YOU HAVE SUCCESSFULLY ADDED FLIGHT DETAILS-----");
+
+  public static  void addFlight() {
+      try {
+          System.out.println("Enter Flight Id");
+          BigInteger flightId = sc.nextBigInteger();
+          System.out.println("Enter Carrier Name");
+          sc.nextLine();
+          String carrierName = sc.nextLine();
+          System.out.println("Enter Flight Model");
+          String flightModel = sc.nextLine();
+          System.out.println("Enter Seat Capacity");
+          int seatCapacity = sc.nextInt();
+          Flight flight = new Flight(flightId, carrierName, flightModel, seatCapacity);
+          flightService.addFlight(flight);
+          System.out.println(flight.toString());
+          System.out.println("-----YOU HAVE SUCCESSFULLY ADDED FLIGHT DETAILS-----");
+      }catch (Exception e){
+          System.out.println("Some error occurred, Flight can not be added!");
+      }
   }
   public static void modifyFlight()
   {
-     //code to update flight
+      System.out.println("Enter Flight Id of Flight to be modified: ");
+      BigInteger flightId= sc.nextBigInteger();
+      System.out.println("Enter new carrier name: ");
+      sc.nextLine();
+      String carrierName= sc.nextLine();
+      try{
+          Flight flight= flightService.updateFlight(flightId, carrierName);
+          System.out.println("Flight has been successfully updated...");
+          System.out.println(flight);
+      }catch (FlightNotFoundException e){
+          System.out.println("Flight not found!");
+      }
   }
+
   public static void deleteFlight()
   {
       System.out.println("Enter Flight Id of Flight to be deleted");
-      flightId=sc.nextBigInteger();
+      BigInteger flightId=sc.nextBigInteger();
       try {
           flightService.removeFlight(flightId);
       }
@@ -368,151 +397,185 @@ public class FlightBookingApp {
   public static void searchFlight()
   {
       try {
-          System.out.println("Enter Flight Id of Flight to be searched ");
-          flightId=sc.nextBigInteger();
-          flight=flightService.viewFlight(flightId);
-          if(flight==null)
-          {
-              throw new FlightNotFoundException("Flight not Found");
-          }
-          else {
-              System.out.println(flight);
-          }
+          System.out.println("Enter Flight Id of flight to be searched: ");
+          BigInteger flightId=sc.nextBigInteger();
+          Flight flight=flightService.viewFlight(flightId);
+          System.out.println(flight);
       }
-      catch (FlightNotFoundException fe)
+      catch (FlightNotFoundException e) {
+          System.out.println(e.getMessage());
+      }catch (Exception e){
+          System.out.println("Please Enter correct flight id!");
+      }
+  }
 
-      {
-          System.out.println(fe.getMessage());
-      }
-  }
-  public static void showFlight()
-  {
+  public static void showFlight() {
       List<Flight> flightList=flightService.viewAllFlights();
-      Iterator itr=flightList.iterator();
-      while (itr.hasNext())
+      Iterator iterator= flightList.iterator();
+      while (iterator.hasNext())
       {
-          System.out.println(itr.next());
+          System.out.println(iterator.next());
       }
   }
+
   public static void addSchedule()
   {
+      Flight flight;
       System.out.println("Enter Flight id");
-      flightId=sc.nextBigInteger();
+      BigInteger flightId=sc.nextBigInteger();
       try {
           flight=flightService.viewFlight(flightId);
 
       } catch (FlightNotFoundException e) {
-          e.printStackTrace();
+          flight= null;
+          System.out.println(("Flight with the given flight id does not exist!"));
       }
 
       System.out.println("Enter no. of Available Seats");
-      availableSeats=sc.nextInt();
-
-      System.out.println("Enter Source Airport ID");
-      airportId=sc.nextInt();
-
-      System.out.println("Enter Source Airport name");
-      sc.nextLine();
-      airportName=sc.nextLine();
-
-      System.out.println("Enter Source Airport Location");
-      airportLocation=sc.nextLine();
-
-      sourceAirport=new Airport(airportId,airportName,airportLocation);
-      airportService.addAirport(sourceAirport);
-
-      System.out.println("Enter Destination Airport ID");
-      airportId=sc.nextInt();
-
-      System.out.println("Enter Destination Airport Name");
-      sc.nextLine();
-      airportName=sc.nextLine();
-
-      System.out.println("Enter Destination Airport Location");
-      airportLocation=sc.nextLine();
-
-      destinationAirport=new Airport(airportId,airportName,airportLocation);
-      airportService.addAirport(destinationAirport);
-
-      System.out.println("Enter Arrival Time in format(YYYY-MM-DD-HH-MM)");
-      String[] arrivalTimeArr=sc.next().split("-");
-      LocalDateTime arrivalTime = LocalDateTime.of(Integer.parseInt(arrivalTimeArr[0]),Integer.parseInt(arrivalTimeArr[1]),Integer.parseInt(arrivalTimeArr[2]),Integer.parseInt(arrivalTimeArr[3]),Integer.parseInt(arrivalTimeArr[4]));
-
-      System.out.println("Enter Departure Time in Format(YYYY-MM-DD-HH-MM)");
-      String[] departureTimeArr=sc.next().split("-");
-      LocalDateTime departureTime = LocalDateTime.of(Integer.parseInt(departureTimeArr[0]),Integer.parseInt(departureTimeArr[1]),Integer.parseInt(departureTimeArr[2]),Integer.parseInt(departureTimeArr[3]),Integer.parseInt(departureTimeArr[4]));
-
-      System.out.println("Enter Arrival Date in Format(YYYY-MM-DD)");
-      String[] arrivalDateArr=sc.next().split("-");
-      LocalDate arrivalDate = LocalDate.of(Integer.parseInt(arrivalDateArr[0]),Integer.parseInt(arrivalDateArr[1]),Integer.parseInt(arrivalDateArr[2]));
-      Schedule schedule=new Schedule(sourceAirport,destinationAirport,arrivalTime,departureTime,arrivalDate);
+      int availableSeats=sc.nextInt();
 
       System.out.println("Enter Fares of Flight");
-      fares = sc.nextDouble();
+      Double fares = sc.nextDouble();
 
-      scheduledFlight=new ScheduledFlight(flight,availableSeats,schedule,fares);
+      Schedule schedule= getScheduleDetails();
+
+      ScheduledFlight scheduledFlight=
+              new ScheduledFlight(flight,availableSeats,schedule,fares);
 
       scheduledFlightService.addFlightSchedule(scheduledFlight);
 
       System.out.println("--------FLIGHT SCHEDULE SUCCESSFULLY ADDED-----");
   }
-  public static void modifySchedule()
-  {
+
+    public static Airport getAirportDetails() {
+        Airport airport;
+        System.out.println("Enter Source Airport ID");
+        int airportId = sc.nextInt();
+        Airport new_airport = airportService.getAirport(airportId);
+        if (new_airport != null) {
+            airport = new_airport;
+        } else{
+            System.out.println("Enter Source Airport name");
+            sc.nextLine();
+            String airportName = sc.nextLine();
+
+            System.out.println("Enter Source Airport Location");
+            String airportLocation = sc.nextLine();
+
+            airport = new Airport(airportId, airportName, airportLocation);
+        }
+        return airport;
+    }
+
+    public static Schedule getScheduleDetails(){
+        Airport sourceAirport= getAirportDetails();
+        airportService.addAirport(sourceAirport);
+        Airport destinationAirport= getAirportDetails();
+        airportService.addAirport(destinationAirport);
+        System.out.println("Enter Arrival Time in format(YYYY-MM-DD-HH-MM)");
+        String timeStamp1= sc.next();
+        while (true) {
+            if (!isValidTimeStamp(timeStamp1)) {
+                System.out.println("Please enter a valid date-time format!");
+                timeStamp1 = sc.next();
+            } else {
+                break;
+            }
+        }
+        String[] arrivalTimeArr=timeStamp1.split("-");
+        LocalDateTime arrivalTime = LocalDateTime.of(Integer
+                .parseInt(arrivalTimeArr[0]),Integer.parseInt(arrivalTimeArr[1]),Integer.parseInt(arrivalTimeArr[2]),Integer.parseInt(arrivalTimeArr[3]),Integer.parseInt(arrivalTimeArr[4]));
+
+        System.out.println("Enter Departure Time in Format(YYYY-MM-DD-HH-MM)");
+        String timeStamp2= sc.next();
+        while (true) {
+            if (!isValidDate(timeStamp2)) {
+                System.out.println("Please enter a valid date-time format!");
+                timeStamp2 = sc.next();
+            } else {
+                break;
+            }
+        }
+        String[] departureTimeArr= timeStamp2.split("-");
+        LocalDateTime departureTime = LocalDateTime
+                .of(Integer.parseInt(departureTimeArr[0]),Integer.parseInt(departureTimeArr[1]),Integer.parseInt(departureTimeArr[2]),Integer.parseInt(departureTimeArr[3]),Integer.parseInt(departureTimeArr[4]));
+
+        System.out.println("Enter Arrival Date in Format(DD-MM-YYYY)");
+        String date= sc.next();
+        while (true) {
+            if (!isValidDate(date)) {
+                System.out.println("Please enter a valid date in the given format!");
+                date = sc.next();
+            } else {
+                break;
+            }
+        }
+        String[] arrivalDateArr= date.split("-");
+        LocalDate arrivalDate = LocalDate
+                .of(Integer.parseInt(arrivalDateArr[2]),Integer.parseInt(arrivalDateArr[1]),Integer.parseInt(arrivalDateArr[0]));
+
+        return new Schedule(sourceAirport,destinationAirport,arrivalTime,departureTime,arrivalDate);
+
+    }
+
+  public static void modifySchedule() {
       System.out.println("Enter FlightId");
-      flightId=sc.nextBigInteger();
+      BigInteger flightId=sc.nextBigInteger();
       System.out.println("Enter updated Available Seats ");
       int availableSeat=sc.nextInt();
       try {
-          scheduledFlight = scheduledFlightService.viewFlightSchedule(flightId);
+          ScheduledFlight scheduledFlight = scheduledFlightService.viewFlightSchedule(flightId);
           scheduledFlightService.updateFlightSchedule(flightId, availableSeat);
       }
-      catch(FlightNotFoundException fe)
+      catch(FlightNotFoundException e)
       {
-          System.out.println(fe.getMessage());
+          System.out.println("Flight not found!");
       }
       System.out.println("------SUCCESSFULLY UPDATED-----");
   }
-  public static void deleteSchedule()
-  {
+
+  public static void deleteSchedule() {
       System.out.println("Enter Flight ID of the flight to be deleted");
-      flightId=sc.nextBigInteger();
+      BigInteger flightId=sc.nextBigInteger();
       try {
           scheduledFlightService.removeFlightSchedule(flightId);
       }
-      catch(FlightNotFoundException fe)
+      catch(FlightNotFoundException e)
       {
-          System.out.println(fe.getMessage());
+          System.out.println("Flight not found!");
       }
       System.out.println("-------FLIGHT SCHEDULE SUCCESSFULLY DELETED----");
   }
+
   public static void  searchSchedule()
   {
       System.out.println("Enter FlightID: ");
-      flightId=sc.nextBigInteger();
+      BigInteger flightId=sc.nextBigInteger();
       try {
           System.out.println(scheduledFlightService.viewFlightSchedule(flightId));
       }
-      catch(FlightNotFoundException fe)
+      catch(FlightNotFoundException e)
       {
-          System.out.println(fe.getMessage());
+          System.out.println("Flight not found!");
       }
   }
+
   public static void showSchedule()
   {
-      System.out.println("Enter Date: ");
-      String[] arrivalDateArr=sc.next().split("-");
-      LocalDate arrivalDate = LocalDate.of(Integer.parseInt(arrivalDateArr[0]),Integer.parseInt(arrivalDateArr[1]),Integer.parseInt(arrivalDateArr[2]));
-try {
-    List<ScheduledFlight> scheduledFlightList = scheduledFlightService.viewAllScheduledFlights(arrivalDate);
-    Iterator<ScheduledFlight> itr1 = scheduledFlightList.iterator();
-    while (itr1.hasNext()) {
-        System.out.println(itr1.next());
-    }
-}
-catch (FlightNotFoundException fe)
-{
-    System.out.println(fe.getMessage());
-}
+    System.out.println("Enter Date: ");
+    String[] arrivalDateArr=sc.next().split("-");
+    LocalDate arrivalDate = LocalDate.of(Integer.parseInt(arrivalDateArr[0]),Integer.parseInt(arrivalDateArr[1]),Integer.parseInt(arrivalDateArr[2]));
+    try {
+        List<ScheduledFlight> scheduledFlightList
+                = scheduledFlightService.viewAllScheduledFlights(arrivalDate);
+        Iterator<ScheduledFlight> itr1 = scheduledFlightList.iterator();
+        while (itr1.hasNext()) {
+            System.out.println(itr1.next());
+        }
+    } catch (FlightNotFoundException e)
+      {
+            System.out.println("No flight available for the given date!");
+      }
   }
 
   public static boolean isValidDate(String date){
@@ -541,6 +604,12 @@ catch (FlightNotFoundException fe)
     public static boolean isValidUIN(String uin){
         String regex= "^[0-9]{12}$";
         return uin.matches(regex);
+    }
+
+    public static boolean isValidTimeStamp(String timeStamp){
+      String regex= "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])"
+        +"(2[0-3]|[01][0-9]):[0-5][0-9]$";
+      return timeStamp.matches(regex);
     }
 }
 

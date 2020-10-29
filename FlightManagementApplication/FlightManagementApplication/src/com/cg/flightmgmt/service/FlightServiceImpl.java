@@ -13,7 +13,7 @@ public class FlightServiceImpl implements IFlightService {
   IFlightRepository Flight=new FlightRepositoryImpl();
 
   @Override
-  public Flight addFlight(Flight flight) {
+  public Flight addFlight(Flight flight) throws Exception{
 
     return Flight.addFlight(flight);
   }
@@ -35,8 +35,8 @@ public class FlightServiceImpl implements IFlightService {
   }
 
   @Override
-  public Flight updateFlight(Flight flight) {
+  public Flight updateFlight(BigInteger flightId, String carrierName) throws FlightNotFoundException{
 
-    return Flight.updateFlight(flight);
+    return Flight.updateFlight(flightId, carrierName);
   }
 }

@@ -40,6 +40,7 @@ public class FlightBookingRepositoryImpl implements IFlightBookingRepository{
             return booking;
         }
     }
+
     @Override
     public Booking viewBooking(BigInteger bookingId) throws BookingNotFoundException{
 
@@ -66,28 +67,24 @@ public class FlightBookingRepositoryImpl implements IFlightBookingRepository{
 
     @Override
     public List<Booking> viewBookingList(BigInteger flightId){
-       /* entityManager=jpaUtil.getEntityManager();
-
-        List<Booking> bookingList= entityManager.createQuery("select b from Booking b where b.flight = :flightId",
+       entityManager=jpaUtil.getEntityManager();
+       List<Booking> bookingList= entityManager.createQuery("select b from Booking b where b.flight.flightId= :flightId",
                 Booking.class).setParameter("flightId", flightId).getResultList();
-//        em.close();
-//        factory.close();*/
-        return null;
+       entityManager.close();
+       return bookingList;
     }
-    public List<Booking> viewBookingHistory(BigInteger userId){
-      /*  entityManager=jpaUtil.getEntityManager();
 
-//        EntityManagerFactory factory = Persistence
-//                .createEntityManagerFactory("NewPersistenceUnit");
-//        EntityManager em = factory.createEntityManager();
-//        em.getTransaction().begin();
-        List<Booking> bookingList= entityManager.createQuery("select b from Booking b where b.userId = :userId",
+    @Override
+    public List<Booking> viewBookingHistory(BigInteger userId){
+      EntityManager entityManager=jpaUtil.getEntityManager();
+      List<Booking> bookingList=
+                entityManager.createQuery("select b from Booking b where b.userId.userId = :userId",
                 Booking.class).setParameter("userId", userId).getResultList();
-//        em.close();
-//        factory.close();
-        return bookingList*/
-        return  null;
+      entityManager.close();
+      return bookingList;
     }
+
+    @Override
     public Booking updateBooking(Booking booking){
         return null;
     }

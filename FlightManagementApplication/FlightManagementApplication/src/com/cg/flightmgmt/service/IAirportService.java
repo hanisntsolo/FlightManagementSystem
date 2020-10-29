@@ -5,4 +5,5 @@ import com.cg.flightmgmt.dto.Flight;
 
 public interface IAirportService {
     public Airport addAirport(Airport airport);
+    public Airport getAirport(int airportId);
 }

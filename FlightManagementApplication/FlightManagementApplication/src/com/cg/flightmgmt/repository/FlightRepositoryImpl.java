@@ -15,7 +15,7 @@ public class FlightRepositoryImpl implements IFlightRepository {
     JPAUtil jpaUtil = new JPAUtil();
 
     @Override
-    public Flight addFlight(Flight flight)
+    public Flight addFlight(Flight flight) throws Exception
     {
         entityManager = jpaUtil.getEntityManager();
         entityManager.getTransaction().begin();
@@ -23,36 +23,34 @@ public class FlightRepositoryImpl implements IFlightRepository {
         entityManager.getTransaction().commit();
         entityManager
             .close();
-//        factory.close();
         return flight;
     }
+
     @Override
     public Flight viewFlight(BigInteger flightId) throws FlightNotFoundException
     {
         entityManager= jpaUtil.getEntityManager();
-        entityManager.getTransaction().begin();
-        entityManager.persist(flightId);
-        entityManager.getTransaction().commit();
         Flight flight = entityManager.find(Flight.class, flightId);
         if(flight==null){
+            entityManager.close();
             throw new FlightNotFoundException("Flight not found!");
         }else {
+            entityManager.close();
             return flight;
         }
-
-
     }
+
     @Override
     public List<Flight> viewAllFlights()
     {
         entityManager = jpaUtil.getEntityManager();
-//        entityManager.getTransaction().begin();
-        List<Flight> flightSet=  entityManager.createQuery("select f from Flight f", Flight.class).getResultList();
-//        entityManager.getTransaction().commit();
-//        entityManager.close();
-//        fact.close();
-        return flightSet;
+        List<Flight> flightList=
+                entityManager.createQuery("select f from Flight f", Flight.class)
+                        .getResultList();
+        entityManager.close();
+        return flightList;
     }
+
     @Override
     public Flight removeFlight(BigInteger flightId) throws FlightNotFoundException{
         entityManager= jpaUtil.getEntityManager();
@@ -71,14 +69,23 @@ public class FlightRepositoryImpl implements IFlightRepository {
     }
 
     @Override
-    public Flight updateFlight(Flight flight)
+    public Flight updateFlight(BigInteger flightId, String carrierName) throws FlightNotFoundException
     {
         entityManager= jpaUtil.getEntityManager();
-        entityManager.getTransaction().begin();
-        entityManager.createQuery("UPDATE Flight SET seatCapacity = :seatCapacity")
-                .setParameter("seatCapacity", flight.getSeatCapacity()).executeUpdate();
-        entityManager.getTransaction().commit();
-        entityManager.close();
-        return flight;
+        Flight flight= entityManager.find(Flight.class, flightId);
+        if(flight!=null) {
+            entityManager.getTransaction().begin();
+            entityManager.createQuery("UPDATE Flight SET carrierName = :carrierName"
+                    + " where flightId= :flightId")
+                    .setParameter("carrierName", carrierName)
+                    .setParameter("flightId", flightId)
+                    .executeUpdate();
+            entityManager.getTransaction().commit();
+            entityManager.close();
+            return flight;
+        }else{
+            entityManager.close();
+            throw new FlightNotFoundException("Flight not found!");
+        }
     }
 }

@@ -8,8 +8,12 @@ import com.cg.flightmgmt.repository.IAirportRepository;
 public class AirportServiceImp implements IAirportService{
     IAirportRepository airportRepository=new AirportRepositoryImp();
     @Override
-    public Airport addAirport(Airport airport)
-    {
+    public Airport addAirport(Airport airport) {
         return airportRepository.addAirport(airport);
+    }
+
+    @Override
+    public Airport getAirport(int airportId){
+        return airportRepository.getAirport(airportId);
     }
 }
