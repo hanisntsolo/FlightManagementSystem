@@ -35,6 +35,18 @@ private int noOfPassengers;
 	public Booking() {
 	}
 
+	//Do not touch this constructor please
+	public Booking(BigInteger bookingId, User userId, LocalDate bookingDate,
+			List<Passenger> passengerList, double ticketCost, Flight flight, int noOfPassengers) {
+		this.bookingId = bookingId;
+		this.userId = userId;
+		this.bookingDate = bookingDate;
+		this.passengerList = passengerList;
+		this.ticketCost = ticketCost;
+		this.flight = flight;
+		this.noOfPassengers = noOfPassengers;
+	}
+
 	public Booking(User userId, LocalDate bookingDate,
 			List<Passenger> passengerList, double ticketCost, Flight flight, int noOfPassengers) {
 		this.userId = userId;
@@ -45,8 +57,9 @@ private int noOfPassengers;
 		this.noOfPassengers = noOfPassengers;
 	}
 
-    public Booking(BigInteger bigInteger, User user, LocalDate date, List<Passenger> passengers, double v, Flight flight, int i) {
-    }
+//    public Booking(BigInteger bigInteger, User user, LocalDate date, List<Passenger> passengers, double v, Flight flight, int i) {
+//		super()
+//    }
 
     public BigInteger getBookingId() {
 	return bookingId;

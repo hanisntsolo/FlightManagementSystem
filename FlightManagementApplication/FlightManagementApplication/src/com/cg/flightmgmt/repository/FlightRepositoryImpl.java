@@ -21,6 +21,8 @@ public class FlightRepositoryImpl implements IFlightRepository {
         entityManager.getTransaction().begin();
         entityManager.persist(flight);
         entityManager.getTransaction().commit();
+        entityManager
+            .close();
 //        factory.close();
         return flight;
     }
