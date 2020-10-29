@@ -56,7 +56,7 @@ public class UserRepositoryImpl implements IUserRepository {
     public User removeUser(BigInteger userid) throws UserNotFoundException
     {
         EntityManager entityManager= jpaUtil.getEntityManager();
-        entityManager.getTransaction().begin();
+//        entityManager.getTransaction().begin();
         User user= entityManager.find(User.class,userid);
         if(user==null){
             entityManager.close();

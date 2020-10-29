@@ -25,8 +25,8 @@ class UserServiceImplTest {
   @BeforeEach
   void setUp_userService() {
   userService = new UserRepositoryImpl();
-  user = new User(new BigInteger("155"), "guessMe");
-  user1 = new User(new BigInteger("215"),"dontGuessMe");
+  user = new User("User","Jordan","ab_cd&789","jordan123@xyz.com","4964852671");
+//  user1 = new User(new BigInteger("215"),"dontGuessMe");
   }
 
   @AfterEach
@@ -58,7 +58,7 @@ class UserServiceImplTest {
 //    fail("This is yet to be implemented");
     userService.addUser(user);
     //Having return type user, asserting it to removed user.
-    assertEquals(user, userService.removeUser(new BigInteger("155")));
+    assertEquals(user, userService.removeUser(user.getUserId()));
   }
   @AfterAll
   static void afterClass_userService () {

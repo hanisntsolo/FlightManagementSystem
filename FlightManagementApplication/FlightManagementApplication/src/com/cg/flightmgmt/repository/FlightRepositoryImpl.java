@@ -81,8 +81,9 @@ public class FlightRepositoryImpl implements IFlightRepository {
                     .setParameter("flightId", flightId)
                     .executeUpdate();
             entityManager.getTransaction().commit();
+            Flight flight1 = entityManager.find(Flight.class,flightId);
             entityManager.close();
-            return flight;
+            return flight1;
         }else{
             entityManager.close();
             throw new FlightNotFoundException("Flight not found!");

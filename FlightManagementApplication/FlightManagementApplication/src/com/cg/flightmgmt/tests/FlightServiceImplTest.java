@@ -15,13 +15,15 @@ import org.junit.jupiter.api.Test;
 
 class FlightServiceImplTest {
   private static IFlightRepository flightRepo;
-  private static Flight flight;
+  private static Flight flight, flight1;
   private static List<Flight> listFlight;
 
   @BeforeEach
   void setUp() {
     flightRepo = new FlightRepositoryImpl();
     flight = new Flight(new BigInteger("112234"), "Indian Airlines", "INDIA554",455 );
+    flight1 = new Flight(new BigInteger("112235"), "Amazon airlines", "INDIA554",455 );
+
   }
 
   @AfterEach
@@ -30,13 +32,14 @@ class FlightServiceImplTest {
   }
 
   @Test
-  void addFlight() {
+  void addFlight() throws Exception {
 //    fail("This is yet to be implemented");
     assertEquals(flight, flightRepo.addFlight(flight));
+//    assertEquals(flight1, flightRepo.addFlight(flight1));
   }
 
   @Test
-  void viewFlight() throws FlightNotFoundException {
+  void viewFlight() throws Exception {
 //    fail("This is yet to be implemented");
     flightRepo.addFlight(flight);
     assertEquals(flight.getFlightId(), flightRepo.viewFlight(BigInteger.valueOf(112234)).getFlightId());
@@ -51,15 +54,17 @@ class FlightServiceImplTest {
 
 
   @Test
-  void removeFlight() throws FlightNotFoundException{
+  void removeFlight() throws Exception {
 //    fail("This is yet to be implemented");
-    assertEquals(flight, flightRepo.removeFlight(BigInteger.valueOf(112234)));
+    flightRepo.addFlight(flight1);
+    assertEquals(flight1, flightRepo.removeFlight(BigInteger.valueOf(112235)));
   }
 
 
   @Test
-  void updateFlight() {
+  void updateFlight() throws FlightNotFoundException {
 //    fail("This is yet to be implemented");
-    assertEquals(flight, flightRepo.updateFlight(flight));
+//    flight.setCarrierName("Amazon airlines");
+    assertEquals("Amazon airlines", flightRepo.updateFlight(flight.getFlightId(), "Amazon airlines").getCarrierName());
   }
 }
