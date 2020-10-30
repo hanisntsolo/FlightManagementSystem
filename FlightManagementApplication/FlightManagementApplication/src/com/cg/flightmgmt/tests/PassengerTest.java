@@ -15,10 +15,11 @@ class PassengerTest {
   private static Passenger passenger;
   private static Booking booking;
   private Passenger o;
+  private static int count = 0;
 
   @BeforeAll
   public static void  beforeClass() {
-    System.out.println("This will run before any of the test cases!");
+    System.out.println("This will run before any of the test cases! Test count = " + count++);
   }
   @BeforeEach
   void setUp() {
@@ -29,7 +30,7 @@ class PassengerTest {
 
   @AfterEach
   void tearDown() {
-    System.out.println("This will run after each test case is executed");
+    System.out.println("Test case "+ count++ +" executed successfully ");
   }
 
   @Test
@@ -103,6 +104,6 @@ class PassengerTest {
 
   @AfterAll
   public static void afterClass() {
-    System.out.println ("This will execute after all test cases!");
+    System.out.println("This will run after all test case get executed. Total tests executed = " + --count);
   }
 }

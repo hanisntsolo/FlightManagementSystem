@@ -26,36 +26,44 @@ import org.junit.jupiter.api.AfterAll;
 class FlightBookingServiceImplTest {
   private static IFlightBookingRepository flightBookingService;
   private static LocalDate date;
-  private static Flight flight;
-  private static Booking booking, booking1;
-  private static List<Passenger> passengers;
+  private static Booking booking, booking1, bookingTest;
+  private static List<Passenger> passengers,passengersTest;
+  private static Booking object;
+  private static User userTest;
+  private static LocalDate dateTest;
+  private static Flight flightTest,flight;
+  private static int count = 0;
+
   @BeforeAll
   static void beforeAll() {
-    System.out.println("This will run before any of the test cases gets executed");
+    System.out.println("This will run before any of the test cases! Test count = " + count++);
   }
 
   @BeforeEach
   void setUp() {
     flightBookingService = new FlightBookingRepositoryImpl();
     passengers = new ArrayList<>();
+    userTest = new User(new BigInteger("112233"));
+    dateTest = LocalDate.of(2020,10,29);
+    flightTest = new Flight(new BigInteger("112233"), "American Airlines", "MEG657", 1000);
+    bookingTest = new Booking(new BigInteger("154"), userTest, dateTest, passengersTest, 200.00D, flightTest, 789);
     date = LocalDate.of(2020, 10, 26);
     flight = new Flight(new BigInteger("155"),"Indian Airlines", "BOEING755", 650 );
     booking = new Booking(new BigInteger("455488"), new User(new BigInteger("785598")),date, passengers, 1500.00D, flight, 487);
-    booking1 = new Booking(new BigInteger("455488"), new User(new BigInteger("785598")),date, passengers, 1500.00D, flight, 487);
+    booking1 = new Booking(new BigInteger("455489"), new User(new BigInteger("785598")),date, passengers, 1500.00D, flight, 487);
 
     System.out.println("Running tests.......");
   }
 
   @AfterEach
   void tearDown() {
-    System.out.println("This will run after each test case is executed.");
+    System.out.println("Test case "+ count++ +" executed successfully ");
   }
 
   @Test
   void addBooking() throws FlightNotFoundException {
-//    This test case is yet to be implemented........
 //    fail("This is yet to be implemented");
-    assertEquals(booking1,flightBookingService.addBooking(booking));
+    assertEquals(bookingTest,flightBookingService.addBooking(bookingTest));
   }
 
   @Test
@@ -93,6 +101,6 @@ class FlightBookingServiceImplTest {
   }
   @AfterAll
   static void afterClass() {
-    System.out.println("This will execute after all test cases.");
+    System.out.println("This will run after all test case get executed. Total tests executed = " + --count);
   }
 }

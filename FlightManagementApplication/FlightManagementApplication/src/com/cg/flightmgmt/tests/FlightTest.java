@@ -11,10 +11,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class FlightTest {
   private static Flight flight;
   private Object o;
+  private static int count = 0;
 
   @BeforeAll
   public static void  beforeClass() {
-    System.out.println("This will run before any of the test cases!");
+    System.out.println("This will run before any of the test cases! Test count = " + count++);
   }
   @BeforeEach
   void setUp() {
@@ -24,7 +25,7 @@ class FlightTest {
 
   @AfterEach
   void tearDown() {
-    System.out.println("This will run after each test case is executed");
+    System.out.println("Test case "+ count++ +" executed successfully ");
   }
 
   @Test
@@ -88,6 +89,6 @@ class FlightTest {
 
   @AfterAll
   public static void afterClass() {
-    System.out.println ("This will execute after all test cases!");
+    System.out.println("This will run after all test case get executed. Total tests executed = " + --count);
   }
 }

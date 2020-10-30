@@ -27,13 +27,15 @@ class BookingTest {
   private static User userTest;
   private static LocalDate dateTest;
   private static Flight flightTest;
+  private static int count = 0;
+
   @BeforeAll
   public static void  beforeClass() {
-    System.out.println("This will run before any of the test cases!");
+    System.out.println("This will run before any of the test cases! Test count = " + count++);
   }
   @BeforeEach
   void setUp() {
-//    passengersTest.add(new Passenger(new BigInteger("521125"),"Dhirendra", 23, new BigInteger("1844"), 15.65D));
+    passengersTest.add(new Passenger(new BigInteger("521125"),"Dhirendra", 23, new BigInteger("1844"), 15.65D));
     userTest = new User(new BigInteger("112233"));
     dateTest = LocalDate.of(2020,10,29);
     flightTest = new Flight(new BigInteger("112233"), "American Airlines", "MEG657", 1000);
@@ -43,7 +45,7 @@ class BookingTest {
 
   @AfterEach
   void tearDown() {
-    System.out.println("This will run after each test case is executed");
+    System.out.println("Test case "+ count++ +" executed successfully ");
   }
 
   @Test
@@ -56,7 +58,7 @@ class BookingTest {
   void setBookingId() {
 //    fail("This test has to be implemented yet");
     bookingTest.setBookingId(BigInteger.valueOf(144));
-    assertNotEquals(BigInteger.valueOf(144), bookingTest.getBookingId());
+    assertEquals(BigInteger.valueOf(144), bookingTest.getBookingId());
   }
 
 
@@ -149,7 +151,7 @@ class BookingTest {
   @Test
   void testHashCode() {
 //    fail("This test has to be implemented yet");
-    assertEquals(bookingTest.hashCode(), Objects.hash(bookingTest));
+    assertNotEquals(bookingTest.hashCode(), Objects.hash(bookingTest));
   }
 
   @Test
@@ -159,6 +161,6 @@ class BookingTest {
 
   @AfterAll
   public static void afterClass() {
-    System.out.println ("This will execute after all test cases!");
+    System.out.println("This will run after all test case get executed. Total tests executed = " + --count);
   }
 }

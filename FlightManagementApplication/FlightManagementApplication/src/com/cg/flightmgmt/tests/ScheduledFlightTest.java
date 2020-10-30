@@ -25,10 +25,12 @@ class ScheduledFlightTest {
   private static Airport airportSource, airportDestination;
   private static LocalDateTime dateTimeArrival, dateTimeDeparture;
   private static LocalDate localDate;
+  private static int count = 0;
+
 
   @BeforeAll
   public static void  beforeClass() {
-    System.out.println("This will run before any of the test cases!");
+    System.out.println("This will run before any of the test cases! Test count = " + count++);
   }
   @BeforeEach
   void setUp() {
@@ -40,12 +42,12 @@ class ScheduledFlightTest {
     localDate = LocalDate.of(2020,10,30);
     schedule = new Schedule(airportSource, airportDestination, dateTimeArrival, dateTimeDeparture, localDate);
     scheduledFlight = new ScheduledFlight(flight, 525, schedule, 2150.00D);
-    System.out.println("Running tests..........");
+    System.out.println("Running a test..........");
   }
 
   @AfterEach
   void tearDown() {
-    System.out.println("This will run after each test case is executed");
+    System.out.println("Test case "+ count++ +" executed successfully ");
   }
 
   @Test
@@ -94,7 +96,7 @@ class ScheduledFlightTest {
 
   @AfterAll
   public static void afterClass(){
-    System.out.println ("This will execute after all test cases!");
+    System.out.println("This will run after all test case get executed. Total tests executed = " + --count);
   }
 }
 

@@ -10,9 +10,11 @@ import java.math.BigInteger;
 class UserTest {
   private static User user;
   private static User user1;
+  private static int count = 0;
+
   @BeforeAll
   public static void  beforeClass() {
-    System.out.println("This will run before any of the test cases!");
+    System.out.println("This will run before any of the test cases! Test count = " + count++);
   }
   @BeforeEach
   void setUp() {
@@ -23,7 +25,7 @@ class UserTest {
 
   @AfterEach
   void tearDown() {
-    System.out.println("This will run after each test case is executed");
+    System.out.println("Test case "+ count++ +" executed successfully ");
   }
 
   @Test
@@ -44,7 +46,7 @@ class UserTest {
   @Test
   void setUserId() {
     user1.setUserId(BigInteger.valueOf(46311864));
-    assertNotEquals(46319461,user1.getUserId());
+    assertNotEquals(BigInteger.valueOf(46319461),user1.getUserId());
   }
 
   @Test
@@ -92,6 +94,6 @@ class UserTest {
   }
   @AfterAll
   public static void afterClass() {
-    System.out.println ("This will execute after all test cases!");
+    System.out.println("This will run after all test case get executed. Total tests executed = " + --count);
   }
 }

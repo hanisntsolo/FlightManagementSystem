@@ -29,7 +29,10 @@ public class UserRepositoryImpl implements IUserRepository {
     {
         EntityManager entityManager= jpaUtil.getEntityManager();
         User new_user = entityManager.find(User.class, user.getUserId());
-            if (new_user.getPassword().equals(user.getPassword())) {
+            if(new_user == null) {
+                entityManager.close();
+                throw new UserNotFoundException("User not found!");
+            } else if (new_user.getPassword().equals(user.getPassword())) {
                 entityManager.close();
                 return new_user;
             } else {
@@ -42,13 +45,14 @@ public class UserRepositoryImpl implements IUserRepository {
     {
         EntityManager entityManager= jpaUtil.getEntityManager();
         entityManager.getTransaction().begin();
-        if(user==null){
+        User user1= entityManager.find(User.class, user.getUserId());
+        if(user1==null){
             entityManager.close();
             throw new UserNotFoundException("User not found!");
         }else {
             entityManager.merge(user);
             entityManager.close();
-            return user;
+            return user1;
         }
 
     }
