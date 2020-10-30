@@ -40,6 +40,7 @@ public class FlightBookingRepositoryImpl implements IFlightBookingRepository{
             return booking;
         }
     }
+
     @Override
     public Booking viewBooking(BigInteger bookingId) throws BookingNotFoundException{
 

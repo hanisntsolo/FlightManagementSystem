@@ -35,8 +35,8 @@ public class FlightServiceImpl implements IFlightService {
   }
 
   @Override
-  public Flight updateFlight(Flight flight) {
+  public Flight updateFlight(BigInteger flightId, String carrierName) throws FlightNotFoundException{
 
-    return Flight.updateFlight(flight);
+    return Flight.updateFlight(flightId, carrierName);
   }
 }

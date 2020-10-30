@@ -12,5 +12,5 @@ public interface IFlightService {
 	public Flight viewFlight(BigInteger flightId) throws FlightNotFoundException;
 	public List<Flight> viewAllFlights();
 	public Flight removeFlight(BigInteger flightId) throws FlightNotFoundException ;
-	public Flight updateFlight(Flight flight);
+	public Flight updateFlight(BigInteger flightId, String carrierName) throws FlightNotFoundException;
 }

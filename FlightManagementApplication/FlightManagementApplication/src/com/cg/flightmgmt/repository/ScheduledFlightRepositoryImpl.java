@@ -81,10 +81,19 @@ public class ScheduledFlightRepositoryImpl implements IScheduledFlightRepository
     public ScheduledFlight updateFlightSchedule(BigInteger flightId,int availableSeats)
     {
         entityManager= jpaUtil.getEntityManager();
-        entityManager.getTransaction().begin();
-        entityManager.createQuery("UPDATE ScheduledFlight  SET availableSeats = :availableSeats ").setParameter("availableSeats",availableSeats).executeUpdate();
-        entityManager.getTransaction().commit();
-        entityManager.close();
+        ScheduledFlight scheduledFlight=
+                entityManager.find(ScheduledFlight.class, flightId);
+        if(scheduledFlight!=null) {
+            entityManager.getTransaction().begin();
+            entityManager.createQuery("UPDATE ScheduledFlight  SET availableSeats = :availableSeats "
+            +"where flight= :flightId")
+                    .setParameter("availableSeats", availableSeats)
+                    .setParameter("flightId", flightId)
+                    .executeUpdate();
+            entityManager.getTransaction().commit();
+            entityManager.close();
+            return scheduledFlight;
+        }
         return null;
     }
 

@@ -67,14 +67,23 @@ public class FlightRepositoryImpl implements IFlightRepository {
     }
 
     @Override
-    public Flight updateFlight(Flight flight)
+    public Flight updateFlight(BigInteger flightId, String carrierName) throws FlightNotFoundException
     {
         entityManager= jpaUtil.getEntityManager();
-        entityManager.getTransaction().begin();
-        entityManager.createQuery("UPDATE Flight SET carrierName = :carrierName")
-                .setParameter("carrierName", flight.getCarrierName()).executeUpdate();
-        entityManager.getTransaction().commit();
-        entityManager.close();
-        return flight;
+        Flight flight= entityManager.find(Flight.class, flightId);
+        if(flight!=null) {
+            entityManager.getTransaction().begin();
+            entityManager.createQuery("UPDATE Flight SET carrierName = :carrierName"
+                    + " where flightId= :flightId")
+                    .setParameter("carrierName", carrierName)
+                    .setParameter("flightId", flightId)
+                    .executeUpdate();
+            entityManager.getTransaction().commit();
+            entityManager.close();
+            return flight;
+        }else{
+            entityManager.close();
+            throw new FlightNotFoundException("Flight not found!");
+        }
     }
 }
